@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import logo from "./assets/react.svg";
-import {Eye, EyeOff } from "lucide-react";
+import logo from "../assets/react.svg";
+import { Eye, EyeOff } from "lucide-react";
+import { useLoginMutation } from "../features/auth/loginApiSlice";
 
 type LoginFormData = {
   email: string;
@@ -12,15 +13,15 @@ type LoginFormData = {
 const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
+  const [login, { isLoading, error }] = useLoginMutation();
 
-  const onSubmit = (data: LoginFormData) => {
-    // Dummy authentication logic
-    if (data.email === "user@example.com" && data.password === "password") {
+  const onSubmit = async (formData: LoginFormData) => {
+    try {
+      await login(formData).unwrap();
       navigate("/dashboard");
-    } else {
-      setError("Invalid credentials");
+    } catch {
+      // Error is handled by RTK Query's error state
     }
   };
 
@@ -34,7 +35,7 @@ const Login = () => {
             <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
             <input
               id="email"
-              type="email"
+              type="text"
               {...register("email", { required: "Email is required" })}
               className="w-full px-4 py-3 border border-gray-200 rounded-lg text-base bg-gray-50 focus:outline-none focus:border-blue-600"
             />
@@ -58,14 +59,16 @@ const Login = () => {
                 {showPassword ? (
                   <EyeOff className="h-4 w-4" />
                 ) : (
-                    <Eye className="h-4 w-4" />
+                  <Eye className="h-4 w-4" />
                 )}
               </button>
             </div>
             {errors.password && <span className="text-red-500 text-xs">{errors.password.message as string}</span>}
           </div>
-          {error && <div className="text-red-500 text-sm mb-2 text-center">{error}</div>}
-          <button type="submit" className="w-full py-3 bg-[#0856d1] text-white rounded-lg font-semibold hover:bg-blue-700 transition">Log in</button>
+          {error && <div className="text-red-500 text-sm mb-2 text-center">{(error as any)?.data?.error?.message || "Invalid credentials"}</div>}
+          <button type="submit" className="w-full py-3 bg-[#0856d1] text-white rounded-lg font-semibold hover:bg-blue-700 transition" disabled={isLoading}>
+            {isLoading ? "Logging in..." : "Log in"}
+          </button>
         </form>
         <div className="w-full flex flex-col items-center mt-4 gap-1">
           <a href="#" className="text-xs text-gray-500 hover:underline">Forgot password?</a>

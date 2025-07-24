@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import logo from './assets/react.svg' // Replace with your logo if available
+import logo from '@/assets/react.svg' // Replace with your logo if available
 
 // Add a Facebook SVG icon
 const FacebookIcon = () => (
