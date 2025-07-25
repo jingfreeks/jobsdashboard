@@ -7,3 +7,4 @@ export {CitySelector} from './cityselector';
 export {StateSelector} from './stateSelector';
 export {CompanySelector} from './companyselector';
 export {SkillSelector} from './skillselector';
+export {ShiftSelector} from './shiftselector';
