@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import Dashboard from '../Dashboard';
+import Dashboard from '../dashboard/Dashboard';
 
 // Mock recharts ResponsiveContainer to avoid rendering issues in tests
 vi.mock('recharts', async (importOriginal) => {
