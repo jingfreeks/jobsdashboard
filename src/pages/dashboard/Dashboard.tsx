@@ -17,6 +17,7 @@ import {
   Jobselector,
   Bankselector,
   CitySelector,
+  StateSelector,
 } from "./component";
 
 const data = [
@@ -144,9 +145,9 @@ const Dashboard = () => {
   const [editBankName, setEditBankName] = useState("");
 
   const [cities, setCities] = useState([
-    { id: '1', name: 'New York' },
-    { id: '2', name: 'Los Angeles' },
-    { id: '3', name: 'Chicago' },
+    { id: "1", name: "New York" },
+    { id: "2", name: "Los Angeles" },
+    { id: "3", name: "Chicago" },
   ]);
   const [showAddCityModal, setShowAddCityModal] = useState(false);
   const [newCityName, setNewCityName] = useState("");
@@ -155,25 +156,25 @@ const Dashboard = () => {
   const [editCityName, setEditCityName] = useState("");
 
   const [states, setStates] = useState([
-    { id: 1, name: "California" },
-    { id: 2, name: "Texas" },
-    { id: 3, name: "Florida" },
+    { id: '1', name: 'California' },
+    { id: '2', name: 'Texas' },
+    { id: '3', name: 'Florida' },
   ]);
   const [showAddStateModal, setShowAddStateModal] = useState(false);
   const [newStateName, setNewStateName] = useState("");
   const [showEditStateModal, setShowEditStateModal] = useState(false);
-  const [editStateId, setEditStateId] = useState<number | null>(null);
+  const [editStateId, setEditStateId] = useState<string | null>(null);
   const [editStateName, setEditStateName] = useState("");
 
   const [companies, setCompanies] = useState([
-    { id: 1, name: "Acme Corp" },
-    { id: 2, name: "Globex Inc" },
-    { id: 3, name: "Initech" },
+    { id: '1', name: 'Acme Corp' },
+    { id: '2', name: 'Globex Inc' },
+    { id: '3', name: 'Initech' },
   ]);
   const [showAddCompanyModal, setShowAddCompanyModal] = useState(false);
   const [newCompanyName, setNewCompanyName] = useState("");
   const [showEditCompanyModal, setShowEditCompanyModal] = useState(false);
-  const [editCompanyId, setEditCompanyId] = useState<number | null>(null);
+  const [editCompanyId, setEditCompanyId] = useState<string | null>(null);
   const [editCompanyName, setEditCompanyName] = useState("");
 
   // Skills state
@@ -310,14 +311,14 @@ const Dashboard = () => {
     e.preventDefault();
     if (newStateName.trim()) {
       const newId = states.length
-        ? Math.max(...states.map((s) => s.id)) + 1
-        : 1;
+        ? (Math.max(...states.map((s) => parseInt(s.id))) + 1).toString()
+        : "1";
       setStates([...states, { id: newId, name: newStateName.trim() }]);
       setNewStateName("");
       setShowAddStateModal(false);
     }
   };
-  const handleEditState = (id: number) => {
+  const handleEditState = (id: string) => {
     const state = states.find((s) => s.id === id);
     if (state) {
       setEditStateId(id);
@@ -338,7 +339,7 @@ const Dashboard = () => {
       setEditStateName("");
     }
   };
-  const handleDeleteState = (id: number) => {
+  const handleDeleteState = (id: string) => {
     setStates(states.filter((s) => s.id !== id));
   };
   const handleCloseAddStateModal = () => {
@@ -357,14 +358,14 @@ const Dashboard = () => {
     e.preventDefault();
     if (newCompanyName.trim()) {
       const newId = companies.length
-        ? Math.max(...companies.map((c) => c.id)) + 1
-        : 1;
+        ? (Math.max(...companies.map((c) => parseInt(c.id))) + 1).toString()
+        : "1";
       setCompanies([...companies, { id: newId, name: newCompanyName.trim() }]);
       setNewCompanyName("");
       setShowAddCompanyModal(false);
     }
   };
-  const handleEditCompany = (id: number) => {
+  const handleEditCompany = (id: string) => {
     const company = companies.find((c) => c.id === id);
     if (company) {
       setEditCompanyId(id);
@@ -385,7 +386,7 @@ const Dashboard = () => {
       setEditCompanyName("");
     }
   };
-  const handleDeleteCompany = (id: number) => {
+  const handleDeleteCompany = (id: string) => {
     setCompanies(companies.filter((c) => c.id !== id));
   };
   const handleCloseAddCompanyModal = () => {
@@ -728,167 +729,22 @@ const Dashboard = () => {
             />
           )}
           {selectedSection === "settings" && selectedSettings === "state" && (
-            <div className="max-w-2xl mx-auto">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-slate-800">
-                  State List
-                </h2>
-                <button
-                  onClick={handleAddState}
-                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition"
-                >
-                  <PlusCircle className="w-5 h-5" /> Add State
-                </button>
-              </div>
-              {/* Add State Modal */}
-              {showAddStateModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-                  <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md relative">
-                    <button
-                      onClick={handleCloseAddStateModal}
-                      className="absolute top-3 right-3 text-slate-400 hover:text-slate-700 text-xl font-bold"
-                    >
-                      &times;
-                    </button>
-                    <h3 className="text-xl font-bold mb-4 text-slate-800">
-                      Create New State
-                    </h3>
-                    <form
-                      onSubmit={handleCreateState}
-                      className="flex flex-col gap-4"
-                    >
-                      <input
-                        type="text"
-                        className="border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-                        placeholder="State Name"
-                        value={newStateName}
-                        onChange={(e) => setNewStateName(e.target.value)}
-                        autoFocus
-                        required
-                      />
-                      <div className="flex gap-2 justify-end">
-                        <button
-                          type="button"
-                          onClick={handleCloseAddStateModal}
-                          className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          type="submit"
-                          className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-                        >
-                          Create
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              )}
-              {/* Edit State Modal */}
-              {showEditStateModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-                  <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md relative">
-                    <button
-                      onClick={handleCloseEditStateModal}
-                      className="absolute top-3 right-3 text-slate-400 hover:text-slate-700 text-xl font-bold"
-                    >
-                      &times;
-                    </button>
-                    <h3 className="text-xl font-bold mb-4 text-slate-800">
-                      Edit State
-                    </h3>
-                    <form
-                      onSubmit={handleUpdateState}
-                      className="flex flex-col gap-4"
-                    >
-                      <input
-                        type="text"
-                        className="border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-                        placeholder="State Name"
-                        value={editStateName}
-                        onChange={(e) => setEditStateName(e.target.value)}
-                        autoFocus
-                        required
-                      />
-                      <div className="flex gap-2 justify-end">
-                        <button
-                          type="button"
-                          onClick={handleCloseEditStateModal}
-                          className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          type="submit"
-                          className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-                        >
-                          Update
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              )}
-              <div className="bg-white rounded-xl shadow p-6 border border-slate-100">
-                {states.length === 0 ? (
-                  <div className="text-slate-400 italic">No states</div>
-                ) : (
-                  <ul className="divide-y divide-slate-100">
-                    {states.map((state) => (
-                      <li
-                        key={state.id}
-                        className="flex items-center justify-between py-3"
-                      >
-                        <span className="flex-1 truncate text-slate-800 font-medium">
-                          {state.name}
-                        </span>
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => handleEditState(state.id)}
-                            className="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-4 w-4"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
-                              />
-                            </svg>
-                          </button>
-                          <button
-                            onClick={() => handleDeleteState(state.id)}
-                            className="text-red-500 hover:text-red-700 px-2 py-1 rounded transition"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-4 w-4"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M6 18L18 6M6 6l12 12"
-                              />
-                            </svg>
-                          </button>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </div>
+            <StateSelector
+              handleAddState={handleAddState}
+              showAddStateModal={showAddStateModal}
+              handleCloseAddStateModal={handleCloseAddStateModal}
+              handleCreateState={handleCreateState}
+              newStateName={newStateName}
+              setNewStateName={setNewStateName}
+              showEditStateModal={showEditStateModal}
+              handleCloseEditStateModal={handleCloseEditStateModal}
+              handleUpdateState={handleUpdateState}
+              editStateName={editStateName}
+              setEditStateName={setEditStateName}
+              states={states}
+              handleEditState={handleEditState}
+              handleDeleteState={handleDeleteState}
+            />
           )}
           {selectedSection === "settings" && selectedSettings === "company" && (
             <div className="max-w-2xl mx-auto">
