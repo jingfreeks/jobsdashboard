@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Login from '../Login';
+import Login from '../Login/Login';
 import { store } from '@/config/store';
 
 // Mock useLoginMutation to avoid real API calls
