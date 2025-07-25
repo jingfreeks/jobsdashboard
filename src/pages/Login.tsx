@@ -1,28 +1,58 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import logo from "./assets/react.svg";
-import {Eye, EyeOff } from "lucide-react";
+import logo from "../assets/react.svg";
+import { Eye, EyeOff } from "lucide-react";
+import {useDispatch} from 'react-redux';
+import { useLoginMutation } from "@/features/loginApiSlice";
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { setCredentials } from "@/features/auth";
+import type { AppDispatch } from "@/config/store";
 
 type LoginFormData = {
-  email: string;
+  username: string;
   password: string;
 };
 
 const Login = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
+  const [login, { isLoading, error }] = useLoginMutation();
 
-  const onSubmit = (data: LoginFormData) => {
-    // Dummy authentication logic
-    if (data.email === "user@example.com" && data.password === "password") {
-      navigate("/dashboard");
-    } else {
-      setError("Invalid credentials");
+  const onSubmit = async (formData: LoginFormData) => {
+    try {
+      console.log(formData);
+     const result  =  await login({
+        username: formData.username,
+        password: formData.password,
+      }).unwrap();
+      if (result && typeof result === "object") {
+        dispatch(setCredentials({ ...(result as object), user: formData.username }));
+      }
+    navigate("/dashboard");
+    } catch {
+      // Error is handled by RTK Query's error state
     }
   };
+
+  // Helper type guard
+  function isFetchBaseQueryError(
+    error: unknown
+  ): error is FetchBaseQueryError {
+    return typeof error === 'object' && error != null && 'status' in error;
+  }
+
+  let loginErrorMessage: string | null = null;
+  if (error) {
+    if (isFetchBaseQueryError(error)) {
+      const msg = (error.data as { error?: { message?: string } })?.error?.message;
+      loginErrorMessage = msg ? String(msg) : "Invalid credentials";
+    } else {
+      loginErrorMessage = "Invalid credentials";
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center ">
@@ -34,11 +64,11 @@ const Login = () => {
             <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
             <input
               id="email"
-              type="email"
-              {...register("email", { required: "Email is required" })}
+              type="text"
+              {...register("username", { required: "Username is required" })}
               className="w-full px-4 py-3 border border-gray-200 rounded-lg text-base bg-gray-50 focus:outline-none focus:border-blue-600"
             />
-            {errors.email && <span className="text-red-500 text-xs">{errors.email.message as string}</span>}
+            {errors.username && <span className="text-red-500 text-xs">{errors.username.message as string}</span>}
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium mb-1">Password</label>
@@ -58,14 +88,20 @@ const Login = () => {
                 {showPassword ? (
                   <EyeOff className="h-4 w-4" />
                 ) : (
-                    <Eye className="h-4 w-4" />
+                  <Eye className="h-4 w-4" />
                 )}
               </button>
             </div>
             {errors.password && <span className="text-red-500 text-xs">{errors.password.message as string}</span>}
           </div>
-          {error && <div className="text-red-500 text-sm mb-2 text-center">{error}</div>}
-          <button type="submit" className="w-full py-3 bg-[#0856d1] text-white rounded-lg font-semibold hover:bg-blue-700 transition">Log in</button>
+          {loginErrorMessage && (
+            <div className="text-red-500 text-sm mb-2 text-center">
+              {loginErrorMessage}
+            </div>
+          )}
+          <button type="submit" className="w-full py-3 bg-[#0856d1] text-white rounded-lg font-semibold hover:bg-blue-700 transition" disabled={isLoading}>
+            {isLoading ? "Logging in..." : "Log in"}
+          </button>
         </form>
         <div className="w-full flex flex-col items-center mt-4 gap-1">
           <a href="#" className="text-xs text-gray-500 hover:underline">Forgot password?</a>

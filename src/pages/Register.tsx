@@ -1,7 +1,14 @@
-import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import logo from './assets/react.svg' // Replace with your logo if available
+import logo from '@/assets/react.svg'
+import { useSignupMutation } from '@/features/authSlice';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '@/features/auth';
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+
+function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryError {
+  return typeof error === 'object' && error != null && 'status' in error;
+}
 
 // Add a Facebook SVG icon
 const FacebookIcon = () => (
@@ -9,22 +16,26 @@ const FacebookIcon = () => (
 );
 
 type RegisterFormData = {
-  name: string;
+  username: string;
   email: string;
   password: string;
 };
 
 const Register = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>();
-  const [error, setError] = useState('')
+  const [signup, { isLoading, error }] = useSignupMutation();
 
-  const onSubmit = (data: RegisterFormData) => {
-    // Dummy registration logic
-    if (data.name && data.email && data.password) {
-      navigate('/login')
-    } else {
-      setError('All fields are required')
+  const onSubmit = async (data: RegisterFormData) => {
+    try {
+      const result = await signup({email: data.email, password: data.password, username: data.username}).unwrap();
+      if (result && typeof result === 'object') {
+        dispatch(setCredentials({ ...(result as object), user: data.username }));
+      }
+      navigate('/dashboard');
+    } catch {
+      // Error is handled by RTK Query's error state
     }
   }
 
@@ -39,14 +50,14 @@ const Register = () => {
         <h1 className="text-2xl font-bold mb-6 text-center">Create Your Account</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
+            <label htmlFor="username" className="block text-sm font-medium mb-1">Name</label>
             <input
-              id="name"
+              id="username"
               type="text"
-              {...register('name', { required: 'Name is required' })}
+              {...register('username', { required: 'Name is required' })}
               className="w-full px-4 py-3 border border-gray-200 rounded-lg text-base bg-gray-50 focus:outline-none focus:border-blue-600"
             />
-            {errors.name && <span className="text-red-500 text-xs">{errors.name.message as string}</span>}
+            {errors.username && <span className="text-red-500 text-xs">{errors.username.message as string}</span>}
           </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
@@ -68,8 +79,14 @@ const Register = () => {
             />
             {errors.password && <span className="text-red-500 text-xs">{errors.password.message as string}</span>}
           </div>
-          {error && <div className="text-red-500 text-sm mb-2 text-center">{error}</div>}
-          <button type="submit" className="w-full py-3 bg-[#0856d1] text-white rounded-lg font-semibold hover:bg-blue-700 transition mb-2">Sign up with Email</button>
+          {error ? (
+            <div className="text-red-500 text-sm mb-2 text-center">
+              {isFetchBaseQueryError(error)
+                ? (error.data as { error?: { message?: string } })?.error?.message || "Registration failed"
+                : "Registration failed"}
+            </div>
+          ) : null}
+          <button type="submit" className="w-full py-3 bg-[#0856d1] text-white rounded-lg font-semibold hover:bg-blue-700 transition mb-2" disabled={isLoading}>Sign up with Email</button>
           <button type="button" onClick={handleFacebookRegister} className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center hover:bg-blue-700 transition">
             <FacebookIcon />Sign up with Facebook
           </button>
