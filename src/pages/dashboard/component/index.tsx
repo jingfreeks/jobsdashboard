@@ -4,3 +4,4 @@ export {SettingsSelector} from './settingselector';
 export {Jobselector} from './jobselector';
 export {Bankselector} from './bankselector';
 export {CitySelector} from './cityselector';
+export {StateSelector} from './stateSelector';
