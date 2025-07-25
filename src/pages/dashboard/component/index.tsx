@@ -5,4 +5,5 @@ export {Jobselector} from './jobselector';
 export {Bankselector} from './bankselector';
 export {CitySelector} from './cityselector';
 export {StateSelector} from './stateSelector';
-export {CompanySelector} from './companyselector'
+export {CompanySelector} from './companyselector';
+export {SkillSelector} from './skillselector';
