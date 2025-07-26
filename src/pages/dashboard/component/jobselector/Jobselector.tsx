@@ -1,39 +1,69 @@
 import { PlusCircle } from "lucide-react";
+import { useState } from "react";
 
-type JobsTypes = {
-  handleAddJob: () => void;
-  showAddJobModal: boolean;
-  handleCloseModal: () => void;
-  handleCreateJob: (e: React.FormEvent) => void;
-  newJobTitle: string;
-  jobs: { id: string; title: string }[];
-  setNewJobTitle: (title: string) => void;
-  handleEditJob: (id: string) => void;
-  showEditJobModal: boolean;
-  handleCloseEditModal: () => void;
-  handleUpdateJob: (e: React.FormEvent) => void;
-  handleDeleteJob: (id: string) => void;
-  editJobTitle: string;
-  setEditJobTitle: (title: string) => void;
-};
 
-const Jobselector = (props:JobsTypes) => {
-  const {
-    handleAddJob,
-    showAddJobModal,
-    handleCloseModal,
-    handleCreateJob,
-    newJobTitle,
-    jobs,
-    setNewJobTitle,
-    handleEditJob,
-    showEditJobModal,
-    handleCloseEditModal,
-    handleUpdateJob,
-    handleDeleteJob,
-    editJobTitle,
-    setEditJobTitle,
-  } = props;
+const Jobselector = () => {
+  const [editJobTitle, setEditJobTitle] = useState("");
+  const [showAddJobModal, setShowAddJobModal] = useState(false);
+  const [editJobId, setEditJobId] = useState<string | null>(null);
+  const [newJobTitle, setNewJobTitle] = useState("");
+  const [jobs, setJobs] = useState([
+    { id: "1", title: "Frontend Developer" },
+    { id: "2", title: "Backend Engineer" },
+    { id: "3", title: "Product Manager" },
+  ]);
+  const [showEditJobModal, setShowEditJobModal] = useState(false);
+  const handleCloseModal = () => {
+    setShowAddJobModal(false);
+    setNewJobTitle("");
+  };
+
+  const handleAddJob = () => {
+    setShowAddJobModal(true);
+  };
+
+  const handleCreateJob = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newJobTitle.trim()) {
+      const newId = jobs.length
+        ? (Math.max(...jobs.map((j) => parseInt(j.id))) + 1).toString()
+        : "1";
+      setJobs([...jobs, { id: newId, title: newJobTitle.trim() }]);
+      setNewJobTitle("");
+      setShowAddJobModal(false);
+    }
+  };
+  const handleEditJob = (id: string) => {
+    const job = jobs.find((j) => j.id === id);
+    if (job) {
+      setEditJobId(id);
+      setEditJobTitle(job.title);
+      setShowEditJobModal(true);
+    }
+  };
+
+  const handleCloseEditModal = () => {
+    setShowEditJobModal(false);
+    setEditJobId(null);
+    setEditJobTitle("");
+  };
+  const handleUpdateJob = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editJobId !== null && editJobTitle.trim()) {
+      setJobs(
+        jobs.map((j) =>
+          j.id === editJobId ? { ...j, title: editJobTitle.trim() } : j
+        )
+      );
+      setShowEditJobModal(false);
+      setEditJobId(null);
+      setEditJobTitle("");
+    }
+  };
+  const handleDeleteJob = (id: string) => {
+    setJobs(jobs.filter((job) => job.id !== id));
+  };
+
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">

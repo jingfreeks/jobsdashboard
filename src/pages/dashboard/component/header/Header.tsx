@@ -3,14 +3,13 @@ import { useState } from "react";
 import { Notification, Profile } from "@/ui";
 
 type HeaderProps = {
-  setShowProfile: (value: boolean) => void;
-  showProfile: boolean;
   handleLogout: () => void;
 };
 
 const Header = (props: HeaderProps) => {
-  const { setShowProfile, showProfile, handleLogout } = props;
+  const { handleLogout } = props;
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const notifications = [
     { id: 1, message: "New job application received", time: "2m ago" },
     { id: 2, message: "Interview scheduled for John Doe", time: "1h ago" },

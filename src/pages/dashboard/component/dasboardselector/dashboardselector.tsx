@@ -9,15 +9,37 @@ import {
 } from "recharts";
 import { PlusCircle, CalendarCheck2 } from "lucide-react";
 
+const data = [
+  { name: "Jan", jobs: 12 },
+  { name: "Feb", jobs: 18 },
+  { name: "Mar", jobs: 9 },
+  { name: "Apr", jobs: 15 },
+  { name: "May", jobs: 20 },
+];
 
-type DashboardSelectorProps = {
-  data: { name: string; jobs: number }[];
-  activities: { id: number; activity: string; time: string }[];
-  tasks: { id: number; task: string; due: string }[];
-};
-
-const DasboardSelector = (props:DashboardSelectorProps) => {
-    const {data, activities, tasks} = props;
+const activities = [
+    {
+      id: 1,
+      activity: "You added a new job: Frontend Developer",
+      time: "Today, 09:00",
+    },
+    {
+      id: 2,
+      activity: "Interview completed: Backend Engineer",
+      time: "Yesterday, 15:30",
+    },
+    {
+      id: 3,
+      activity: "Offer accepted: Product Manager",
+      time: "Yesterday, 11:10",
+    },
+  ];
+  const tasks = [
+    { id: 1, task: "Follow up with recruiter", due: "Today" },
+    { id: 2, task: "Prepare for interview", due: "Tomorrow" },
+    { id: 3, task: "Review candidate resumes", due: "This week" },
+  ];
+const DasboardSelector = () => {
   return (
     <>
       {/* Quick Actions */}
