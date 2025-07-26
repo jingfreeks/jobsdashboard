@@ -1,23 +1,21 @@
 import { User, BarChart2, Bell } from "lucide-react";
+import { useState } from "react";
+import { Notification, Profile } from "@/ui";
 
-
-type HeaderProps = {  setShowNotifications: (value: boolean) => void;
-  notifications: { id: number; message: string; time: string }[];
-  showNotifications: boolean;
+type HeaderProps = {
   setShowProfile: (value: boolean) => void;
   showProfile: boolean;
   handleLogout: () => void;
 };
 
 const Header = (props: HeaderProps) => {
-  const {
-    setShowNotifications,
-    notifications,
-    showNotifications,
-    setShowProfile,
-    showProfile,
-    handleLogout,
-  } = props;
+  const { setShowProfile, showProfile, handleLogout } = props;
+  const [showNotifications, setShowNotifications] = useState(false);
+  const notifications = [
+    { id: 1, message: "New job application received", time: "2m ago" },
+    { id: 2, message: "Interview scheduled for John Doe", time: "1h ago" },
+    { id: 3, message: "Offer sent to Jane Smith", time: "3h ago" },
+  ];
   return (
     <header className="w-full bg-white/90 border-b border-slate-200 px-10 py-3 flex items-center justify-between shadow-sm sticky top-0 z-10 backdrop-blur">
       <div className="flex items-center gap-3">
@@ -40,24 +38,7 @@ const Header = (props: HeaderProps) => {
               {notifications.length}
             </span>
           </button>
-          {showNotifications && (
-            <div className="absolute right-0 mt-2 w-72 bg-white border border-slate-200 rounded-lg shadow-lg z-20">
-              <div className="p-4 border-b border-slate-100 font-semibold text-slate-700">
-                Notifications
-              </div>
-              <ul className="max-h-60 overflow-y-auto">
-                {notifications.map((n) => (
-                  <li
-                    key={n.id}
-                    className="px-4 py-2 hover:bg-slate-50 text-slate-700 flex justify-between"
-                  >
-                    <span>{n.message}</span>
-                    <span className="text-xs text-slate-400 ml-2">{n.time}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {showNotifications && <Notification data={notifications} />}
         </div>
         {/* User Profile Dropdown */}
         <div className="relative">
@@ -67,36 +48,7 @@ const Header = (props: HeaderProps) => {
           >
             <User className="w-6 h-6" />
           </button>
-          {showProfile && (
-            <div className="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-lg shadow-lg z-20">
-              <div className="p-4 border-b border-slate-100">
-                <span className="block font-semibold text-slate-800">
-                  Jane Doe
-                </span>
-                <span className="block text-xs text-slate-500">Admin</span>
-              </div>
-              <ul>
-                <li>
-                  <button className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700">
-                    Profile
-                  </button>
-                </li>
-                <li>
-                  <button className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700">
-                    Settings
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600"
-                  >
-                    Logout
-                  </button>
-                </li>
-              </ul>
-            </div>
-          )}
+          {showProfile && <Profile handleLogout={handleLogout} />}
         </div>
       </div>
     </header>

@@ -34,7 +34,6 @@ const data = [
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [selectedSection, setSelectedSection] = useState<
     "dashboard" | "jobs" | "settings"
@@ -44,11 +43,6 @@ const Dashboard = () => {
     { id: "2", title: "Backend Engineer" },
     { id: "3", title: "Product Manager" },
   ]);
-  const notifications = [
-    { id: 1, message: "New job application received", time: "2m ago" },
-    { id: 2, message: "Interview scheduled for John Doe", time: "1h ago" },
-    { id: 3, message: "Offer sent to Jane Smith", time: "3h ago" },
-  ];
   const activities = [
     {
       id: 1,
@@ -214,8 +208,19 @@ const Dashboard = () => {
   const [showEditDepartmentModal, setShowEditDepartmentModal] = useState(false);
   const [editDepartmentId, setEditDepartmentId] = useState<string | null>(null);
   const [editDepartmentName, setEditDepartmentName] = useState("");
-
-  const handleBankClick = () => setSelectedSettings("bank");
+  const handleSettingsClick = (data: string) => {
+    if (
+      data === 'bank' ||
+      data === 'city' ||
+      data === 'state' ||
+      data === 'company' ||
+      data === 'skills' ||
+      data === 'shift' ||
+      data === 'department'
+    ) {
+      setSelectedSettings(data);
+    }
+  };
   const handleAddBank = () => setShowAddBankModal(true);
   const handleCreateBank = (e: React.FormEvent) => {
     e.preventDefault();
@@ -262,7 +267,7 @@ const Dashboard = () => {
     setEditBankName("");
   };
 
-  const handleCityClick = () => setSelectedSettings("city");
+  //const handleCityClick = () => setSelectedSettings("city");
   const handleAddCity = () => setShowAddCityModal(true);
   const handleCreateCity = (e: React.FormEvent) => {
     e.preventDefault();
@@ -309,7 +314,6 @@ const Dashboard = () => {
     setEditCityName("");
   };
 
-  const handleStateClick = () => setSelectedSettings("state");
   const handleAddState = () => setShowAddStateModal(true);
   const handleCreateState = (e: React.FormEvent) => {
     e.preventDefault();
@@ -356,7 +360,6 @@ const Dashboard = () => {
     setEditStateName("");
   };
 
-  const handleCompanyClick = () => setSelectedSettings("company");
   const handleAddCompany = () => setShowAddCompanyModal(true);
   const handleCreateCompany = (e: React.FormEvent) => {
     e.preventDefault();
@@ -404,7 +407,6 @@ const Dashboard = () => {
   };
 
   // Handlers for Skills
-  const handleSkillsClick = () => setSelectedSettings("skills");
   const handleAddSkill = () => setShowAddSkillModal(true);
   const handleCreateSkill = (e: React.FormEvent) => {
     e.preventDefault();
@@ -451,7 +453,6 @@ const Dashboard = () => {
     setEditSkillName("");
   };
   // Handlers for Shift
-  const handleShiftClick = () => setSelectedSettings("shift");
   const handleAddShift = () => setShowAddShiftModal(true);
   const handleCreateShift = (e: React.FormEvent) => {
     e.preventDefault();
@@ -498,7 +499,6 @@ const Dashboard = () => {
     setEditShiftName("");
   };
   // Handlers for Department
-  const handleDepartmentClick = () => setSelectedSettings("department");
   const handleAddDepartment = () => setShowAddDepartmentModal(true);
   const handleCreateDepartment = (e: React.FormEvent) => {
     e.preventDefault();
@@ -609,13 +609,7 @@ const Dashboard = () => {
               </button>
               {selectedSection === "settings" && (
                 <SettingsSelector
-                  handleBankClick={handleBankClick}
-                  handleCityClick={handleCityClick}
-                  handleStateClick={handleStateClick}
-                  handleCompanyClick={handleCompanyClick}
-                  handleSkillsClick={handleSkillsClick}
-                  handleShiftClick={handleShiftClick}
-                  handleDepartmentClick={handleDepartmentClick}
+                  onClick={handleSettingsClick}
                 />
               )}
             </li>
@@ -662,9 +656,6 @@ const Dashboard = () => {
       <div className="flex-1 flex flex-col min-h-screen">
         {/* Topbar */}
         <Header
-          setShowNotifications={setShowNotifications}
-          notifications={notifications}
-          showNotifications={showNotifications}
           setShowProfile={setShowProfile}
           showProfile={showProfile}
           handleLogout={handleLogout}

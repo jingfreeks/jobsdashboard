@@ -1,3 +1,4 @@
+
 import {
   Briefcase,
   BarChart2,
@@ -8,23 +9,11 @@ import {
 } from "lucide-react";
 
 type SettingsSelectorProps = {
-  handleBankClick: () => void;
-  handleCityClick: () => void;
-  handleStateClick: () => void;
-  handleCompanyClick: () => void;
-  handleSkillsClick: () => void;
-  handleShiftClick: () => void;
-  handleDepartmentClick: () => void;
+  onClick: (param:string) => void;
 };
 const SettingsSelector = (props: SettingsSelectorProps) => {
   const {
-    handleBankClick,
-    handleCityClick,
-    handleStateClick,
-    handleCompanyClick,
-    handleSkillsClick,
-    handleShiftClick,
-    handleDepartmentClick,
+    onClick,
   } = props;
   return (
     <>
@@ -35,7 +24,7 @@ const SettingsSelector = (props: SettingsSelectorProps) => {
         <li>
           <button
             className="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
-            onClick={handleBankClick}
+            onClick={()=>onClick("bank")}
           >
             <Landmark className="w-4 h-4" /> Bank
           </button>
@@ -43,7 +32,7 @@ const SettingsSelector = (props: SettingsSelectorProps) => {
         <li>
           <button
             className="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
-            onClick={handleCityClick}
+            onClick={()=>onClick("city")}
           >
             <Building2 className="w-4 h-4" /> City
           </button>
@@ -51,7 +40,7 @@ const SettingsSelector = (props: SettingsSelectorProps) => {
         <li>
           <button
             className="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
-            onClick={handleStateClick}
+            onClick={()=>onClick("state")}
           >
             <MapPin className="w-4 h-4" /> State
           </button>
@@ -59,7 +48,7 @@ const SettingsSelector = (props: SettingsSelectorProps) => {
         <li>
           <button
             className="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
-            onClick={handleCompanyClick}
+            onClick={()=>onClick("company")}
           >
             <Briefcase className="w-4 h-4" /> Company
           </button>
@@ -67,7 +56,7 @@ const SettingsSelector = (props: SettingsSelectorProps) => {
         <li>
           <button
             className="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
-            onClick={handleSkillsClick}
+            onClick={()=>onClick("skills")}
           >
             <BarChart2 className="w-4 h-4" /> Skills
           </button>
@@ -75,7 +64,7 @@ const SettingsSelector = (props: SettingsSelectorProps) => {
         <li>
           <button
             className="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
-            onClick={handleShiftClick}
+            onClick={()=>onClick("shift")}
           >
             <CalendarCheck2 className="w-4 h-4" /> Shift
           </button>
@@ -83,7 +72,7 @@ const SettingsSelector = (props: SettingsSelectorProps) => {
         <li>
           <button
             className="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
-            onClick={handleDepartmentClick}
+            onClick={()=>onClick("department")}
           >
             <Building2 className="w-4 h-4" /> Department
           </button>
