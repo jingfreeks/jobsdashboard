@@ -24,103 +24,16 @@ import {
   DepartmentSelector,
 } from "./component";
 
-const data = [
-  { name: "Jan", jobs: 12 },
-  { name: "Feb", jobs: 18 },
-  { name: "Mar", jobs: 9 },
-  { name: "Apr", jobs: 15 },
-  { name: "May", jobs: 20 },
-];
-
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [showProfile, setShowProfile] = useState(false);
   const [selectedSection, setSelectedSection] = useState<
     "dashboard" | "jobs" | "settings"
   >("dashboard");
-  const [jobs, setJobs] = useState([
-    { id: "1", title: "Frontend Developer" },
-    { id: "2", title: "Backend Engineer" },
-    { id: "3", title: "Product Manager" },
-  ]);
-  const activities = [
-    {
-      id: 1,
-      activity: "You added a new job: Frontend Developer",
-      time: "Today, 09:00",
-    },
-    {
-      id: 2,
-      activity: "Interview completed: Backend Engineer",
-      time: "Yesterday, 15:30",
-    },
-    {
-      id: 3,
-      activity: "Offer accepted: Product Manager",
-      time: "Yesterday, 11:10",
-    },
-  ];
-  const tasks = [
-    { id: 1, task: "Follow up with recruiter", due: "Today" },
-    { id: 2, task: "Prepare for interview", due: "Tomorrow" },
-    { id: 3, task: "Review candidate resumes", due: "This week" },
-  ];
+
   const handleLogout = () => {
     navigate("/login");
   };
-  // Job actions
-  const handleEditJob = (id: string) => {
-    const job = jobs.find((j) => j.id === id);
-    if (job) {
-      setEditJobId(id);
-      setEditJobTitle(job.title);
-      setShowEditJobModal(true);
-    }
-  };
-  const handleDeleteJob = (id: string) => {
-    setJobs(jobs.filter((job) => job.id !== id));
-  };
-  const [showAddJobModal, setShowAddJobModal] = useState(false);
-  const [newJobTitle, setNewJobTitle] = useState("");
-  const handleAddJob = () => {
-    setShowAddJobModal(true);
-  };
-  const handleCreateJob = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newJobTitle.trim()) {
-      const newId = jobs.length
-        ? (Math.max(...jobs.map((j) => parseInt(j.id))) + 1).toString()
-        : "1";
-      setJobs([...jobs, { id: newId, title: newJobTitle.trim() }]);
-      setNewJobTitle("");
-      setShowAddJobModal(false);
-    }
-  };
-  const handleCloseModal = () => {
-    setShowAddJobModal(false);
-    setNewJobTitle("");
-  };
-  const [showEditJobModal, setShowEditJobModal] = useState(false);
-  const [editJobId, setEditJobId] = useState<string | null>(null);
-  const [editJobTitle, setEditJobTitle] = useState("");
-  const handleUpdateJob = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (editJobId !== null && editJobTitle.trim()) {
-      setJobs(
-        jobs.map((j) =>
-          j.id === editJobId ? { ...j, title: editJobTitle.trim() } : j
-        )
-      );
-      setShowEditJobModal(false);
-      setEditJobId(null);
-      setEditJobTitle("");
-    }
-  };
-  const handleCloseEditModal = () => {
-    setShowEditJobModal(false);
-    setEditJobId(null);
-    setEditJobTitle("");
-  };
+
   const [selectedSettings, setSelectedSettings] = useState<
     | "bank"
     | "city"
@@ -199,9 +112,9 @@ const Dashboard = () => {
   const [editShiftName, setEditShiftName] = useState("");
   // Department state
   const [departments, setDepartments] = useState([
-    { id: '1', name: 'Engineering' },
-    { id: '2', name: 'Marketing' },
-    { id: '3', name: 'Sales' },
+    { id: "1", name: "Engineering" },
+    { id: "2", name: "Marketing" },
+    { id: "3", name: "Sales" },
   ]);
   const [showAddDepartmentModal, setShowAddDepartmentModal] = useState(false);
   const [newDepartmentName, setNewDepartmentName] = useState("");
@@ -210,13 +123,13 @@ const Dashboard = () => {
   const [editDepartmentName, setEditDepartmentName] = useState("");
   const handleSettingsClick = (data: string) => {
     if (
-      data === 'bank' ||
-      data === 'city' ||
-      data === 'state' ||
-      data === 'company' ||
-      data === 'skills' ||
-      data === 'shift' ||
-      data === 'department'
+      data === "bank" ||
+      data === "city" ||
+      data === "state" ||
+      data === "company" ||
+      data === "skills" ||
+      data === "shift" ||
+      data === "department"
     ) {
       setSelectedSettings(data);
     }
@@ -608,9 +521,7 @@ const Dashboard = () => {
                 />
               </button>
               {selectedSection === "settings" && (
-                <SettingsSelector
-                  onClick={handleSettingsClick}
-                />
+                <SettingsSelector onClick={handleSettingsClick} />
               )}
             </li>
           </ul>
@@ -655,38 +566,11 @@ const Dashboard = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-h-screen">
         {/* Topbar */}
-        <Header
-          setShowProfile={setShowProfile}
-          showProfile={showProfile}
-          handleLogout={handleLogout}
-        />
+        <Header handleLogout={handleLogout} />
         {/* Content */}
         <main className="flex-1 p-10 bg-slate-100">
-          {selectedSection === "dashboard" && (
-            <DasboardSelector
-              data={data}
-              activities={activities}
-              tasks={tasks}
-            />
-          )}
-          {selectedSection === "jobs" && (
-            <Jobselector
-              handleAddJob={handleAddJob}
-              showAddJobModal={showAddJobModal}
-              handleCloseModal={handleCloseModal}
-              handleCreateJob={handleCreateJob}
-              newJobTitle={newJobTitle}
-              jobs={jobs}
-              setNewJobTitle={setNewJobTitle}
-              handleEditJob={handleEditJob}
-              showEditJobModal={showEditJobModal}
-              handleCloseEditModal={handleCloseEditModal}
-              handleUpdateJob={handleUpdateJob}
-              handleDeleteJob={handleDeleteJob}
-              editJobTitle={editJobTitle}
-              setEditJobTitle={setEditJobTitle}
-            />
-          )}
+          {selectedSection === "dashboard" && <DasboardSelector />}
+          {selectedSection === "jobs" && <Jobselector />}
           {selectedSection === "settings" && selectedSettings === "bank" && (
             <Bankselector
               handleAddBank={handleAddBank}
