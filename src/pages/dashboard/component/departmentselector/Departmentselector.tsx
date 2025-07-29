@@ -1,40 +1,69 @@
 import { PlusCircle } from "lucide-react";
+import { useState } from "react";
 
 
-type Departmenttypes={
-    handleAddDepartment: () => void;
-    showAddDepartmentModal: boolean;
-    handleCloseAddDepartmentModal: () => void;
-    handleCreateDepartment: (e: React.FormEvent) => void;
-    newDepartmentName: string;
-    setNewDepartmentName: (name: string) => void;
-    handleEditDepartment: (id: string) => void;
-    showEditDepartmentModal: boolean;
-    handleCloseEditDepartmentModal: () => void;
-    handleUpdateDepartment: (e: React.FormEvent) => void;
-    editDepartmentName: string;
-    setEditDepartmentName: (name: string) => void;
-    handleDeleteDepartment: (id: string) => void;
-    departments: { id: string; name: string }[];    
-}
+const DepartmentSelector = () => {
+  const [departments, setDepartments] = useState([
+    { id: "1", name: "Engineering" },
+    { id: "2", name: "Marketing" },
+    { id: "3", name: "Sales" },
+  ]);
+  const [showAddDepartmentModal, setShowAddDepartmentModal] = useState(false);
+  const [newDepartmentName, setNewDepartmentName] = useState("");
+  const [showEditDepartmentModal, setShowEditDepartmentModal] = useState(false);
+  const [editDepartmentId, setEditDepartmentId] = useState<string | null>(null);
+  const [editDepartmentName, setEditDepartmentName] = useState("");
 
-const DepartmentSelector = (props:Departmenttypes) => {
-  const {
-    handleAddDepartment,
-    showAddDepartmentModal,
-    handleCloseAddDepartmentModal,
-    handleCreateDepartment,
-    newDepartmentName,
-    setNewDepartmentName,
-    handleEditDepartment,
-    showEditDepartmentModal,
-    handleCloseEditDepartmentModal,
-    handleUpdateDepartment,
-    editDepartmentName,
-    setEditDepartmentName,
-    handleDeleteDepartment,
-    departments,    
-  } = props;
+  const handleAddDepartment = () => setShowAddDepartmentModal(true);
+  const handleCreateDepartment = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newDepartmentName.trim()) {
+      const newId = departments.length
+        ? (Math.max(...departments.map((d) => parseInt(d.id))) + 1).toString()
+        : "1";
+      setDepartments([
+        ...departments,
+        { id: newId, name: newDepartmentName.trim() },
+      ]);
+      setNewDepartmentName("");
+      setShowAddDepartmentModal(false);
+    }
+  };
+  const handleEditDepartment = (id: string) => {
+    const department = departments.find((d) => d.id === id);
+    if (department) {
+      setEditDepartmentId(id);
+      setEditDepartmentName(department.name);
+      setShowEditDepartmentModal(true);
+    }
+  };
+  const handleUpdateDepartment = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editDepartmentId !== null && editDepartmentName.trim()) {
+      setDepartments(
+        departments.map((d) =>
+          d.id === editDepartmentId
+            ? { ...d, name: editDepartmentName.trim() }
+            : d
+        )
+      );
+      setShowEditDepartmentModal(false);
+      setEditDepartmentId(null);
+      setEditDepartmentName("");
+    }
+  };
+  const handleDeleteDepartment = (id: string) => {
+    setDepartments(departments.filter((d) => d.id !== id));
+  };
+  const handleCloseAddDepartmentModal = () => {
+    setShowAddDepartmentModal(false);
+    setNewDepartmentName("");
+  };
+  const handleCloseEditDepartmentModal = () => {
+    setShowEditDepartmentModal(false);
+    setEditDepartmentId(null);
+    setEditDepartmentName("");
+  };
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">

@@ -9,3 +9,4 @@ export {CompanySelector} from './companyselector';
 export {SkillSelector} from './skillselector';
 export {ShiftSelector} from './shiftselector';
 export {DepartmentSelector} from './departmentselector';
+export {Sidebar} from './sidebar';

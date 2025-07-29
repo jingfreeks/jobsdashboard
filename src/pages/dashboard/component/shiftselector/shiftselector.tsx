@@ -1,38 +1,64 @@
 import { PlusCircle } from "lucide-react";
+import { useState } from "react";
 
+const ShiftSelector = () => {
+  const [shifts, setShifts] = useState([
+    { id: "1", name: "Morning" },
+    { id: "2", name: "Evening" },
+    { id: "3", name: "Night" },
+  ]);
+  const [showAddShiftModal, setShowAddShiftModal] = useState(false);
+  const [newShiftName, setNewShiftName] = useState("");
+  const [showEditShiftModal, setShowEditShiftModal] = useState(false);
+  const [editShiftId, setEditShiftId] = useState<string | null>(null);
+  const [editShiftName, setEditShiftName] = useState("");
+  const handleAddShift = () => setShowAddShiftModal(true);
+  const handleCreateShift = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newShiftName.trim()) {
+      const newId = shifts.length
+        ? (Math.max(...shifts.map((s) => parseInt(s.id))) + 1).toString()
+        : "1";
+      setShifts([...shifts, { id: newId, name: newShiftName.trim() }]);
+      setNewShiftName("");
+      setShowAddShiftModal(false);
+    }
+  };
 
-type Shifttype={
-    handleAddShift: () => void;
-    showAddShiftModal: boolean;
-    handleCloseAddShiftModal: () => void;
-    handleCreateShift: (e: React.FormEvent) => void;
-    newShiftName: string;
-    setNewShiftName: (name: string) => void;
-    handleEditShift: (id: string) => void;
-    showEditShiftModal: boolean;
-    handleCloseEditShiftModal: () => void;
-    handleUpdateShift: (e: React.FormEvent) => void;
-    editShiftName: string;
-    setEditShiftName: (name: string) => void;
-    shifts: { id: string; name: string }[];
-    handleDeleteShift: (id: string) => void;    
-}
-const ShiftSelector = (props:Shifttype) => {
-  const {
-    handleAddShift,
-    showAddShiftModal,
-    handleCloseAddShiftModal,
-    handleCreateShift,
-    newShiftName,setNewShiftName,
-    handleEditShift,
-    showEditShiftModal,
-    handleCloseEditShiftModal,
-    handleUpdateShift,
-    editShiftName,
-    setEditShiftName,
-    shifts,
-    handleDeleteShift,
-  } = props;
+  const handleEditShift = (id: string) => {
+    const shift = shifts.find((s) => s.id === id);
+    if (shift) {
+      setEditShiftId(id);
+      setEditShiftName(shift.name);
+      setShowEditShiftModal(true);
+    }
+  };
+  const handleUpdateShift = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editShiftId !== null && editShiftName.trim()) {
+      setShifts(
+        shifts.map((s) =>
+          s.id === editShiftId ? { ...s, name: editShiftName.trim() } : s
+        )
+      );
+      setShowEditShiftModal(false);
+      setEditShiftId(null);
+      setEditShiftName("");
+    }
+  };
+
+  const handleDeleteShift = (id: string) => {
+    setShifts(shifts.filter((s) => s.id !== id));
+  };
+  const handleCloseAddShiftModal = () => {
+    setShowAddShiftModal(false);
+    setNewShiftName("");
+  };
+  const handleCloseEditShiftModal = () => {
+    setShowEditShiftModal(false);
+    setEditShiftId(null);
+    setEditShiftName("");
+  };
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">

@@ -1,38 +1,63 @@
 import { PlusCircle } from "lucide-react";
+import { useState } from "react";
 
-type SkillTypes = {
-  handleAddSkill: () => void;
-  showAddSkillModal: boolean;
-  handleCloseAddSkillModal: () => void;
-  handleCreateSkill: (e: React.FormEvent) => void;
-  newSkillName: string;
-  setNewSkillName: (name: string) => void;
-  handleEditSkill: (id: string) => void;
-  showEditSkillModal: boolean;
-  handleCloseEditSkillModal: () => void;
-  handleUpdateSkill: (e: React.FormEvent) => void;
-  editSkillName: string;
-  setEditSkillName: (name: string) => void;
-  handleDeleteSkill: (id: string) => void;
-  skills: { id: string; name: string }[];
-};
-const SkillSelector = (props: SkillTypes) => {
-  const {
-    handleAddSkill,
-    showAddSkillModal,
-    handleCloseAddSkillModal,
-    handleCreateSkill,
-    newSkillName,
-    setNewSkillName,
-    handleEditSkill,
-    showEditSkillModal,
-    handleCloseEditSkillModal,
-    handleUpdateSkill,
-    editSkillName,
-    setEditSkillName,
-    handleDeleteSkill,
-    skills,
-  } = props;
+const SkillSelector = () => {
+  const [skills, setSkills] = useState([
+    { id: "1", name: "JavaScript" },
+    { id: "2", name: "React" },
+    { id: "3", name: "Node.js" },
+  ]);
+  const [showAddSkillModal, setShowAddSkillModal] = useState(false);
+  const [newSkillName, setNewSkillName] = useState("");
+  const [showEditSkillModal, setShowEditSkillModal] = useState(false);
+  const [editSkillId, setEditSkillId] = useState<string | null>(null);
+  const [editSkillName, setEditSkillName] = useState("");
+  // Handlers for Skills
+  const handleAddSkill = () => setShowAddSkillModal(true);
+  const handleCreateSkill = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newSkillName.trim()) {
+      const newId = skills.length
+        ? (Math.max(...skills.map((s) => parseInt(s.id))) + 1).toString()
+        : "1";
+      setSkills([...skills, { id: newId, name: newSkillName.trim() }]);
+      setNewSkillName("");
+      setShowAddSkillModal(false);
+    }
+  };
+  const handleEditSkill = (id: string) => {
+    const skill = skills.find((s) => s.id === id);
+    if (skill) {
+      setEditSkillId(id);
+      setEditSkillName(skill.name);
+      setShowEditSkillModal(true);
+    }
+  };
+  const handleUpdateSkill = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editSkillId !== null && editSkillName.trim()) {
+      setSkills(
+        skills.map((s) =>
+          s.id === editSkillId ? { ...s, name: editSkillName.trim() } : s
+        )
+      );
+      setShowEditSkillModal(false);
+      setEditSkillId(null);
+      setEditSkillName("");
+    }
+  };
+  const handleDeleteSkill = (id: string) => {
+    setSkills(skills.filter((s) => s.id !== id));
+  };
+  const handleCloseAddSkillModal = () => {
+    setShowAddSkillModal(false);
+    setNewSkillName("");
+  };
+  const handleCloseEditSkillModal = () => {
+    setShowEditSkillModal(false);
+    setEditSkillId(null);
+    setEditSkillName("");
+  };
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">

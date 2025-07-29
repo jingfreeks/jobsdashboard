@@ -1,39 +1,64 @@
 import { PlusCircle } from "lucide-react";
+import { useState } from "react";
 
+const CitySelector = () => {
+  const [newCityName, setNewCityName] = useState("");
+  const [editCityId, setEditCityId] = useState<string | null>(null);
+  const [editCityName, setEditCityName] = useState("");
+  const [showEditCityModal, setShowEditCityModal] = useState(false);
+  const [cities, setCities] = useState([
+    { id: "1", name: "New York" },
+    { id: "2", name: "Los Angeles" },
+    { id: "3", name: "Chicago" },
+  ]);
+  const [showAddCityModal, setShowAddCityModal] = useState(false);
+  const handleAddCity = () => setShowAddCityModal(true);
+  const handleDeleteCity = (id: string) => {
+    setCities(cities.filter((c) => c.id !== id));
+  };
+  const handleEditCity = (id: string) => {
+    const city = cities.find((c) => c.id === id);
+    if (city) {
+      setEditCityId(id);
+      setEditCityName(city.name);
+      setShowEditCityModal(true);
+    }
+  };
 
-type Citytypes = {
-    handleAddCity: () => void;
-    handleEditCity: (id: string) => void;
-    handleDeleteCity: (id: string) => void;
-    cities: { id: string; name: string }[];
-    showAddCityModal: boolean;
-    handleCloseAddCityModal: () => void;
-    handleCreateCity: (e: React.FormEvent) => void;
-    newCityName: string;
-    showEditCityModal: boolean;
-    handleCloseEditCityModal: () => void;
-    handleUpdateCity: (e: React.FormEvent) => void;
-    editCityName: string;
-    setNewCityName: (name: string) => void;
-    setEditCityName: (name: string) => void;
-}
-const CitySelector = (props:Citytypes) => {
-  const {
-    handleAddCity,
-    handleEditCity,
-    handleDeleteCity,
-    cities,
-    showAddCityModal,
-    handleCloseAddCityModal,
-    handleCreateCity,
-    newCityName,
-    showEditCityModal,
-    handleCloseEditCityModal,
-    handleUpdateCity,
-    editCityName,
-    setNewCityName,
-    setEditCityName,
-  } = props;
+  const handleCloseAddCityModal = () => {
+    setShowAddCityModal(false);
+    setNewCityName("");
+  };
+
+  const handleCreateCity = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newCityName.trim()) {
+      const newId = cities.length
+        ? (Math.max(...cities.map((c) => parseInt(c.id))) + 1).toString()
+        : "1";
+      setCities([...cities, { id: newId, name: newCityName.trim() }]);
+      setNewCityName("");
+      setShowAddCityModal(false);
+    }
+  };
+  const handleCloseEditCityModal = () => {
+    setShowEditCityModal(false);
+    setEditCityId(null);
+    setEditCityName("");
+  };
+  const handleUpdateCity = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editCityId !== null && editCityName.trim()) {
+      setCities(
+        cities.map((c) =>
+          c.id === editCityId ? { ...c, name: editCityName.trim() } : c
+        )
+      );
+      setShowEditCityModal(false);
+      setEditCityId(null);
+      setEditCityName("");
+    }
+  };
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">
