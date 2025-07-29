@@ -1,5 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setLogout } from "@/features/auth";
+import { useLogoutMutation } from "@/features/authSlice";
+import { purgePersistedState } from "@/utils/persistUtils";
+import type { AppDispatch } from "@/config/store";
 import {
   Header,
   DasboardSelector,
@@ -16,12 +21,24 @@ import {
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const [logout] = useLogoutMutation();
   const [selectedSection, setSelectedSection] = useState<
     "dashboard" | "jobs" | "settings"
   >("dashboard");
 
-  const handleLogout = () => {
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      // Call the logout API endpoint
+      await logout({}).unwrap();
+    } catch (error) {
+      console.error('Logout API call failed:', error);
+    } finally {
+      // Always clear local state and redirect, even if API call fails
+      dispatch(setLogout());
+      await purgePersistedState(); // Clear persisted state
+      navigate("/login");
+    }
   };
 
   const [selectedSettings, setSelectedSettings] = useState<

@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import logo from "@/assets/react.svg";
 import { Eye, EyeOff } from "lucide-react";
 import {useDispatch} from 'react-redux';
 import { useLoginMutation } from "@/features/loginApiSlice";
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { setCredentials } from "@/features/auth";
-import type { AppDispatch } from "@/config/store";
+import { setCredentials, selectIsAuthenticated } from "@/features/auth";
+import type { AppDispatch, RootState } from "@/config/store";
 
 type LoginFormData = {
   username: string;
@@ -17,9 +18,17 @@ type LoginFormData = {
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const isAuthenticated = useSelector((state: RootState) => selectIsAuthenticated(state));
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
   const [login, { isLoading, error }] = useLoginMutation();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
 
   const onSubmit = async (formData: LoginFormData) => {
     try {

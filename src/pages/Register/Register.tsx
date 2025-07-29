@@ -1,10 +1,13 @@
 import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import logo from '@/assets/react.svg'
 import { useSignupMutation } from '@/features/authSlice';
 import { useDispatch } from 'react-redux';
-import { setCredentials } from '@/features/auth';
+import { setCredentials, selectIsAuthenticated } from '@/features/auth';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import type { RootState } from '@/config/store';
 
 function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryError {
   return typeof error === 'object' && error != null && 'status' in error;
@@ -24,8 +27,16 @@ type RegisterFormData = {
 const Register = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state: RootState) => selectIsAuthenticated(state));
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>();
   const [signup, { isLoading, error }] = useSignupMutation();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
 
   const onSubmit = async (data: RegisterFormData) => {
     try {

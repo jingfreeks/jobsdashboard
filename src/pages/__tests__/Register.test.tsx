@@ -10,16 +10,17 @@ vi.mock('@/features/authSlice', () => ({
   useSignupMutation: () => [vi.fn(), { isLoading: false, error: undefined }],
 }));
 
-// Mock setCredentials to avoid Redux side effects
+// Mock setCredentials and selectIsAuthenticated to avoid Redux side effects
 vi.mock('@/features/auth', () => ({
   __esModule: true,
   default: () => ({}), // mock reducer
   setCredentials: vi.fn(),
+  selectIsAuthenticated: vi.fn(() => false), // Mock as not authenticated by default
 }));
 
 describe('Register', () => {
   it('renders register form fields and button', () => {
-    render(
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <Register />
@@ -30,10 +31,13 @@ describe('Register', () => {
     expect(screen.getByLabelText(/Email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Sign up with Email/i })).toBeInTheDocument();
+    
+    // Snapshot test
+    expect(container).toMatchSnapshot();
   });
 
   it('shows validation error if fields are empty', async () => {
-    render(
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <Register />
@@ -44,5 +48,19 @@ describe('Register', () => {
     expect(await screen.findByText(/Name is required/i)).toBeInTheDocument();
     expect(await screen.findByText(/Email is required/i)).toBeInTheDocument();
     expect(await screen.findByText(/Password is required/i)).toBeInTheDocument();
+    
+    // Snapshot test after validation errors
+    expect(container).toMatchSnapshot();
+  });
+
+  it('matches register form snapshot', () => {
+    const { container } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Register />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(container).toMatchSnapshot();
   });
 }); 
