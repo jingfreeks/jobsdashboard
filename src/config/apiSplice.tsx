@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {setCredentials, setLogout} from '@/features/auth';
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 const baseQuery = fetchBaseQuery({
   baseUrl,
   credentials: 'include',
@@ -48,5 +50,5 @@ export const apiSlice = createApi<any, any>({
   reducerPath: 'api',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   endpoints: _ => ({}),
-  tagTypes: ['City', 'Jobs', 'MyJobs', 'JobDetails', 'Profile'] as any,
+  tagTypes: ['City', 'Jobs', 'MyJobs', 'JobDetails', 'Profile', 'Bank'] as any,
 });
