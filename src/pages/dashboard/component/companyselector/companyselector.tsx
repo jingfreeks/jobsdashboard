@@ -1,37 +1,65 @@
 import { PlusCircle } from "lucide-react";
+import { useState } from "react";
 
-type Companytypes={
-  handleAddCompany: () => void;
-  showAddCompanyModal: boolean;
-  handleCloseAddCompanyModal: () => void;
-  handleCreateCompany: (e: React.FormEvent) => void;                
-    newCompanyName: string;
-    setNewCompanyName: (name: string) => void;
-    handleEditCompany: (id: string) => void;
-    showEditCompanyModal: boolean;
-    handleCloseEditCompanyModal: () => void;
-    handleUpdateCompany: (e: React.FormEvent) => void;
-    editCompanyName: string;
-    setEditCompanyName: (name: string) => void;
-    handleDeleteCompany: (id: string) => void;
-    companies: { id: string; name: string }[];  
-}
-const CompanySelector = (props:Companytypes) => {
-  const {
-    handleAddCompany,
-    showAddCompanyModal,
-    handleCloseAddCompanyModal,
-    handleCreateCompany,
-    newCompanyName,setNewCompanyName,
-    handleEditCompany,
-    showEditCompanyModal,
-    handleCloseEditCompanyModal,
-    handleUpdateCompany,
-    editCompanyName,
-    setEditCompanyName,
-    handleDeleteCompany,
-    companies,  
-  } = props;
+const CompanySelector = () => {
+
+  const [companies, setCompanies] = useState([
+    { id: "1", name: "Acme Corp" },
+    { id: "2", name: "Globex Inc" },
+    { id: "3", name: "Initech" },
+  ]);
+  const [showAddCompanyModal, setShowAddCompanyModal] = useState(false);
+  const [newCompanyName,setNewCompanyName] = useState("");
+  const handleAddCompany = () => setShowAddCompanyModal(true);
+  const [showEditCompanyModal, setShowEditCompanyModal] = useState(false);
+  const [editCompanyId, setEditCompanyId] = useState<string | null>(null);
+  const [editCompanyName, setEditCompanyName] = useState("");
+  const handleCloseAddCompanyModal = () => {
+    setShowAddCompanyModal(false);
+    setNewCompanyName("");
+  };
+
+  const handleCreateCompany = (e: React.FormEvent) => {
+    if (newCompanyName.trim()) {
+      const newId = companies.length
+        ? (Math.max(...companies.map((c) => parseInt(c.id))) + 1).toString()
+        : "1";
+      setCompanies([...companies, { id: newId, name: newCompanyName.trim() }]);
+      setNewCompanyName("");
+      setShowAddCompanyModal(false);
+    }
+  };
+
+  const handleCloseEditCompanyModal = () => {
+    setEditCompanyId(null);
+  };
+
+  const handleEditCompany = (id: string) => {
+    const company = companies.find((c) => c.id === id);
+    if (company) {
+      setEditCompanyId(id);
+      setEditCompanyName(company.name);
+      setShowEditCompanyModal(true);
+    }
+  };
+
+  const handleDeleteCompany = (id: string) => {
+    setCompanies(companies.filter((c) => c.id !== id));
+  };
+
+  const handleUpdateCompany = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editCompanyId !== null && editCompanyName.trim()) {
+      setCompanies(
+        companies.map((c) =>
+          c.id === editCompanyId ? { ...c, name: editCompanyName.trim() } : c
+        )
+      );
+      setShowEditCompanyModal(false);
+      setEditCompanyId(null);
+      setEditCompanyName("");
+    }
+  };
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">

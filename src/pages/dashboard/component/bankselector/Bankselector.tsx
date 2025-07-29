@@ -1,40 +1,67 @@
 import { PlusCircle } from "lucide-react";
+import { useState } from "react";
 
 
-type Banktypes = {
-  handleAddBank: () => void;
-  handleEditBank: (id: string) => void;
-  handleDeleteBank: (id: string) => void;
-  banks: { id: string; name: string }[];
-  showAddBankModal: boolean;
-  handleCloseAddBankModal: () => void;
-  handleCreateBank: (e: React.FormEvent) => void;  
-  newBankName: string;
-  setNewBankName: (name: string) => void;
-  showEditBankModal: boolean;
-  handleCloseEditBankModal: () => void;
-  handleUpdateBank: (e: React.FormEvent) => void;
-  editBankName: string;
-  setEditBankName: (name: string) => void; 
-}
+const Bankselector = () => {
+ 
+  const handleAddBank = () => setShowAddBankModal(true);
+  const [showAddBankModal, setShowAddBankModal] = useState(false);
+  const [editBankId, setEditBankId] = useState<string | null>(null);
+  const [showEditBankModal, setShowEditBankModal] = useState(false);
+  const [editBankName, setEditBankName] = useState("");
+  const [newBankName, setNewBankName] = useState("");
+  const [banks, setBanks] = useState([
+    { id: "1", name: "Bank of America" },
+    { id: "2", name: "Chase Bank" },
+    { id: "3", name: "Wells Fargo" },
+  ]);
+  const handleEditBank = (id: string) => {
+    const bank = banks.find((b) => b.id === id);
+    if (bank) {
+      setEditBankId(id);
+      setEditBankName(bank.name);
+      setShowEditBankModal(true);
+    }
+  };
+  const handleDeleteBank = (id: string) => {
+    setBanks(banks.filter((b) => b.id !== id));
+  };
+  const handleCloseAddBankModal = () => {
+    setShowAddBankModal(false);
+    setNewBankName("");
+  };
 
-const Bankselector = (props:Banktypes) => {
-  const {
-    handleAddBank,
-    handleEditBank,
-    handleDeleteBank,
-    banks,
-    showAddBankModal,
-    handleCloseAddBankModal,
-    handleCreateBank,
-    newBankName,
-    setNewBankName,
-    showEditBankModal,
-    handleCloseEditBankModal,
-    handleUpdateBank,
-    editBankName,
-    setEditBankName
-  } = props;
+  const handleCloseEditBankModal = () => {
+    setShowEditBankModal(false);
+    setEditBankId(null);
+    setEditBankName("");
+  };
+
+  const handleCreateBank = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newBankName.trim()) {
+      const newId = banks.length
+        ? (Math.max(...banks.map((b) => parseInt(b.id))) + 1).toString()
+        : "1";
+      setBanks([...banks, { id: newId, name: newBankName.trim() }]);
+      setNewBankName("");
+      setShowAddBankModal(false);
+    }
+  };
+
+  const handleUpdateBank = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editBankId !== null && editBankName.trim()) {
+      setBanks(
+        banks.map((b) =>
+          b.id === editBankId ? { ...b, name: editBankName.trim() } : b
+        )
+      );
+      setShowEditBankModal(false);
+      setEditBankId(null);
+      setEditBankName("");
+    }
+  };
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">

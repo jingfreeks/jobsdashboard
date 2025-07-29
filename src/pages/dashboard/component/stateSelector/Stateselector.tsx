@@ -1,39 +1,67 @@
 import { PlusCircle } from "lucide-react";
+import { useState } from "react";
 
 
-type statetypes={
-    handleAddState: () => void;
-    showAddStateModal: boolean;
-    handleCloseAddStateModal: () => void;
-    handleCreateState: (e: React.FormEvent) => void;
-    newStateName: string;   
-    setNewStateName: (name: string) => void;
-    showEditStateModal: boolean;
-    handleCloseEditStateModal: () => void;
-    handleUpdateState: (e: React.FormEvent) => void;
-    editStateName: string;
-    setEditStateName: (name: string) => void;
-    states: { id: string; name: string }[];
-    handleEditState: (id: string) => void;
-    handleDeleteState: (id: string) => void;
-}
-const StateSelector = (props:statetypes) => {
-  const {
-    handleAddState,
-    showAddStateModal,
-    handleCloseAddStateModal,
-    handleCreateState,
-    newStateName,
-    setNewStateName,
-    showEditStateModal,
-    handleCloseEditStateModal,
-    handleUpdateState,
-    editStateName,
-    setEditStateName,
-    states,
-    handleEditState,
-    handleDeleteState,
-  } = props;
+const StateSelector = () => {
+  const [states, setStates] = useState([
+    { id: "1", name: "California" },
+    { id: "2", name: "Texas" },
+    { id: "3", name: "Florida" },
+  ]);
+  const [showAddStateModal, setShowAddStateModal] = useState(false);
+  const [editStateId, setEditStateId] = useState<string | null>(null);
+  const [editStateName, setEditStateName] = useState("");
+  const handleAddState = () => setShowAddStateModal(true);
+  const handleCloseAddStateModal = () => {
+    setShowAddStateModal(false);
+    setNewStateName("");
+  };
+  const [showEditStateModal, setShowEditStateModal] = useState(false);
+  const [newStateName, setNewStateName] = useState("");
+  const handleCreateState = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newStateName.trim()) {
+      const newId = states.length
+        ? (Math.max(...states.map((s) => parseInt(s.id))) + 1).toString()
+        : "1";
+      setStates([...states, { id: newId, name: newStateName.trim() }]);
+      setNewStateName("");
+      setShowAddStateModal(false);
+    }
+  };
+
+  const handleCloseEditStateModal = () => {
+    setShowEditStateModal(false);
+    setEditStateId(null);
+    setEditStateName("");
+  };
+
+  const handleUpdateState = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editStateId !== null && editStateName.trim()) {
+      setStates(
+        states.map((s) =>
+          s.id === editStateId ? { ...s, name: editStateName.trim() } : s
+        )
+      );
+      setShowEditStateModal(false);
+      setEditStateId(null);
+      setEditStateName("");
+    }
+  };
+
+  const handleEditState = (id: string) => {
+    const state = states.find((s) => s.id === id);
+    if (state) {
+      setEditStateId(id);
+      setEditStateName(state.name);
+      setShowEditStateModal(true);
+    }
+  };
+  const handleDeleteState = (id: string) => {
+    setStates(states.filter((s) => s.id !== id));
+  };
+
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">
