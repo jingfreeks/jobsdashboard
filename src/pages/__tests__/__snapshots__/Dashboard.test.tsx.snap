@@ -1,0 +1,2074 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Dashboard > matches dashboard layout snapshot 1`] = `
+<div>
+  <div
+    class="flex min-h-screen bg-slate-100"
+  >
+    <div
+      class="flex-1 flex flex-col min-h-screen"
+    >
+      <header
+        class="w-full bg-white/90 border-b border-slate-200 px-10 py-3 flex items-center justify-between shadow-sm sticky top-0 z-10 backdrop-blur"
+      >
+        <div
+          class="flex items-center gap-3"
+        >
+          <span
+            class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-blue-100 text-blue-600"
+          >
+            <svg
+              aria-hidden="true"
+              class="lucide lucide-chart-no-axes-column w-5 h-5"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="18"
+                x2="18"
+                y1="20"
+                y2="10"
+              />
+              <line
+                x1="12"
+                x2="12"
+                y1="20"
+                y2="4"
+              />
+              <line
+                x1="6"
+                x2="6"
+                y1="20"
+                y2="14"
+              />
+            </svg>
+          </span>
+          <h1
+            class="text-2xl font-extrabold text-slate-800 tracking-tight"
+          >
+            Dashboard
+          </h1>
+        </div>
+        <div
+          class="flex items-center gap-4"
+        >
+          <div
+            class="relative"
+          >
+            <button
+              class="relative p-2 rounded-full hover:bg-blue-50 transition"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-bell w-6 h-6 text-blue-700"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.268 21a2 2 0 0 0 3.464 0"
+                />
+                <path
+                  d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"
+                />
+              </svg>
+              <span
+                class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5"
+              >
+                3
+              </span>
+            </button>
+          </div>
+          <div
+            class="relative"
+          >
+            <button
+              class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-700 font-bold text-lg focus:outline-none"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-user w-6 h-6"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
+      <div
+        class="flex flex-row w-full"
+      >
+        <aside
+          class="w-64 bg-gradient-to-b from-blue-50 via-white to-white border-r border-slate-200 flex flex-col min-h-screen shadow-lg"
+        >
+          <nav
+            class="flex-1 px-4 py-6"
+          >
+            <div
+              class="mb-3 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider"
+            >
+              Main
+            </div>
+            <ul
+              class="flex flex-col gap-1"
+            >
+              <li>
+                <button
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base transition w-full
+                  bg-blue-100 text-blue-700 shadow"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-chart-no-axes-column w-5 h-5"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line
+                      x1="18"
+                      x2="18"
+                      y1="20"
+                      y2="10"
+                    />
+                    <line
+                      x1="12"
+                      x2="12"
+                      y1="20"
+                      y2="4"
+                    />
+                    <line
+                      x1="6"
+                      x2="6"
+                      y1="20"
+                      y2="14"
+                    />
+                  </svg>
+                   Dashboard
+                </button>
+              </li>
+              <li>
+                <button
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base transition w-full
+                  text-slate-700 hover:bg-blue-50 hover:text-blue-700"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-briefcase w-5 h-5"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"
+                    />
+                    <rect
+                      height="14"
+                      rx="2"
+                      width="20"
+                      x="2"
+                      y="6"
+                    />
+                  </svg>
+                   Jobs
+                </button>
+              </li>
+            </ul>
+            <div
+              class="my-5 border-t border-slate-100"
+            />
+            <div
+              class="mb-3 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider"
+            >
+              Settings
+            </div>
+            <ul
+              class="flex flex-col gap-1"
+            >
+              <li>
+                <button
+                  aria-controls="sidebar-settings-sublist"
+                  aria-expanded="false"
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition w-full justify-between"
+                >
+                  <span
+                    class="flex items-center gap-3"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-settings w-5 h-5"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+                      />
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="3"
+                      />
+                    </svg>
+                     Settings
+                  </span>
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-chevron-down w-4 h-4 ml-2 transition-transform"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="m6 9 6 6 6-6"
+                    />
+                  </svg>
+                </button>
+              </li>
+            </ul>
+            <div
+              class="my-5 border-t border-slate-100"
+            />
+            <div
+              class="mb-3 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider"
+            >
+              Management
+            </div>
+            <ul
+              class="flex flex-col gap-1"
+            >
+              <li>
+                <button
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition w-full"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-circle-plus w-5 h-5"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M8 12h8"
+                    />
+                    <path
+                      d="M12 8v8"
+                    />
+                  </svg>
+                   Add Job
+                </button>
+              </li>
+              <li>
+                <button
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition w-full"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-calendar-check2 lucide-calendar-check-2 w-5 h-5"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 2v4"
+                    />
+                    <path
+                      d="M16 2v4"
+                    />
+                    <path
+                      d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"
+                    />
+                    <path
+                      d="M3 10h18"
+                    />
+                    <path
+                      d="m16 20 2 2 4-4"
+                    />
+                  </svg>
+                   Schedule Interview
+                </button>
+              </li>
+            </ul>
+          </nav>
+          <div
+            class="px-6 pb-8 mt-auto flex flex-col gap-3"
+          >
+            <div
+              class="flex items-center gap-3"
+            >
+              <span
+                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-700 font-bold text-lg"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-user w-6 h-6"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                  />
+                  <circle
+                    cx="12"
+                    cy="7"
+                    r="4"
+                  />
+                </svg>
+              </span>
+              <div
+                class="flex flex-col"
+              >
+                <span
+                  class="font-semibold text-slate-800 leading-tight"
+                >
+                  Jane Doe
+                </span>
+                <span
+                  class="text-xs text-slate-500"
+                >
+                  Admin
+                </span>
+              </div>
+            </div>
+            <button
+              class="flex items-center gap-2 w-full bg-red-50 hover:bg-red-100 text-red-600 rounded-md px-4 py-2 font-semibold transition mt-2"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-log-out w-5 h-5"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m16 17 5-5-5-5"
+                />
+                <path
+                  d="M21 12H9"
+                />
+                <path
+                  d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+                />
+              </svg>
+               Logout
+            </button>
+          </div>
+        </aside>
+        <main
+          class="flex-1 p-10 bg-slate-100"
+        >
+          <div
+            class="flex flex-wrap gap-4 mb-8"
+          >
+            <button
+              class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-circle-plus w-5 h-5"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                />
+                <path
+                  d="M8 12h8"
+                />
+                <path
+                  d="M12 8v8"
+                />
+              </svg>
+               Add Job
+            </button>
+            <button
+              class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-calendar-check2 lucide-calendar-check-2 w-5 h-5"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 2v4"
+                />
+                <path
+                  d="M16 2v4"
+                />
+                <path
+                  d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"
+                />
+                <path
+                  d="M3 10h18"
+                />
+                <path
+                  d="m16 20 2 2 4-4"
+                />
+              </svg>
+               Schedule Interview
+            </button>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+          >
+            <div
+              class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 border border-slate-100"
+            >
+              <span
+                class="text-slate-500 text-sm"
+              >
+                Total Jobs
+              </span>
+              <span
+                class="text-2xl font-bold text-blue-700"
+              >
+                74
+              </span>
+            </div>
+            <div
+              class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 border border-slate-100"
+            >
+              <span
+                class="text-slate-500 text-sm"
+              >
+                Interviews
+              </span>
+              <span
+                class="text-2xl font-bold text-blue-700"
+              >
+                18
+              </span>
+            </div>
+            <div
+              class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 border border-slate-100"
+            >
+              <span
+                class="text-slate-500 text-sm"
+              >
+                Offers
+              </span>
+              <span
+                class="text-2xl font-bold text-blue-700"
+              >
+                5
+              </span>
+            </div>
+          </div>
+          <div
+            class="grid grid-cols-1 lg:grid-cols-3 gap-8"
+          >
+            <div
+              class="bg-white p-8 rounded-xl shadow-lg border border-slate-100 col-span-1 lg:col-span-2"
+            >
+              <h2
+                class="text-xl font-semibold text-slate-800 mb-4"
+              >
+                Job Applications Over Time
+              </h2>
+              <div />
+            </div>
+            <div
+              class="bg-white p-6 rounded-xl shadow-lg border border-slate-100 flex flex-col gap-4"
+            >
+              <h2
+                class="text-lg font-semibold text-slate-800 mb-2"
+              >
+                Recent Activity
+              </h2>
+              <ul
+                class="flex-1 space-y-3"
+              >
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    You added a new job: Frontend Developer
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Today, 09:00
+                  </span>
+                </li>
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Interview completed: Backend Engineer
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Yesterday, 15:30
+                  </span>
+                </li>
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Offer accepted: Product Manager
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Yesterday, 11:10
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8"
+          >
+            <div
+              class="bg-white p-6 rounded-xl shadow-lg border border-slate-100 flex flex-col gap-4"
+            >
+              <h2
+                class="text-lg font-semibold text-slate-800 mb-2"
+              >
+                Tasks & Reminders
+              </h2>
+              <ul
+                class="flex-1 space-y-3"
+              >
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Follow up with recruiter
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Due: 
+                    Today
+                  </span>
+                </li>
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Prepare for interview
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Due: 
+                    Tomorrow
+                  </span>
+                </li>
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Review candidate resumes
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Due: 
+                    This week
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Dashboard > renders dashboard content sections 1`] = `
+<div>
+  <div
+    class="flex min-h-screen bg-slate-100"
+  >
+    <div
+      class="flex-1 flex flex-col min-h-screen"
+    >
+      <header
+        class="w-full bg-white/90 border-b border-slate-200 px-10 py-3 flex items-center justify-between shadow-sm sticky top-0 z-10 backdrop-blur"
+      >
+        <div
+          class="flex items-center gap-3"
+        >
+          <span
+            class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-blue-100 text-blue-600"
+          >
+            <svg
+              aria-hidden="true"
+              class="lucide lucide-chart-no-axes-column w-5 h-5"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="18"
+                x2="18"
+                y1="20"
+                y2="10"
+              />
+              <line
+                x1="12"
+                x2="12"
+                y1="20"
+                y2="4"
+              />
+              <line
+                x1="6"
+                x2="6"
+                y1="20"
+                y2="14"
+              />
+            </svg>
+          </span>
+          <h1
+            class="text-2xl font-extrabold text-slate-800 tracking-tight"
+          >
+            Dashboard
+          </h1>
+        </div>
+        <div
+          class="flex items-center gap-4"
+        >
+          <div
+            class="relative"
+          >
+            <button
+              class="relative p-2 rounded-full hover:bg-blue-50 transition"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-bell w-6 h-6 text-blue-700"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.268 21a2 2 0 0 0 3.464 0"
+                />
+                <path
+                  d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"
+                />
+              </svg>
+              <span
+                class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5"
+              >
+                3
+              </span>
+            </button>
+          </div>
+          <div
+            class="relative"
+          >
+            <button
+              class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-700 font-bold text-lg focus:outline-none"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-user w-6 h-6"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
+      <div
+        class="flex flex-row w-full"
+      >
+        <aside
+          class="w-64 bg-gradient-to-b from-blue-50 via-white to-white border-r border-slate-200 flex flex-col min-h-screen shadow-lg"
+        >
+          <nav
+            class="flex-1 px-4 py-6"
+          >
+            <div
+              class="mb-3 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider"
+            >
+              Main
+            </div>
+            <ul
+              class="flex flex-col gap-1"
+            >
+              <li>
+                <button
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base transition w-full
+                  bg-blue-100 text-blue-700 shadow"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-chart-no-axes-column w-5 h-5"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line
+                      x1="18"
+                      x2="18"
+                      y1="20"
+                      y2="10"
+                    />
+                    <line
+                      x1="12"
+                      x2="12"
+                      y1="20"
+                      y2="4"
+                    />
+                    <line
+                      x1="6"
+                      x2="6"
+                      y1="20"
+                      y2="14"
+                    />
+                  </svg>
+                   Dashboard
+                </button>
+              </li>
+              <li>
+                <button
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base transition w-full
+                  text-slate-700 hover:bg-blue-50 hover:text-blue-700"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-briefcase w-5 h-5"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"
+                    />
+                    <rect
+                      height="14"
+                      rx="2"
+                      width="20"
+                      x="2"
+                      y="6"
+                    />
+                  </svg>
+                   Jobs
+                </button>
+              </li>
+            </ul>
+            <div
+              class="my-5 border-t border-slate-100"
+            />
+            <div
+              class="mb-3 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider"
+            >
+              Settings
+            </div>
+            <ul
+              class="flex flex-col gap-1"
+            >
+              <li>
+                <button
+                  aria-controls="sidebar-settings-sublist"
+                  aria-expanded="false"
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition w-full justify-between"
+                >
+                  <span
+                    class="flex items-center gap-3"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-settings w-5 h-5"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+                      />
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="3"
+                      />
+                    </svg>
+                     Settings
+                  </span>
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-chevron-down w-4 h-4 ml-2 transition-transform"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="m6 9 6 6 6-6"
+                    />
+                  </svg>
+                </button>
+              </li>
+            </ul>
+            <div
+              class="my-5 border-t border-slate-100"
+            />
+            <div
+              class="mb-3 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider"
+            >
+              Management
+            </div>
+            <ul
+              class="flex flex-col gap-1"
+            >
+              <li>
+                <button
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition w-full"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-circle-plus w-5 h-5"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M8 12h8"
+                    />
+                    <path
+                      d="M12 8v8"
+                    />
+                  </svg>
+                   Add Job
+                </button>
+              </li>
+              <li>
+                <button
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition w-full"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-calendar-check2 lucide-calendar-check-2 w-5 h-5"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 2v4"
+                    />
+                    <path
+                      d="M16 2v4"
+                    />
+                    <path
+                      d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"
+                    />
+                    <path
+                      d="M3 10h18"
+                    />
+                    <path
+                      d="m16 20 2 2 4-4"
+                    />
+                  </svg>
+                   Schedule Interview
+                </button>
+              </li>
+            </ul>
+          </nav>
+          <div
+            class="px-6 pb-8 mt-auto flex flex-col gap-3"
+          >
+            <div
+              class="flex items-center gap-3"
+            >
+              <span
+                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-700 font-bold text-lg"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-user w-6 h-6"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                  />
+                  <circle
+                    cx="12"
+                    cy="7"
+                    r="4"
+                  />
+                </svg>
+              </span>
+              <div
+                class="flex flex-col"
+              >
+                <span
+                  class="font-semibold text-slate-800 leading-tight"
+                >
+                  Jane Doe
+                </span>
+                <span
+                  class="text-xs text-slate-500"
+                >
+                  Admin
+                </span>
+              </div>
+            </div>
+            <button
+              class="flex items-center gap-2 w-full bg-red-50 hover:bg-red-100 text-red-600 rounded-md px-4 py-2 font-semibold transition mt-2"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-log-out w-5 h-5"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m16 17 5-5-5-5"
+                />
+                <path
+                  d="M21 12H9"
+                />
+                <path
+                  d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+                />
+              </svg>
+               Logout
+            </button>
+          </div>
+        </aside>
+        <main
+          class="flex-1 p-10 bg-slate-100"
+        >
+          <div
+            class="flex flex-wrap gap-4 mb-8"
+          >
+            <button
+              class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-circle-plus w-5 h-5"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                />
+                <path
+                  d="M8 12h8"
+                />
+                <path
+                  d="M12 8v8"
+                />
+              </svg>
+               Add Job
+            </button>
+            <button
+              class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-calendar-check2 lucide-calendar-check-2 w-5 h-5"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 2v4"
+                />
+                <path
+                  d="M16 2v4"
+                />
+                <path
+                  d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"
+                />
+                <path
+                  d="M3 10h18"
+                />
+                <path
+                  d="m16 20 2 2 4-4"
+                />
+              </svg>
+               Schedule Interview
+            </button>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+          >
+            <div
+              class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 border border-slate-100"
+            >
+              <span
+                class="text-slate-500 text-sm"
+              >
+                Total Jobs
+              </span>
+              <span
+                class="text-2xl font-bold text-blue-700"
+              >
+                74
+              </span>
+            </div>
+            <div
+              class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 border border-slate-100"
+            >
+              <span
+                class="text-slate-500 text-sm"
+              >
+                Interviews
+              </span>
+              <span
+                class="text-2xl font-bold text-blue-700"
+              >
+                18
+              </span>
+            </div>
+            <div
+              class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 border border-slate-100"
+            >
+              <span
+                class="text-slate-500 text-sm"
+              >
+                Offers
+              </span>
+              <span
+                class="text-2xl font-bold text-blue-700"
+              >
+                5
+              </span>
+            </div>
+          </div>
+          <div
+            class="grid grid-cols-1 lg:grid-cols-3 gap-8"
+          >
+            <div
+              class="bg-white p-8 rounded-xl shadow-lg border border-slate-100 col-span-1 lg:col-span-2"
+            >
+              <h2
+                class="text-xl font-semibold text-slate-800 mb-4"
+              >
+                Job Applications Over Time
+              </h2>
+              <div />
+            </div>
+            <div
+              class="bg-white p-6 rounded-xl shadow-lg border border-slate-100 flex flex-col gap-4"
+            >
+              <h2
+                class="text-lg font-semibold text-slate-800 mb-2"
+              >
+                Recent Activity
+              </h2>
+              <ul
+                class="flex-1 space-y-3"
+              >
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    You added a new job: Frontend Developer
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Today, 09:00
+                  </span>
+                </li>
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Interview completed: Backend Engineer
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Yesterday, 15:30
+                  </span>
+                </li>
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Offer accepted: Product Manager
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Yesterday, 11:10
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8"
+          >
+            <div
+              class="bg-white p-6 rounded-xl shadow-lg border border-slate-100 flex flex-col gap-4"
+            >
+              <h2
+                class="text-lg font-semibold text-slate-800 mb-2"
+              >
+                Tasks & Reminders
+              </h2>
+              <ul
+                class="flex-1 space-y-3"
+              >
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Follow up with recruiter
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Due: 
+                    Today
+                  </span>
+                </li>
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Prepare for interview
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Due: 
+                    Tomorrow
+                  </span>
+                </li>
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Review candidate resumes
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Due: 
+                    This week
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Dashboard > renders dashboard header and sidebar 1`] = `
+<div>
+  <div
+    class="flex min-h-screen bg-slate-100"
+  >
+    <div
+      class="flex-1 flex flex-col min-h-screen"
+    >
+      <header
+        class="w-full bg-white/90 border-b border-slate-200 px-10 py-3 flex items-center justify-between shadow-sm sticky top-0 z-10 backdrop-blur"
+      >
+        <div
+          class="flex items-center gap-3"
+        >
+          <span
+            class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-blue-100 text-blue-600"
+          >
+            <svg
+              aria-hidden="true"
+              class="lucide lucide-chart-no-axes-column w-5 h-5"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="18"
+                x2="18"
+                y1="20"
+                y2="10"
+              />
+              <line
+                x1="12"
+                x2="12"
+                y1="20"
+                y2="4"
+              />
+              <line
+                x1="6"
+                x2="6"
+                y1="20"
+                y2="14"
+              />
+            </svg>
+          </span>
+          <h1
+            class="text-2xl font-extrabold text-slate-800 tracking-tight"
+          >
+            Dashboard
+          </h1>
+        </div>
+        <div
+          class="flex items-center gap-4"
+        >
+          <div
+            class="relative"
+          >
+            <button
+              class="relative p-2 rounded-full hover:bg-blue-50 transition"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-bell w-6 h-6 text-blue-700"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.268 21a2 2 0 0 0 3.464 0"
+                />
+                <path
+                  d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"
+                />
+              </svg>
+              <span
+                class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5"
+              >
+                3
+              </span>
+            </button>
+          </div>
+          <div
+            class="relative"
+          >
+            <button
+              class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-700 font-bold text-lg focus:outline-none"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-user w-6 h-6"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
+      <div
+        class="flex flex-row w-full"
+      >
+        <aside
+          class="w-64 bg-gradient-to-b from-blue-50 via-white to-white border-r border-slate-200 flex flex-col min-h-screen shadow-lg"
+        >
+          <nav
+            class="flex-1 px-4 py-6"
+          >
+            <div
+              class="mb-3 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider"
+            >
+              Main
+            </div>
+            <ul
+              class="flex flex-col gap-1"
+            >
+              <li>
+                <button
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base transition w-full
+                  bg-blue-100 text-blue-700 shadow"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-chart-no-axes-column w-5 h-5"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line
+                      x1="18"
+                      x2="18"
+                      y1="20"
+                      y2="10"
+                    />
+                    <line
+                      x1="12"
+                      x2="12"
+                      y1="20"
+                      y2="4"
+                    />
+                    <line
+                      x1="6"
+                      x2="6"
+                      y1="20"
+                      y2="14"
+                    />
+                  </svg>
+                   Dashboard
+                </button>
+              </li>
+              <li>
+                <button
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base transition w-full
+                  text-slate-700 hover:bg-blue-50 hover:text-blue-700"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-briefcase w-5 h-5"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"
+                    />
+                    <rect
+                      height="14"
+                      rx="2"
+                      width="20"
+                      x="2"
+                      y="6"
+                    />
+                  </svg>
+                   Jobs
+                </button>
+              </li>
+            </ul>
+            <div
+              class="my-5 border-t border-slate-100"
+            />
+            <div
+              class="mb-3 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider"
+            >
+              Settings
+            </div>
+            <ul
+              class="flex flex-col gap-1"
+            >
+              <li>
+                <button
+                  aria-controls="sidebar-settings-sublist"
+                  aria-expanded="false"
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition w-full justify-between"
+                >
+                  <span
+                    class="flex items-center gap-3"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-settings w-5 h-5"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+                      />
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="3"
+                      />
+                    </svg>
+                     Settings
+                  </span>
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-chevron-down w-4 h-4 ml-2 transition-transform"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="m6 9 6 6 6-6"
+                    />
+                  </svg>
+                </button>
+              </li>
+            </ul>
+            <div
+              class="my-5 border-t border-slate-100"
+            />
+            <div
+              class="mb-3 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider"
+            >
+              Management
+            </div>
+            <ul
+              class="flex flex-col gap-1"
+            >
+              <li>
+                <button
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition w-full"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-circle-plus w-5 h-5"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M8 12h8"
+                    />
+                    <path
+                      d="M12 8v8"
+                    />
+                  </svg>
+                   Add Job
+                </button>
+              </li>
+              <li>
+                <button
+                  class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition w-full"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-calendar-check2 lucide-calendar-check-2 w-5 h-5"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 2v4"
+                    />
+                    <path
+                      d="M16 2v4"
+                    />
+                    <path
+                      d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"
+                    />
+                    <path
+                      d="M3 10h18"
+                    />
+                    <path
+                      d="m16 20 2 2 4-4"
+                    />
+                  </svg>
+                   Schedule Interview
+                </button>
+              </li>
+            </ul>
+          </nav>
+          <div
+            class="px-6 pb-8 mt-auto flex flex-col gap-3"
+          >
+            <div
+              class="flex items-center gap-3"
+            >
+              <span
+                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-700 font-bold text-lg"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-user w-6 h-6"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                  />
+                  <circle
+                    cx="12"
+                    cy="7"
+                    r="4"
+                  />
+                </svg>
+              </span>
+              <div
+                class="flex flex-col"
+              >
+                <span
+                  class="font-semibold text-slate-800 leading-tight"
+                >
+                  Jane Doe
+                </span>
+                <span
+                  class="text-xs text-slate-500"
+                >
+                  Admin
+                </span>
+              </div>
+            </div>
+            <button
+              class="flex items-center gap-2 w-full bg-red-50 hover:bg-red-100 text-red-600 rounded-md px-4 py-2 font-semibold transition mt-2"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-log-out w-5 h-5"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m16 17 5-5-5-5"
+                />
+                <path
+                  d="M21 12H9"
+                />
+                <path
+                  d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+                />
+              </svg>
+               Logout
+            </button>
+          </div>
+        </aside>
+        <main
+          class="flex-1 p-10 bg-slate-100"
+        >
+          <div
+            class="flex flex-wrap gap-4 mb-8"
+          >
+            <button
+              class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-circle-plus w-5 h-5"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                />
+                <path
+                  d="M8 12h8"
+                />
+                <path
+                  d="M12 8v8"
+                />
+              </svg>
+               Add Job
+            </button>
+            <button
+              class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-calendar-check2 lucide-calendar-check-2 w-5 h-5"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 2v4"
+                />
+                <path
+                  d="M16 2v4"
+                />
+                <path
+                  d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"
+                />
+                <path
+                  d="M3 10h18"
+                />
+                <path
+                  d="m16 20 2 2 4-4"
+                />
+              </svg>
+               Schedule Interview
+            </button>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+          >
+            <div
+              class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 border border-slate-100"
+            >
+              <span
+                class="text-slate-500 text-sm"
+              >
+                Total Jobs
+              </span>
+              <span
+                class="text-2xl font-bold text-blue-700"
+              >
+                74
+              </span>
+            </div>
+            <div
+              class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 border border-slate-100"
+            >
+              <span
+                class="text-slate-500 text-sm"
+              >
+                Interviews
+              </span>
+              <span
+                class="text-2xl font-bold text-blue-700"
+              >
+                18
+              </span>
+            </div>
+            <div
+              class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 border border-slate-100"
+            >
+              <span
+                class="text-slate-500 text-sm"
+              >
+                Offers
+              </span>
+              <span
+                class="text-2xl font-bold text-blue-700"
+              >
+                5
+              </span>
+            </div>
+          </div>
+          <div
+            class="grid grid-cols-1 lg:grid-cols-3 gap-8"
+          >
+            <div
+              class="bg-white p-8 rounded-xl shadow-lg border border-slate-100 col-span-1 lg:col-span-2"
+            >
+              <h2
+                class="text-xl font-semibold text-slate-800 mb-4"
+              >
+                Job Applications Over Time
+              </h2>
+              <div />
+            </div>
+            <div
+              class="bg-white p-6 rounded-xl shadow-lg border border-slate-100 flex flex-col gap-4"
+            >
+              <h2
+                class="text-lg font-semibold text-slate-800 mb-2"
+              >
+                Recent Activity
+              </h2>
+              <ul
+                class="flex-1 space-y-3"
+              >
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    You added a new job: Frontend Developer
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Today, 09:00
+                  </span>
+                </li>
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Interview completed: Backend Engineer
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Yesterday, 15:30
+                  </span>
+                </li>
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Offer accepted: Product Manager
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Yesterday, 11:10
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8"
+          >
+            <div
+              class="bg-white p-6 rounded-xl shadow-lg border border-slate-100 flex flex-col gap-4"
+            >
+              <h2
+                class="text-lg font-semibold text-slate-800 mb-2"
+              >
+                Tasks & Reminders
+              </h2>
+              <ul
+                class="flex-1 space-y-3"
+              >
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Follow up with recruiter
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Due: 
+                    Today
+                  </span>
+                </li>
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Prepare for interview
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Due: 
+                    Tomorrow
+                  </span>
+                </li>
+                <li
+                  class="flex flex-col"
+                >
+                  <span
+                    class="text-slate-700"
+                  >
+                    Review candidate resumes
+                  </span>
+                  <span
+                    class="text-xs text-slate-400"
+                  >
+                    Due: 
+                    This week
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</div>
+`;

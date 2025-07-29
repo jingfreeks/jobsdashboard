@@ -1,0 +1,43 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LoadingSpinner > matches loading spinner snapshot 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center bg-slate-100"
+  >
+    <div
+      class="flex flex-col items-center gap-4"
+    >
+      <div
+        class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"
+      />
+      <p
+        class="text-slate-600 font-medium"
+      >
+        Loading...
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`LoadingSpinner > renders loading spinner with text 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center bg-slate-100"
+  >
+    <div
+      class="flex flex-col items-center gap-4"
+    >
+      <div
+        class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"
+      />
+      <p
+        class="text-slate-600 font-medium"
+      >
+        Loading...
+      </p>
+    </div>
+  </div>
+</div>
+`;

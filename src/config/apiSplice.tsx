@@ -26,9 +26,14 @@ const baseQueryWithAuth = async (
     const refereshResult = await baseQuery('/refresh', api, extraOptions);
 
     if (refereshResult?.data) {
-      const user = api.getState().auth.user;
+      const currentAuth = api.getState().auth;
       //store the new token
-      api.dispatch(setCredentials({...refereshResult.data, user}));
+      api.dispatch(setCredentials({
+        user: currentAuth.user,
+        accessToken: (refereshResult.data as any).accessToken,
+        userId: currentAuth.userId,
+        roles: currentAuth.roles
+      }));
       //retry the original query with new access token
       result = await baseQuery(args, api, extraOptions);
     } else {

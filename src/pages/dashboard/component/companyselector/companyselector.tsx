@@ -19,7 +19,7 @@ const CompanySelector = () => {
     setNewCompanyName("");
   };
 
-  const handleCreateCompany = (e: React.FormEvent) => {
+  const handleCreateCompany = () => {
     if (newCompanyName.trim()) {
       const newId = companies.length
         ? (Math.max(...companies.map((c) => parseInt(c.id))) + 1).toString()
