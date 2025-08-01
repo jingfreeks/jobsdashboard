@@ -11,7 +11,7 @@ exports[`Login > matches login form snapshot 1`] = `
       <img
         alt="Logo"
         class="w-20 h-20 mb-6"
-        src="/src/assets/react.svg"
+        src="mocked-logo.svg"
       />
       <h1
         class="text-2xl font-bold mb-6 text-center"
@@ -56,28 +56,12 @@ exports[`Login > matches login form snapshot 1`] = `
               tabindex="-1"
               type="button"
             >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-eye h-4 w-4"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
+              <div
+                class="h-4 w-4"
+                data-testid="eye-icon"
               >
-                <path
-                  d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
-                />
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="3"
-                />
-              </svg>
+                Eye
+              </div>
             </button>
           </div>
         </div>
@@ -126,7 +110,7 @@ exports[`Login > renders login form fields and button 1`] = `
       <img
         alt="Logo"
         class="w-20 h-20 mb-6"
-        src="/src/assets/react.svg"
+        src="mocked-logo.svg"
       />
       <h1
         class="text-2xl font-bold mb-6 text-center"
@@ -171,28 +155,12 @@ exports[`Login > renders login form fields and button 1`] = `
               tabindex="-1"
               type="button"
             >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-eye h-4 w-4"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
+              <div
+                class="h-4 w-4"
+                data-testid="eye-icon"
               >
-                <path
-                  d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
-                />
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="3"
-                />
-              </svg>
+                Eye
+              </div>
             </button>
           </div>
         </div>
@@ -241,7 +209,7 @@ exports[`Login > shows validation error if fields are empty 1`] = `
       <img
         alt="Logo"
         class="w-20 h-20 mb-6"
-        src="/src/assets/react.svg"
+        src="mocked-logo.svg"
       />
       <h1
         class="text-2xl font-bold mb-6 text-center"
@@ -291,28 +259,12 @@ exports[`Login > shows validation error if fields are empty 1`] = `
               tabindex="-1"
               type="button"
             >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-eye h-4 w-4"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
+              <div
+                class="h-4 w-4"
+                data-testid="eye-icon"
               >
-                <path
-                  d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
-                />
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="3"
-                />
-              </svg>
+                Eye
+              </div>
             </button>
           </div>
           <span
