@@ -4,15 +4,22 @@ import { apiSlice } from '@/config/apiSplice';
 export interface City {
   _id: string;
   name: string;
+  stateId?: string;
+  statename?: string;
+  image?: string;
 }
 
 export interface CityFormData {
   name: string;
+  stateId?: string;
+  image?: string;
 }
 
 export interface UpdateCityData {
   _id: string;
   name: string;
+  stateId?: string;
+  image?: File;
 }
 
 export const cityApiSlice = apiSlice.injectEndpoints({
@@ -138,6 +145,18 @@ export const cityApiSlice = apiSlice.injectEndpoints({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       invalidatesTags: ['City'] as any,
     }),
+    uploadImage: builder.mutation<{ url: string }, { file: File }>({
+      query: credentials => {
+        const formData = new FormData();
+        console.log('credentials', credentials);
+        formData.append('avatar', credentials.file);
+        return {
+          url: '/upload',
+          method: 'POST',
+          body: formData,
+        };
+      },
+    }),
   }),
   overrideExisting: true,
 });
@@ -147,4 +166,5 @@ export const {
   useAddCityMutation,
   useUpdateCityMutation,
   useDeleteCityMutation,
+  useUploadImageMutation,
 } = cityApiSlice;

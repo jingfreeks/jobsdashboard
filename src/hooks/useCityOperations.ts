@@ -8,9 +8,11 @@ import {
   type CityFormData,
   type UpdateCityData,
 } from '@/features/city';
+import { useGetStatesQuery } from '@/features/state';
 
 export const useCityOperations = () => {
-  const { data: cities = [], isLoading, error, refetch } = useGetCitiesQuery();
+  const { data: cities = [], isLoading, error, refetch } = useGetCitiesQuery(undefined) as { data: City[], isLoading: boolean, error: unknown, refetch: () => void };
+  const { data: states = [] } = useGetStatesQuery(undefined) as { data: Array<{ _id: string; name: string }> };
   const [addCity, { isLoading: isAdding }] = useAddCityMutation();
   const [updateCity, { isLoading: isUpdating }] = useUpdateCityMutation();
   const [deleteCity, { isLoading: isDeleting }] = useDeleteCityMutation();
@@ -24,6 +26,19 @@ export const useCityOperations = () => {
   const cityMap = useMemo(() => {
     return new Map(cities.map(city => [city._id, city]));
   }, [cities]);
+
+  // Memoized state map for quick lookups
+  const stateMap = useMemo(() => {
+    return new Map(states.map(state => [state._id, state]));
+  }, [states]);
+
+  // Memoized cities with state names
+  const citiesWithStates = useMemo(() => {
+    return sortedCities.map(city => ({
+      ...city,
+      statename: city.statename ? stateMap.get(city.state)?.name || 'Unknown State' : 'No State'
+    }));
+  }, [sortedCities, stateMap]);
 
   // Wrapped operations with error handling
   const createCity = useCallback(async (data: CityFormData): Promise<City | null> => {
@@ -59,7 +74,10 @@ export const useCityOperations = () => {
   return {
     // Data
     cities: sortedCities,
+    citiesWithStates,
+    states,
     cityMap,
+    stateMap,
     
     // Loading states
     isLoading,
