@@ -55,6 +55,35 @@ The city feature has been completely refactored to match the bank feature's arch
 - **Snapshot Tests**: UI consistency validation
 - **Integration Tests**: Full CRUD operation flow testing
 
+### State Feature Refactoring
+The state feature has been completely refactored to match the bank and city features' architecture:
+
+#### **API Layer (`src/features/state.tsx`)**
+- **RTK Query Integration**: Replaced local state with RTK Query for server-side data management
+- **Optimistic Updates**: Instant UI feedback for create, update, and delete operations
+- **Type Safety**: Full TypeScript interfaces for `State`, `StateFormData`, and `UpdateStateData`
+- **Caching**: 5-minute cache duration with automatic invalidation
+- **Error Recovery**: Automatic rollback of optimistic updates on API failures
+
+#### **Custom Hook (`src/hooks/useStateOperations.ts`)**
+- **Centralized Logic**: All state operations wrapped in a single hook
+- **Performance Optimizations**: Memoized sorted states and state map for quick lookups
+- **Error Handling**: Comprehensive error handling with console logging
+- **Loading States**: Individual loading states for each operation type
+
+#### **UI Component (`src/pages/dashboard/component/stateSelector/Stateselector.tsx`)**
+- **Memoized Sub-components**: `StateItem`, `AddStateModal`, and `EditStateModal` for performance
+- **Toast Integration**: Success and error notifications for all operations
+- **Confirmation Dialogs**: Safe delete operations with state name display
+- **Loading States**: Disabled buttons and loading text during operations
+- **Responsive Design**: Mobile-friendly interface with proper accessibility
+
+#### **Testing Coverage**
+- **API Tests** (`src/features/__tests__/state.test.tsx`): Endpoint and hook export validation
+- **Hook Tests** (`src/hooks/__tests__/useStateOperations.test.tsx`): Custom hook functionality testing
+- **Snapshot Tests**: UI consistency validation
+- **Integration Tests**: Full CRUD operation flow testing
+
 ## Authentication Flow
 
 1. **Login/Register**: Users authenticate through the login or register pages

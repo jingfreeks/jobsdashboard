@@ -1,216 +1,168 @@
 import { PlusCircle } from "lucide-react";
-import { useState } from "react";
-
+import { useState, useCallback, memo } from "react";
+import { useStateOperations } from "@/hooks/useStateOperations";
+import { useToast } from "@/hooks/useToast";
+import ToastContainer from "@/components/ToastContainer";
+import { StateItem, AddStateModal, EditStateModal, Loaders } from "./component";
 
 const StateSelector = () => {
-  const [states, setStates] = useState([
-    { id: "1", name: "California" },
-    { id: "2", name: "Texas" },
-    { id: "3", name: "Florida" },
-  ]);
   const [showAddStateModal, setShowAddStateModal] = useState(false);
-  const [editStateId, setEditStateId] = useState<string | null>(null);
-  const [editStateName, setEditStateName] = useState("");
-  const handleAddState = () => setShowAddStateModal(true);
-  const handleCloseAddStateModal = () => {
-    setShowAddStateModal(false);
-    setNewStateName("");
-  };
   const [showEditStateModal, setShowEditStateModal] = useState(false);
   const [newStateName, setNewStateName] = useState("");
-  const handleCreateState = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newStateName.trim()) {
-      const newId = states.length
-        ? (Math.max(...states.map((s) => parseInt(s.id))) + 1).toString()
-        : "1";
-      setStates([...states, { id: newId, name: newStateName.trim() }]);
-      setNewStateName("");
-      setShowAddStateModal(false);
-    }
-  };
+  const [editStateId, setEditStateId] = useState<string | null>(null);
+  const [editStateName, setEditStateName] = useState("");
 
-  const handleCloseEditStateModal = () => {
+  const {
+    states,
+    isLoading,
+    isAdding,
+    isUpdating,
+    isDeleting,
+    createState,
+    updateStateById,
+    deleteStateById,
+  } = useStateOperations();
+
+  const { toasts, removeToast, showSuccess, showError } = useToast();
+
+  const handleAddState = useCallback(() => setShowAddStateModal(true), []);
+
+  const handleCloseAddStateModal = useCallback(() => {
+    setShowAddStateModal(false);
+    setNewStateName("");
+  }, []);
+
+  const handleCloseEditStateModal = useCallback(() => {
     setShowEditStateModal(false);
     setEditStateId(null);
     setEditStateName("");
-  };
+  }, []);
 
-  const handleUpdateState = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (editStateId !== null && editStateName.trim()) {
-      setStates(
-        states.map((s) =>
-          s.id === editStateId ? { ...s, name: editStateName.trim() } : s
-        )
+  const handleCreateState = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (newStateName.trim()) {
+        const result = await createState({ name: newStateName.trim() });
+        if (result) {
+          showSuccess(
+            `State "${newStateName.trim()}" has been created successfully.`
+          );
+          setNewStateName("");
+          setShowAddStateModal(false);
+        } else {
+          showError("Failed to create state. Please try again.");
+        }
+      }
+    },
+    [newStateName, createState, showSuccess, showError]
+  );
+
+  const handleUpdateState = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (editStateId !== null && editStateName.trim()) {
+        const result = await updateStateById({
+          _id: editStateId,
+          name: editStateName.trim(),
+        });
+        if (result) {
+          showSuccess(
+            `State "${editStateName.trim()}" has been updated successfully.`
+          );
+          setShowEditStateModal(false);
+          setEditStateId(null);
+          setEditStateName("");
+        } else {
+          showError("Failed to update state. Please try again.");
+        }
+      }
+    },
+    [editStateId, editStateName, updateStateById, showSuccess, showError]
+  );
+
+  const handleEditState = useCallback(
+    (id: string) => {
+      const state = states.find((s) => s._id === id);
+      if (state) {
+        setEditStateId(id);
+        setEditStateName(state.name);
+        setShowEditStateModal(true);
+      }
+    },
+    [states]
+  );
+
+  const handleDeleteState = useCallback(
+    async (stateId: string) => {
+      const state = states.find((s) => s._id === stateId);
+      const stateName = state?.name || "this state";
+      const isConfirmed = window.confirm(
+        `Are you sure you want to delete "${stateName}"? This action cannot be undone.`
       );
-      setShowEditStateModal(false);
-      setEditStateId(null);
-      setEditStateName("");
-    }
-  };
 
-  const handleEditState = (id: string) => {
-    const state = states.find((s) => s.id === id);
-    if (state) {
-      setEditStateId(id);
-      setEditStateName(state.name);
-      setShowEditStateModal(true);
-    }
-  };
-  const handleDeleteState = (id: string) => {
-    setStates(states.filter((s) => s.id !== id));
-  };
+      if (isConfirmed) {
+        const success = await deleteStateById(stateId);
+        if (!success) {
+          console.error("Failed to delete state");
+          showError("Failed to delete state. Please try again.");
+        } else {
+          showSuccess(`State "${stateName}" has been deleted successfully.`);
+        }
+      }
+    },
+    [deleteStateById, states, showSuccess, showError]
+  );
+
+  if (isLoading) {
+    return <Loaders title='Loading states...'/>;
+  }
 
   return (
     <div className="max-w-2xl mx-auto">
+      <ToastContainer toasts={toasts} onRemoveToast={removeToast} />
+
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-slate-800">State List</h2>
         <button
           onClick={handleAddState}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition"
+          disabled={isAdding || isUpdating || isDeleting}
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition disabled:opacity-50"
         >
           <PlusCircle className="w-5 h-5" /> Add State
         </button>
       </div>
-      {/* Add State Modal */}
-      {showAddStateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-          <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md relative">
-            <button
-              onClick={handleCloseAddStateModal}
-              className="absolute top-3 right-3 text-slate-400 hover:text-slate-700 text-xl font-bold"
-            >
-              &times;
-            </button>
-            <h3 className="text-xl font-bold mb-4 text-slate-800">
-              Create New State
-            </h3>
-            <form onSubmit={handleCreateState} className="flex flex-col gap-4">
-              <input
-                type="text"
-                className="border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-                placeholder="State Name"
-                value={newStateName}
-                onChange={(e) => setNewStateName(e.target.value)}
-                autoFocus
-                required
-              />
-              <div className="flex gap-2 justify-end">
-                <button
-                  type="button"
-                  onClick={handleCloseAddStateModal}
-                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-                >
-                  Create
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-      {/* Edit State Modal */}
-      {showEditStateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-          <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md relative">
-            <button
-              onClick={handleCloseEditStateModal}
-              className="absolute top-3 right-3 text-slate-400 hover:text-slate-700 text-xl font-bold"
-            >
-              &times;
-            </button>
-            <h3 className="text-xl font-bold mb-4 text-slate-800">
-              Edit State
-            </h3>
-            <form onSubmit={handleUpdateState} className="flex flex-col gap-4">
-              <input
-                type="text"
-                className="border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-                placeholder="State Name"
-                value={editStateName}
-                onChange={(e) => setEditStateName(e.target.value)}
-                autoFocus
-                required
-              />
-              <div className="flex gap-2 justify-end">
-                <button
-                  type="button"
-                  onClick={handleCloseEditStateModal}
-                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-                >
-                  Update
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+
+      <AddStateModal
+        isOpen={showAddStateModal}
+        onClose={handleCloseAddStateModal}
+        onSubmit={handleCreateState}
+        stateName={newStateName}
+        setStateName={setNewStateName}
+        isAdding={isAdding}
+      />
+
+      <EditStateModal
+        isOpen={showEditStateModal}
+        onClose={handleCloseEditStateModal}
+        onSubmit={handleUpdateState}
+        stateName={editStateName}
+        setStateName={setEditStateName}
+        isUpdating={isUpdating}
+      />
+
       <div className="bg-white rounded-xl shadow p-6 border border-slate-100">
         {states.length === 0 ? (
           <div className="text-slate-400 italic">No states</div>
         ) : (
           <ul className="divide-y divide-slate-100">
             {states.map((state) => (
-              <li
-                key={state.id}
-                className="flex items-center justify-between py-3"
-              >
-                <span className="flex-1 truncate text-slate-800 font-medium">
-                  {state.name}
-                </span>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => handleEditState(state.id)}
-                    className="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => handleDeleteState(state.id)}
-                    className="text-red-500 hover:text-red-700 px-2 py-1 rounded transition"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </li>
+              <StateItem
+                key={state._id}
+                state={state}
+                onEdit={handleEditState}
+                onDelete={handleDeleteState}
+                isDeleting={isDeleting}
+              />
             ))}
           </ul>
         )}
@@ -218,4 +170,5 @@ const StateSelector = () => {
     </div>
   );
 };
-export default StateSelector;
+
+export default memo(StateSelector);
