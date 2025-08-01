@@ -1,0 +1,356 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Login > matches login form snapshot 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center "
+  >
+    <div
+      class="w-full max-w-md bg-white rounded-2xl shadow-2xl px-8 py-10 flex flex-col items-center"
+    >
+      <img
+        alt="Logo"
+        class="w-20 h-20 mb-6"
+        src="/src/assets/react.svg"
+      />
+      <h1
+        class="text-2xl font-bold mb-6 text-center"
+      >
+        Log in to Your Account
+      </h1>
+      <form
+        class="w-full flex flex-col gap-4"
+      >
+        <div>
+          <label
+            class="block text-sm font-medium mb-1"
+            for="email"
+          >
+            Email
+          </label>
+          <input
+            class="w-full px-4 py-3 border border-gray-200 rounded-lg text-base bg-gray-50 focus:outline-none focus:border-blue-600"
+            id="email"
+            name="username"
+            type="text"
+          />
+        </div>
+        <div>
+          <label
+            class="block text-sm font-medium mb-1"
+            for="password"
+          >
+            Password
+          </label>
+          <div
+            class="relative"
+          >
+            <input
+              class="w-full px-4 py-3 border border-gray-200 rounded-lg text-base bg-gray-50 focus:outline-none focus:border-blue-600 pr-10"
+              id="password"
+              name="password"
+              type="password"
+            />
+            <button
+              class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              tabindex="-1"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-eye h-4 w-4"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="3"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button
+          class="w-full py-3 bg-[#0856d1] text-white rounded-lg font-semibold hover:bg-blue-700 transition"
+          type="submit"
+        >
+          Log in
+        </button>
+      </form>
+      <div
+        class="w-full flex flex-col items-center mt-4 gap-1"
+      >
+        <a
+          class="text-xs text-gray-500 hover:underline"
+          href="#"
+        >
+          Forgot password?
+        </a>
+        <span
+          class="text-sm text-gray-700"
+        >
+          Don't have an account? 
+          <a
+            class="text-[#0856d1] hover:underline font-medium"
+            data-discover="true"
+            href="/register"
+          >
+            Sign up
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Login > renders login form fields and button 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center "
+  >
+    <div
+      class="w-full max-w-md bg-white rounded-2xl shadow-2xl px-8 py-10 flex flex-col items-center"
+    >
+      <img
+        alt="Logo"
+        class="w-20 h-20 mb-6"
+        src="/src/assets/react.svg"
+      />
+      <h1
+        class="text-2xl font-bold mb-6 text-center"
+      >
+        Log in to Your Account
+      </h1>
+      <form
+        class="w-full flex flex-col gap-4"
+      >
+        <div>
+          <label
+            class="block text-sm font-medium mb-1"
+            for="email"
+          >
+            Email
+          </label>
+          <input
+            class="w-full px-4 py-3 border border-gray-200 rounded-lg text-base bg-gray-50 focus:outline-none focus:border-blue-600"
+            id="email"
+            name="username"
+            type="text"
+          />
+        </div>
+        <div>
+          <label
+            class="block text-sm font-medium mb-1"
+            for="password"
+          >
+            Password
+          </label>
+          <div
+            class="relative"
+          >
+            <input
+              class="w-full px-4 py-3 border border-gray-200 rounded-lg text-base bg-gray-50 focus:outline-none focus:border-blue-600 pr-10"
+              id="password"
+              name="password"
+              type="password"
+            />
+            <button
+              class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              tabindex="-1"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-eye h-4 w-4"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="3"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button
+          class="w-full py-3 bg-[#0856d1] text-white rounded-lg font-semibold hover:bg-blue-700 transition"
+          type="submit"
+        >
+          Log in
+        </button>
+      </form>
+      <div
+        class="w-full flex flex-col items-center mt-4 gap-1"
+      >
+        <a
+          class="text-xs text-gray-500 hover:underline"
+          href="#"
+        >
+          Forgot password?
+        </a>
+        <span
+          class="text-sm text-gray-700"
+        >
+          Don't have an account? 
+          <a
+            class="text-[#0856d1] hover:underline font-medium"
+            data-discover="true"
+            href="/register"
+          >
+            Sign up
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Login > shows validation error if fields are empty 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center "
+  >
+    <div
+      class="w-full max-w-md bg-white rounded-2xl shadow-2xl px-8 py-10 flex flex-col items-center"
+    >
+      <img
+        alt="Logo"
+        class="w-20 h-20 mb-6"
+        src="/src/assets/react.svg"
+      />
+      <h1
+        class="text-2xl font-bold mb-6 text-center"
+      >
+        Log in to Your Account
+      </h1>
+      <form
+        class="w-full flex flex-col gap-4"
+      >
+        <div>
+          <label
+            class="block text-sm font-medium mb-1"
+            for="email"
+          >
+            Email
+          </label>
+          <input
+            class="w-full px-4 py-3 border border-gray-200 rounded-lg text-base bg-gray-50 focus:outline-none focus:border-blue-600"
+            id="email"
+            name="username"
+            type="text"
+          />
+          <span
+            class="text-red-500 text-xs"
+          >
+            Username is required
+          </span>
+        </div>
+        <div>
+          <label
+            class="block text-sm font-medium mb-1"
+            for="password"
+          >
+            Password
+          </label>
+          <div
+            class="relative"
+          >
+            <input
+              class="w-full px-4 py-3 border border-gray-200 rounded-lg text-base bg-gray-50 focus:outline-none focus:border-blue-600 pr-10"
+              id="password"
+              name="password"
+              type="password"
+            />
+            <button
+              class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              tabindex="-1"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-eye h-4 w-4"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="3"
+                />
+              </svg>
+            </button>
+          </div>
+          <span
+            class="text-red-500 text-xs"
+          >
+            Password is required
+          </span>
+        </div>
+        <button
+          class="w-full py-3 bg-[#0856d1] text-white rounded-lg font-semibold hover:bg-blue-700 transition"
+          type="submit"
+        >
+          Log in
+        </button>
+      </form>
+      <div
+        class="w-full flex flex-col items-center mt-4 gap-1"
+      >
+        <a
+          class="text-xs text-gray-500 hover:underline"
+          href="#"
+        >
+          Forgot password?
+        </a>
+        <span
+          class="text-sm text-gray-700"
+        >
+          Don't have an account? 
+          <a
+            class="text-[#0856d1] hover:underline font-medium"
+            data-discover="true"
+            href="/register"
+          >
+            Sign up
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

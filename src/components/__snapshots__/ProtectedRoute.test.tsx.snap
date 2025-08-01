@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ProtectedRoute > matches protected route snapshot when authenticated 1`] = `
+<div>
+  <div>
+    Protected Content
+  </div>
+</div>
+`;
+
+exports[`ProtectedRoute > matches protected route snapshot when not authenticated 1`] = `<div />`;
+
+exports[`ProtectedRoute > should redirect to login when user is not authenticated 1`] = `<div />`;
+
+exports[`ProtectedRoute > should render children when user is authenticated 1`] = `
+<div>
+  <div>
+    Protected Content
+  </div>
+</div>
+`;
