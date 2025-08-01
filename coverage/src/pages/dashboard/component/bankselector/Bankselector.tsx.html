@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">4.83% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/248</span>
+                <span class='fraction'>12/248</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">4.83% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/248</span>
+                <span class='fraction'>12/248</span>
             </div>
         
             
@@ -376,15 +376,15 @@
 <a name='L311'></a><a href='#L311'>311</a>
 <a name='L312'></a><a href='#L312'>312</a>
 <a name='L313'></a><a href='#L313'>313</a>
-<a name='L314'></a><a href='#L314'>314</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L314'></a><a href='#L314'>314</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -442,12 +442,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -512,14 +512,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -688,16 +688,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { PlusCircle } from "lucide-react";<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
-<span class="cstat-no" title="statement not covered" >import { useState, useCallback, memo } from "react";</span>
-<span class="cstat-no" title="statement not covered" >import { useBankOperations } from "@/hooks/useBankOperations";</span>
-<span class="cstat-no" title="statement not covered" >import { useToast } from "@/hooks/useToast";</span>
-<span class="cstat-no" title="statement not covered" >import ToastContainer from "@/components/ToastContainer";</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { PlusCircle } from "lucide-react";
+import { useState, useCallback, memo } from "react";
+import { useBankOperations } from "@/hooks/useBankOperations";
+import { useToast } from "@/hooks/useToast";
+import ToastContainer from "@/components/ToastContainer";
 import type { Bank } from "@/features/bank";
 &nbsp;
 // Memoized Bank Item Component
-<span class="cstat-no" title="statement not covered" >const BankItem = memo(({ </span>
+const BankItem = memo(({ 
 <span class="cstat-no" title="statement not covered" >  bank, </span>
 <span class="cstat-no" title="statement not covered" >  onEdit, </span>
 <span class="cstat-no" title="statement not covered" >  onDelete, </span>
@@ -755,12 +755,12 @@ import type { Bank } from "@/features/bank";
 <span class="cstat-no" title="statement not covered" >      &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >  &lt;/li&gt;</span>
-<span class="cstat-no" title="statement not covered" >));</span>
+));
 &nbsp;
-<span class="cstat-no" title="statement not covered" >BankItem.displayName = 'BankItem';</span>
+BankItem.displayName = 'BankItem';
 &nbsp;
 // Memoized Modal Component
-<span class="cstat-no" title="statement not covered" >const BankModal = memo(({ </span>
+const BankModal = memo(({ 
 <span class="cstat-no" title="statement not covered" >  isOpen, </span>
 <span class="cstat-no" title="statement not covered" >  title, </span>
 <span class="cstat-no" title="statement not covered" >  value, </span>
@@ -825,9 +825,9 @@ import type { Bank } from "@/features/bank";
   );
 <span class="cstat-no" title="statement not covered" >});</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >BankModal.displayName = 'BankModal';</span>
+BankModal.displayName = 'BankModal';
 &nbsp;
-<span class="cstat-no" title="statement not covered" >const Bankselector = () =&gt; {</span>
+const Bankselector = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  const [showAddBankModal, setShowAddBankModal] = useState(false);</span>
 <span class="cstat-no" title="statement not covered" >  const [showEditBankModal, setShowEditBankModal] = useState(false);</span>
 <span class="cstat-no" title="statement not covered" >  const [editBankId, setEditBankId] = useState&lt;string | null&gt;(null);</span>
@@ -1001,7 +1001,7 @@ import type { Bank } from "@/features/bank";
   );
 <span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default memo(Bankselector);</span>
+export default memo(Bankselector);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -1009,7 +1009,7 @@ import type { Bank } from "@/features/bank";
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-08-01T03:40:14.770Z
+                at 2025-08-01T04:34:46.672Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
