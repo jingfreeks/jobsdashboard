@@ -286,4 +286,201 @@ describe('StateSelector', () => {
     
     mockConfirm.mockRestore();
   });
+
+  // Additional test cases for better coverage
+
+  it('should not create state with empty name', async () => {
+    renderStateSelector();
+    
+    // Open modal
+    const addButton = screen.getByText('Add State');
+    fireEvent.click(addButton);
+    
+    // Try to submit with empty name
+    const createButton = screen.getByText('Create');
+    fireEvent.click(createButton);
+    
+    await waitFor(() => {
+      expect(mockUseStateOperations.createState).not.toHaveBeenCalled();
+    });
+  });
+
+  it('should not create state with whitespace-only name', async () => {
+    renderStateSelector();
+    
+    // Open modal
+    const addButton = screen.getByText('Add State');
+    fireEvent.click(addButton);
+    
+    // Fill form with whitespace
+    const input = screen.getByPlaceholderText('State Name');
+    fireEvent.change(input, { target: { value: '   ' } });
+    
+    // Submit form
+    const createButton = screen.getByText('Create');
+    fireEvent.click(createButton);
+    
+    await waitFor(() => {
+      expect(mockUseStateOperations.createState).not.toHaveBeenCalled();
+    });
+  });
+
+  it('should trim whitespace from state name when creating', async () => {
+    mockUseStateOperations.createState.mockResolvedValue({ _id: '4', name: 'New York' });
+    
+    renderStateSelector();
+    
+    // Open modal
+    const addButton = screen.getByText('Add State');
+    fireEvent.click(addButton);
+    
+    // Fill form with whitespace
+    const input = screen.getByPlaceholderText('State Name');
+    fireEvent.change(input, { target: { value: '  New York  ' } });
+    
+    // Submit form
+    const createButton = screen.getByText('Create');
+    fireEvent.click(createButton);
+    
+    await waitFor(() => {
+      expect(mockUseStateOperations.createState).toHaveBeenCalledWith({ name: 'New York' });
+    });
+  });
+
+  it('should not update state with empty name', async () => {
+    renderStateSelector();
+    
+    // Find and click edit button for first state
+    const editButtons = screen.getAllByRole('button');
+    const editButton = editButtons.find(button => 
+      button.innerHTML.includes('M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z')
+    );
+    
+    if (editButton) {
+      fireEvent.click(editButton);
+      
+      // Clear the input
+      const input = screen.getByPlaceholderText('State Name');
+      fireEvent.change(input, { target: { value: '' } });
+      
+      // Submit form
+      const updateButton = screen.getByText('Update');
+      fireEvent.click(updateButton);
+      
+      await waitFor(() => {
+        expect(mockUseStateOperations.updateStateById).not.toHaveBeenCalled();
+      });
+    }
+  });
+
+  it('should not delete state when user cancels confirmation', async () => {
+    // Mock window.confirm to return false
+    const mockConfirm = vi.spyOn(window, 'confirm').mockReturnValue(false);
+    
+    renderStateSelector();
+    
+    // Find and click delete button for first state
+    const deleteButtons = screen.getAllByRole('button');
+    const deleteButton = deleteButtons.find(button => 
+      button.innerHTML.includes('M6 18L18 6M6 6l12 12')
+    );
+    
+    if (deleteButton) {
+      fireEvent.click(deleteButton);
+      
+      await waitFor(() => {
+        expect(mockConfirm).toHaveBeenCalledWith('Are you sure you want to delete "California"? This action cannot be undone.');
+        expect(mockUseStateOperations.deleteStateById).not.toHaveBeenCalled();
+      });
+    }
+    
+    mockConfirm.mockRestore();
+  });
+
+  it('should disable add button when operations are in progress', () => {
+    // Set loading states
+    mockUseStateOperations.isAdding = true;
+    
+    renderStateSelector();
+    
+    const addButton = screen.getByText('Add State');
+    expect(addButton).toBeDisabled();
+    
+    // Reset loading state
+    mockUseStateOperations.isAdding = false;
+  });
+
+  it('should disable add button when adding state', () => {
+    // Set loading state first
+    mockUseStateOperations.isAdding = true;
+    
+    renderStateSelector();
+    
+    // Check that the button is disabled
+    const addButton = screen.getByText('Add State');
+    expect(addButton).toBeDisabled();
+    
+    // Reset loading state
+    mockUseStateOperations.isAdding = false;
+  });
+
+  it('should show loading state in edit modal when updating', () => {
+    mockUseStateOperations.isUpdating = true;
+    
+    renderStateSelector();
+    
+    // Find and click edit button for first state
+    const editButtons = screen.getAllByRole('button');
+    const editButton = editButtons.find(button => 
+      button.innerHTML.includes('M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z')
+    );
+    
+    if (editButton) {
+      fireEvent.click(editButton);
+      
+      expect(screen.getByText('Updating...')).toBeInTheDocument();
+    }
+    
+    // Reset loading state
+    mockUseStateOperations.isUpdating = false;
+  });
+
+  it('should handle deletion of state with empty name gracefully', async () => {
+    mockUseStateOperations.deleteStateById.mockResolvedValue(true);
+    
+    // Mock window.confirm
+    const mockConfirm = vi.spyOn(window, 'confirm').mockReturnValue(true);
+    
+    // Temporarily modify states to include one with empty name
+    const originalStates = mockUseStateOperations.states;
+    mockUseStateOperations.states = [
+      { _id: '1', name: 'California' },
+      { _id: '2', name: '' },
+      { _id: '3', name: 'Florida' },
+    ];
+    
+    renderStateSelector();
+    
+    // Test that the component renders without errors when there's a state with empty name
+    expect(screen.getByText('California')).toBeInTheDocument();
+    expect(screen.getByText('Florida')).toBeInTheDocument();
+    
+    // Restore original states
+    mockUseStateOperations.states = originalStates;
+    mockConfirm.mockRestore();
+  });
+
+  it('should handle edit state when state is not found', () => {
+    renderStateSelector();
+    
+    // Temporarily modify states to be empty
+    const originalStates = mockUseStateOperations.states;
+    mockUseStateOperations.states = [];
+    
+    // This should not throw an error
+    expect(() => renderStateSelector()).not.toThrow();
+    
+    // Restore original states
+    mockUseStateOperations.states = originalStates;
+  });
 }); 

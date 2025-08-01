@@ -36,14 +36,14 @@ export const useCityOperations = () => {
   const citiesWithStates = useMemo(() => {
     return sortedCities.map(city => ({
       ...city,
-      statename: city.statename ? stateMap.get(city.state)?.name || 'Unknown State' : 'No State'
+      statename: city.stateId && stateMap.get(city.stateId)?.name || 'Unknown State'
     }));
   }, [sortedCities, stateMap]);
 
   // Wrapped operations with error handling
   const createCity = useCallback(async (data: CityFormData): Promise<City | null> => {
     try {
-      const result = await addCity(data).unwrap();
+      const result = await addCity(data).unwrap() as City;
       return result;
     } catch (error) {
       console.error('Failed to create city:', error);
@@ -53,7 +53,7 @@ export const useCityOperations = () => {
 
   const updateCityById = useCallback(async (data: UpdateCityData): Promise<City | null> => {
     try {
-      const result = await updateCity(data).unwrap();
+      const result = await updateCity(data).unwrap() as City;
       return result;
     } catch (error) {
       console.error('Failed to update city:', error);
