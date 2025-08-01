@@ -1,0 +1,162 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Sidebar > should render correctly and match snapshot 1`] = `
+<div>
+  <aside
+    class="w-64 bg-gradient-to-b from-blue-50 via-white to-white border-r border-slate-200 flex flex-col min-h-screen shadow-lg"
+  >
+    <nav
+      class="flex-1 px-4 py-6"
+    >
+      <div
+        class="mb-3 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider"
+      >
+        Main
+      </div>
+      <ul
+        class="flex flex-col gap-1"
+      >
+        <li>
+          <button
+            class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base transition w-full
+                  bg-blue-100 text-blue-700 shadow"
+          >
+            <div
+              data-testid="barchart2-icon"
+            >
+              BarChart2
+            </div>
+             Dashboard
+          </button>
+        </li>
+        <li>
+          <button
+            class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base transition w-full
+                  text-slate-700 hover:bg-blue-50 hover:text-blue-700"
+          >
+            <div
+              data-testid="briefcase-icon"
+            >
+              Briefcase
+            </div>
+             Jobs
+          </button>
+        </li>
+      </ul>
+      <div
+        class="my-5 border-t border-slate-100"
+      />
+      <div
+        class="mb-3 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider"
+      >
+        Settings
+      </div>
+      <ul
+        class="flex flex-col gap-1"
+      >
+        <li>
+          <button
+            aria-controls="sidebar-settings-sublist"
+            aria-expanded="false"
+            class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition w-full justify-between"
+          >
+            <span
+              class="flex items-center gap-3"
+            >
+              <div
+                data-testid="settings-icon"
+              >
+                Settings
+              </div>
+               Settings
+            </span>
+            <div
+              class="w-4 h-4 ml-2 transition-transform "
+              data-testid="chevrondown-icon"
+            >
+              ChevronDown
+            </div>
+          </button>
+        </li>
+      </ul>
+      <div
+        class="my-5 border-t border-slate-100"
+      />
+      <div
+        class="mb-3 px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider"
+      >
+        Management
+      </div>
+      <ul
+        class="flex flex-col gap-1"
+      >
+        <li>
+          <button
+            class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition w-full"
+          >
+            <div
+              data-testid="pluscircle-icon"
+            >
+              PlusCircle
+            </div>
+             Add Job
+          </button>
+        </li>
+        <li>
+          <button
+            class="flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-base text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition w-full"
+          >
+            <div
+              data-testid="calendarcheck2-icon"
+            >
+              CalendarCheck2
+            </div>
+             Schedule Interview
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <div
+      class="px-6 pb-8 mt-auto flex flex-col gap-3"
+    >
+      <div
+        class="flex items-center gap-3"
+      >
+        <span
+          class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-700 font-bold text-lg"
+        >
+          <div
+            data-testid="user-icon"
+          >
+            User
+          </div>
+        </span>
+        <div
+          class="flex flex-col"
+        >
+          <span
+            class="font-semibold text-slate-800 leading-tight"
+          >
+            Jane Doe
+          </span>
+          <span
+            class="text-xs text-slate-500"
+          >
+            Admin
+          </span>
+        </div>
+      </div>
+      <button
+        class="flex items-center gap-2 w-full bg-red-50 hover:bg-red-100 text-red-600 rounded-md px-4 py-2 font-semibold transition mt-2"
+      >
+        <div
+          data-testid="logout-icon"
+        >
+          LogOut
+        </div>
+         Logout
+      </button>
+    </div>
+  </aside>
+</div>
+`;
