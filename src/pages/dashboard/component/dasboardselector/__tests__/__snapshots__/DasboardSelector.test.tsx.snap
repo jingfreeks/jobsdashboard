@@ -1,0 +1,207 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DasboardSelector > should render correctly and match snapshot 1`] = `
+<div>
+  <div
+    class="flex flex-wrap gap-4 mb-8"
+  >
+    <button
+      class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition"
+    >
+      <svg
+        class="w-5 h-5"
+        data-testid="plus-circle-icon"
+      />
+       Add Job
+    </button>
+    <button
+      class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition"
+    >
+      <svg
+        class="w-5 h-5"
+        data-testid="calendar-check-icon"
+      />
+       Schedule Interview
+    </button>
+  </div>
+  <div
+    class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+  >
+    <div
+      class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 border border-slate-100"
+    >
+      <span
+        class="text-slate-500 text-sm"
+      >
+        Total Jobs
+      </span>
+      <span
+        class="text-2xl font-bold text-blue-700"
+      >
+        74
+      </span>
+    </div>
+    <div
+      class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 border border-slate-100"
+    >
+      <span
+        class="text-slate-500 text-sm"
+      >
+        Interviews
+      </span>
+      <span
+        class="text-2xl font-bold text-blue-700"
+      >
+        18
+      </span>
+    </div>
+    <div
+      class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 border border-slate-100"
+    >
+      <span
+        class="text-slate-500 text-sm"
+      >
+        Offers
+      </span>
+      <span
+        class="text-2xl font-bold text-blue-700"
+      >
+        5
+      </span>
+    </div>
+  </div>
+  <div
+    class="grid grid-cols-1 lg:grid-cols-3 gap-8"
+  >
+    <div
+      class="bg-white p-8 rounded-xl shadow-lg border border-slate-100 col-span-1 lg:col-span-2"
+    >
+      <h2
+        class="text-xl font-semibold text-slate-800 mb-4"
+      >
+        Job Applications Over Time
+      </h2>
+      <div
+        data-testid="chart-container"
+      />
+    </div>
+    <div
+      class="bg-white p-6 rounded-xl shadow-lg border border-slate-100 flex flex-col gap-4"
+    >
+      <h2
+        class="text-lg font-semibold text-slate-800 mb-2"
+      >
+        Recent Activity
+      </h2>
+      <ul
+        class="flex-1 space-y-3"
+      >
+        <li
+          class="flex flex-col"
+        >
+          <span
+            class="text-slate-700"
+          >
+            You added a new job: Frontend Developer
+          </span>
+          <span
+            class="text-xs text-slate-400"
+          >
+            Today, 09:00
+          </span>
+        </li>
+        <li
+          class="flex flex-col"
+        >
+          <span
+            class="text-slate-700"
+          >
+            Interview completed: Backend Engineer
+          </span>
+          <span
+            class="text-xs text-slate-400"
+          >
+            Yesterday, 15:30
+          </span>
+        </li>
+        <li
+          class="flex flex-col"
+        >
+          <span
+            class="text-slate-700"
+          >
+            Offer accepted: Product Manager
+          </span>
+          <span
+            class="text-xs text-slate-400"
+          >
+            Yesterday, 11:10
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8"
+  >
+    <div
+      class="bg-white p-6 rounded-xl shadow-lg border border-slate-100 flex flex-col gap-4"
+    >
+      <h2
+        class="text-lg font-semibold text-slate-800 mb-2"
+      >
+        Tasks & Reminders
+      </h2>
+      <ul
+        class="flex-1 space-y-3"
+      >
+        <li
+          class="flex flex-col"
+        >
+          <span
+            class="text-slate-700"
+          >
+            Follow up with recruiter
+          </span>
+          <span
+            class="text-xs text-slate-400"
+          >
+            Due: 
+            Today
+          </span>
+        </li>
+        <li
+          class="flex flex-col"
+        >
+          <span
+            class="text-slate-700"
+          >
+            Prepare for interview
+          </span>
+          <span
+            class="text-xs text-slate-400"
+          >
+            Due: 
+            Tomorrow
+          </span>
+        </li>
+        <li
+          class="flex flex-col"
+        >
+          <span
+            class="text-slate-700"
+          >
+            Review candidate resumes
+          </span>
+          <span
+            class="text-xs text-slate-400"
+          >
+            Due: 
+            This week
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
