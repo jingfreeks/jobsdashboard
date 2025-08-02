@@ -1,0 +1,141 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Auth Feature > Auth API Slice > should match snapshot for auth API slice 1`] = `
+{
+  "endpoints": {
+    "login": {
+      "initiate": [Function],
+      "matchFulfilled": [Function],
+      "matchPending": [Function],
+      "matchRejected": [Function],
+      "name": "login",
+      "select": [Function],
+      "useMutation": [Function],
+    },
+    "logout": {
+      "initiate": [Function],
+      "matchFulfilled": [Function],
+      "matchPending": [Function],
+      "matchRejected": [Function],
+      "name": "logout",
+      "select": [Function],
+      "useMutation": [Function],
+    },
+    "signup": {
+      "initiate": [Function],
+      "matchFulfilled": [Function],
+      "matchPending": [Function],
+      "matchRejected": [Function],
+      "name": "signup",
+      "select": [Function],
+      "useMutation": [Function],
+    },
+  },
+  "enhanceEndpoints": [Function],
+  "injectEndpoints": [Function],
+  "internalActions": {
+    "cacheEntriesUpserted": [Function],
+    "internal_getRTKQSubscriptions": [Function],
+    "middlewareRegistered": [Function],
+    "onFocus": [Function],
+    "onFocusLost": [Function],
+    "onOffline": [Function],
+    "onOnline": [Function],
+    "queryResultPatched": [Function],
+    "removeMutationResult": [Function],
+    "removeQueryResult": [Function],
+    "resetApiState": [Function],
+    "subscriptionsUpdated": [Function],
+    "unsubscribeQueryResult": [Function],
+    "updateProvidedBy": [Function],
+    "updateSubscriptionOptions": [Function],
+  },
+  "middleware": [Function],
+  "reducer": [Function],
+  "reducerPath": "api",
+  "useLoginMutation": [Function],
+  "useLogoutMutation": [Function],
+  "usePrefetch": [Function],
+  "useSignupMutation": [Function],
+  "util": {
+    "getRunningMutationThunk": [Function],
+    "getRunningMutationsThunk": [Function],
+    "getRunningQueriesThunk": [Function],
+    "getRunningQueryThunk": [Function],
+    "invalidateTags": [Function],
+    "patchQueryData": [Function],
+    "prefetch": [Function],
+    "resetApiState": [Function],
+    "selectCachedArgsForQuery": [Function],
+    "selectInvalidatedBy": [Function],
+    "updateQueryData": [Function],
+    "upsertQueryData": [Function],
+    "upsertQueryEntries": [Function],
+  },
+}
+`;
+
+exports[`Auth Feature > Auth Slice > Initial State > should match snapshot for initial state 1`] = `
+{
+  "roles": [],
+  "token": null,
+  "user": null,
+  "userId": null,
+}
+`;
+
+exports[`Auth Feature > Auth Slice > rehydrateAuth Action > should match snapshot after rehydration 1`] = `
+{
+  "roles": [
+    "user",
+    "admin",
+  ],
+  "token": "valid-token-123",
+  "user": "testuser@example.com",
+  "userId": "user123",
+}
+`;
+
+exports[`Auth Feature > Auth Slice > setCredentials Action > should match snapshot after setting credentials 1`] = `
+{
+  "roles": [
+    "user",
+    "admin",
+  ],
+  "token": "valid-token-123",
+  "user": "testuser@example.com",
+  "userId": "user123",
+}
+`;
+
+exports[`Auth Feature > Auth Slice > setLogout Action > should match snapshot after logout 1`] = `
+{
+  "roles": [],
+  "token": null,
+  "user": null,
+  "userId": null,
+}
+`;
+
+exports[`Auth Feature > Selectors > Selector Snapshots > should match snapshot for all selectors when authenticated 1`] = `
+{
+  "currentToken": "valid-token-123",
+  "currentUser": "testuser@example.com",
+  "currentUserId": "user123",
+  "isAuthenticated": true,
+  "userRoles": [
+    "user",
+    "admin",
+  ],
+}
+`;
+
+exports[`Auth Feature > Selectors > Selector Snapshots > should match snapshot for all selectors when not authenticated 1`] = `
+{
+  "currentToken": null,
+  "currentUser": null,
+  "currentUserId": null,
+  "isAuthenticated": false,
+  "userRoles": [],
+}
+`;

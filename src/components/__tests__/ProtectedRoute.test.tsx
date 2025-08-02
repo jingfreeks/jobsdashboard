@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '@/features/auth';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from '../ProtectedRoute';
 import type { RootState } from '@/config/store';
 
 // Mock component to render inside ProtectedRoute
