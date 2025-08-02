@@ -39,7 +39,7 @@ export const bankApiSlice = apiSlice.injectEndpoints({
         const tempId = `temp-${Date.now()}`;
         const optimisticBank: Bank = {
           _id: tempId,
-          name: credentials.name,
+          name: credentials.name || '',
         };
 
         const patchResult = dispatch(
@@ -80,6 +80,7 @@ export const bankApiSlice = apiSlice.injectEndpoints({
       }),
       // Optimistic update
       async onQueryStarted({ _id, name }, { dispatch, queryFulfilled }) {
+        if (!_id || !name) return; // Guard against null/undefined values
         const patchResult = dispatch(
           bankApiSlice.util.updateQueryData('getBanks', undefined, (draft) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any

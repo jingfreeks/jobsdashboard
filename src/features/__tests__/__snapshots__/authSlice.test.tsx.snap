@@ -1,0 +1,108 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Auth API Slice > API Endpoint Configuration > should match snapshot for endpoint configurations 1`] = `
+{
+  "login": {
+    "name": "login",
+  },
+  "logout": {
+    "name": "logout",
+  },
+  "signup": {
+    "name": "signup",
+  },
+}
+`;
+
+exports[`Auth API Slice > API Slice Properties > should match snapshot for API slice properties 1`] = `
+{
+  "hasInternalActions": true,
+  "hasMiddleware": true,
+  "hasReducer": true,
+  "hasUtil": true,
+  "reducerPath": "api",
+}
+`;
+
+exports[`Auth API Slice > Auth API Slice Structure > should match snapshot for auth API slice 1`] = `
+{
+  "endpoints": {
+    "login": {
+      "initiate": [Function],
+      "matchFulfilled": [Function],
+      "matchPending": [Function],
+      "matchRejected": [Function],
+      "name": "login",
+      "select": [Function],
+      "useMutation": [Function],
+    },
+    "logout": {
+      "initiate": [Function],
+      "matchFulfilled": [Function],
+      "matchPending": [Function],
+      "matchRejected": [Function],
+      "name": "logout",
+      "select": [Function],
+      "useMutation": [Function],
+    },
+    "signup": {
+      "initiate": [Function],
+      "matchFulfilled": [Function],
+      "matchPending": [Function],
+      "matchRejected": [Function],
+      "name": "signup",
+      "select": [Function],
+      "useMutation": [Function],
+    },
+  },
+  "enhanceEndpoints": [Function],
+  "injectEndpoints": [Function],
+  "internalActions": {
+    "cacheEntriesUpserted": [Function],
+    "internal_getRTKQSubscriptions": [Function],
+    "middlewareRegistered": [Function],
+    "onFocus": [Function],
+    "onFocusLost": [Function],
+    "onOffline": [Function],
+    "onOnline": [Function],
+    "queryResultPatched": [Function],
+    "removeMutationResult": [Function],
+    "removeQueryResult": [Function],
+    "resetApiState": [Function],
+    "subscriptionsUpdated": [Function],
+    "unsubscribeQueryResult": [Function],
+    "updateProvidedBy": [Function],
+    "updateSubscriptionOptions": [Function],
+  },
+  "middleware": [Function],
+  "reducer": [Function],
+  "reducerPath": "api",
+  "useLoginMutation": [Function],
+  "useLogoutMutation": [Function],
+  "usePrefetch": [Function],
+  "useSignupMutation": [Function],
+  "util": {
+    "getRunningMutationThunk": [Function],
+    "getRunningMutationsThunk": [Function],
+    "getRunningQueriesThunk": [Function],
+    "getRunningQueryThunk": [Function],
+    "invalidateTags": [Function],
+    "patchQueryData": [Function],
+    "prefetch": [Function],
+    "resetApiState": [Function],
+    "selectCachedArgsForQuery": [Function],
+    "selectInvalidatedBy": [Function],
+    "updateQueryData": [Function],
+    "upsertQueryData": [Function],
+    "upsertQueryEntries": [Function],
+  },
+}
+`;
+
+exports[`Auth API Slice > Exported Hooks > should match snapshot for exported hooks 1`] = `
+{
+  "useLoginMutation": "function",
+  "useLogoutMutation": "function",
+  "useSignupMutation": "function",
+}
+`;

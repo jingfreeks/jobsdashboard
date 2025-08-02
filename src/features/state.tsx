@@ -30,6 +30,7 @@ export const stateApiSlice = apiSlice.injectEndpoints({
         body: credentials,
       }),
       async onQueryStarted({ name }, { dispatch, queryFulfilled }) {
+        if (!name) return; // Guard against null/undefined name
         const tempId = `temp-${Date.now()}`;
         const optimisticState: State = { _id: tempId, name };
         const patchResult = dispatch(
@@ -66,6 +67,7 @@ export const stateApiSlice = apiSlice.injectEndpoints({
         body: credentials,
       }),
       async onQueryStarted({ _id, name }, { dispatch, queryFulfilled }) {
+        if (!_id || !name) return; // Guard against null/undefined values
         const patchResult = dispatch(
           stateApiSlice.util.updateQueryData('getStates', undefined, (draft) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any

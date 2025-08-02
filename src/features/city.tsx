@@ -42,6 +42,7 @@ export const cityApiSlice = apiSlice.injectEndpoints({
       }),
       // Optimistic update
       async onQueryStarted({ name }, { dispatch, queryFulfilled }) {
+        if (!name) return; // Guard against null/undefined name
         const patchResult = dispatch(
           cityApiSlice.util.updateQueryData('getCities', undefined, (draft) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -82,6 +83,7 @@ export const cityApiSlice = apiSlice.injectEndpoints({
       }),
       // Optimistic update
       async onQueryStarted({ _id, name }, { dispatch, queryFulfilled }) {
+        if (!_id || !name) return; // Guard against null/undefined values
         const patchResult = dispatch(
           cityApiSlice.util.updateQueryData('getCities', undefined, (draft) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
