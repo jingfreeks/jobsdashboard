@@ -1,0 +1,106 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useToast > Snapshot Tests > should match snapshot after adding a toast 1`] = `
+{
+  "addToast": [Function],
+  "removeToast": [Function],
+  "showError": [Function],
+  "showInfo": [Function],
+  "showSuccess": [Function],
+  "showWarning": [Function],
+  "toasts": [
+    {
+      "duration": 5000,
+      "id": "1234567890",
+      "message": "Test message",
+      "type": "success",
+    },
+  ],
+}
+`;
+
+exports[`useToast > Snapshot Tests > should match snapshot after adding multiple toasts 1`] = `
+{
+  "addToast": [Function],
+  "removeToast": [Function],
+  "showError": [Function],
+  "showInfo": [Function],
+  "showSuccess": [Function],
+  "showWarning": [Function],
+  "toasts": [
+    {
+      "duration": undefined,
+      "id": "1234567890",
+      "message": "Success message",
+      "type": "success",
+    },
+    {
+      "duration": undefined,
+      "id": "1234567891",
+      "message": "Error message",
+      "type": "error",
+    },
+    {
+      "duration": undefined,
+      "id": "1234567892",
+      "message": "Warning message",
+      "type": "warning",
+    },
+    {
+      "duration": undefined,
+      "id": "1234567893",
+      "message": "Info message",
+      "type": "info",
+    },
+  ],
+}
+`;
+
+exports[`useToast > Snapshot Tests > should match snapshot after removing toasts 1`] = `
+{
+  "addToast": [Function],
+  "removeToast": [Function],
+  "showError": [Function],
+  "showInfo": [Function],
+  "showSuccess": [Function],
+  "showWarning": [Function],
+  "toasts": [
+    {
+      "duration": undefined,
+      "id": "1234567890",
+      "message": "Success message",
+      "type": "success",
+    },
+    {
+      "duration": undefined,
+      "id": "1234567892",
+      "message": "Warning message",
+      "type": "warning",
+    },
+  ],
+}
+`;
+
+exports[`useToast > Snapshot Tests > should match snapshot for empty state after removing all toasts 1`] = `
+{
+  "addToast": [Function],
+  "removeToast": [Function],
+  "showError": [Function],
+  "showInfo": [Function],
+  "showSuccess": [Function],
+  "showWarning": [Function],
+  "toasts": [],
+}
+`;
+
+exports[`useToast > Snapshot Tests > should match snapshot for initial state 1`] = `
+{
+  "addToast": [Function],
+  "removeToast": [Function],
+  "showError": [Function],
+  "showInfo": [Function],
+  "showSuccess": [Function],
+  "showWarning": [Function],
+  "toasts": [],
+}
+`;
