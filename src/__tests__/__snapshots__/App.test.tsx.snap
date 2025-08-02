@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`App Component > Component Structure and Rendering > matches app component snapshot 1`] = `
+<div
+  data-testid="login-page"
+>
+  Login Page
+</div>
+`;
