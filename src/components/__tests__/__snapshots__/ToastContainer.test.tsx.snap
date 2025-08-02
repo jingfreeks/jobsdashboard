@@ -1,0 +1,73 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ToastContainer Component > Component Structure and Rendering > matches empty toast container snapshot 1`] = `
+<div
+  class="fixed top-4 right-4 z-50 space-y-2"
+/>
+`;
+
+exports[`ToastContainer Component > Component Structure and Rendering > matches multiple toasts container snapshot 1`] = `
+<div
+  class="fixed top-4 right-4 z-50 space-y-2"
+>
+  <div
+    data-testid="toast"
+    data-type="success"
+  >
+    <span>
+      First message
+    </span>
+    <button
+      data-testid="close-button"
+    >
+      Close
+    </button>
+  </div>
+  <div
+    data-testid="toast"
+    data-type="error"
+  >
+    <span>
+      Second message
+    </span>
+    <button
+      data-testid="close-button"
+    >
+      Close
+    </button>
+  </div>
+  <div
+    data-testid="toast"
+    data-type="warning"
+  >
+    <span>
+      Third message
+    </span>
+    <button
+      data-testid="close-button"
+    >
+      Close
+    </button>
+  </div>
+</div>
+`;
+
+exports[`ToastContainer Component > Component Structure and Rendering > matches single toast container snapshot 1`] = `
+<div
+  class="fixed top-4 right-4 z-50 space-y-2"
+>
+  <div
+    data-testid="toast"
+    data-type="success"
+  >
+    <span>
+      Test message
+    </span>
+    <button
+      data-testid="close-button"
+    >
+      Close
+    </button>
+  </div>
+</div>
+`;

@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Main Entry Point > Snapshot Testing > matches individual component snapshots 1`] = `
+<div
+  data-testid="app-component"
+>
+  App Component
+</div>
+`;
+
+exports[`Main Entry Point > Snapshot Testing > matches individual component snapshots 2`] = `
+<div
+  data-testid="loading-spinner"
+>
+  Loading...
+</div>
+`;
+
+exports[`Main Entry Point > Snapshot Testing > matches main component structure snapshot 1`] = `
+<div
+  data-testid="app-component"
+>
+  App Component
+</div>
+`;
