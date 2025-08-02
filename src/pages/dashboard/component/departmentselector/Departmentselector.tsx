@@ -1,59 +1,91 @@
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, Loader2 } from "lucide-react";
 import { useState } from "react";
-
+import { useDepartmentOperations } from "@/hooks/useDepartmentOperations";
+import { useToast } from "@/hooks/useToast";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const DepartmentSelector = () => {
-  const [departments, setDepartments] = useState([
-    { id: "1", name: "Engineering" },
-    { id: "2", name: "Marketing" },
-    { id: "3", name: "Sales" },
-  ]);
+  const {
+    departments,
+    isLoading,
+    isAdding,
+    isUpdating,
+    isDeleting,
+    createDepartment,
+    updateDepartmentById,
+    deleteDepartmentById,
+  } = useDepartmentOperations();
+
+  const { showSuccess, showError } = useToast();
+
   const [showAddDepartmentModal, setShowAddDepartmentModal] = useState(false);
   const [newDepartmentName, setNewDepartmentName] = useState("");
   const [showEditDepartmentModal, setShowEditDepartmentModal] = useState(false);
   const [editDepartmentId, setEditDepartmentId] = useState<string | null>(null);
   const [editDepartmentName, setEditDepartmentName] = useState("");
+  const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
+  const [departmentToDelete, setDepartmentToDelete] = useState<string | null>(null);
 
   const handleAddDepartment = () => setShowAddDepartmentModal(true);
-  const handleCreateDepartment = (e: React.FormEvent) => {
+  const handleCreateDepartment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newDepartmentName.trim()) {
-      const newId = departments.length
-        ? (Math.max(...departments.map((d) => parseInt(d.id))) + 1).toString()
-        : "1";
-      setDepartments([
-        ...departments,
-        { id: newId, name: newDepartmentName.trim() },
-      ]);
-      setNewDepartmentName("");
-      setShowAddDepartmentModal(false);
+      try {
+        await createDepartment({ name: newDepartmentName.trim() });
+        showSuccess('Department created successfully');
+        setNewDepartmentName("");
+        setShowAddDepartmentModal(false);
+      } catch (error) {
+        showError('Failed to create department');
+      }
     }
   };
   const handleEditDepartment = (id: string) => {
-    const department = departments.find((d) => d.id === id);
+    const department = departments.find((d) => d._id === id);
     if (department) {
       setEditDepartmentId(id);
       setEditDepartmentName(department.name);
       setShowEditDepartmentModal(true);
     }
   };
-  const handleUpdateDepartment = (e: React.FormEvent) => {
+  const handleUpdateDepartment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (editDepartmentId !== null && editDepartmentName.trim()) {
-      setDepartments(
-        departments.map((d) =>
-          d.id === editDepartmentId
-            ? { ...d, name: editDepartmentName.trim() }
-            : d
-        )
-      );
-      setShowEditDepartmentModal(false);
-      setEditDepartmentId(null);
-      setEditDepartmentName("");
+      try {
+        await updateDepartmentById({
+          _id: editDepartmentId,
+          name: editDepartmentName.trim(),
+        });
+        showSuccess('Department updated successfully');
+        setShowEditDepartmentModal(false);
+        setEditDepartmentId(null);
+        setEditDepartmentName("");
+      } catch (error) {
+        showError('Failed to update department');
+      }
     }
   };
   const handleDeleteDepartment = (id: string) => {
-    setDepartments(departments.filter((d) => d.id !== id));
+    setDepartmentToDelete(id);
+    setShowDeleteConfirmModal(true);
+  };
+
+  const confirmDeleteDepartment = async () => {
+    if (departmentToDelete) {
+      try {
+        await deleteDepartmentById(departmentToDelete);
+        showSuccess('Department deleted successfully');
+        setShowDeleteConfirmModal(false);
+        setDepartmentToDelete(null);
+      } catch (error) {
+        showError('Failed to delete department');
+      }
+    }
+  };
+
+  const cancelDeleteDepartment = () => {
+    setShowDeleteConfirmModal(false);
+    setDepartmentToDelete(null);
   };
   const handleCloseAddDepartmentModal = () => {
     setShowAddDepartmentModal(false);
@@ -64,15 +96,31 @@ const DepartmentSelector = () => {
     setEditDepartmentId(null);
     setEditDepartmentName("");
   };
+  if (isLoading) {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <div className="flex items-center justify-center h-64">
+          <LoadingSpinner />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-slate-800">Department List</h2>
         <button
           onClick={handleAddDepartment}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition"
+          disabled={isAdding}
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-2 rounded-lg font-semibold shadow transition"
         >
-          <PlusCircle className="w-5 h-5" /> Add Department
+          {isAdding ? (
+            <Loader2 className="w-5 h-5 animate-spin" />
+          ) : (
+            <PlusCircle className="w-5 h-5" />
+          )}
+          {isAdding ? 'Adding...' : 'Add Department'}
         </button>
       </div>
       {/* Add Department Modal */}
@@ -105,15 +153,18 @@ const DepartmentSelector = () => {
                 <button
                   type="button"
                   onClick={handleCloseAddDepartmentModal}
-                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold"
+                  disabled={isAdding}
+                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 disabled:bg-slate-50 text-slate-700 font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+                  disabled={isAdding}
+                  className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold flex items-center gap-2"
                 >
-                  Create
+                  {isAdding && <Loader2 className="w-4 h-4 animate-spin" />}
+                  {isAdding ? 'Creating...' : 'Create'}
                 </button>
               </div>
             </form>
@@ -150,18 +201,51 @@ const DepartmentSelector = () => {
                 <button
                   type="button"
                   onClick={handleCloseEditDepartmentModal}
-                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold"
+                  disabled={isUpdating}
+                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 disabled:bg-slate-50 text-slate-700 font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+                  disabled={isUpdating}
+                  className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold flex items-center gap-2"
                 >
-                  Update
+                  {isUpdating && <Loader2 className="w-4 h-4 animate-spin" />}
+                  {isUpdating ? 'Updating...' : 'Update'}
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+      {/* Delete Confirmation Modal */}
+      {showDeleteConfirmModal && departmentToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md relative">
+            <h3 className="text-xl font-bold mb-4 text-slate-800">
+              Confirm Delete
+            </h3>
+            <p className="text-slate-600 mb-6">
+              Are you sure you want to delete "{departments.find(d => d._id === departmentToDelete)?.name}"? This action cannot be undone.
+            </p>
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={cancelDeleteDepartment}
+                disabled={isDeleting}
+                className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 disabled:bg-slate-50 text-slate-700 font-semibold"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDeleteDepartment}
+                disabled={isDeleting}
+                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-semibold flex items-center gap-2"
+              >
+                {isDeleting && <Loader2 className="w-4 h-4 animate-spin" />}
+                {isDeleting ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -172,7 +256,7 @@ const DepartmentSelector = () => {
           <ul className="divide-y divide-slate-100">
             {departments.map((department) => (
               <li
-                key={department.id}
+                key={department._id}
                 className="flex items-center justify-between py-3"
               >
                 <span className="flex-1 truncate text-slate-800 font-medium">
@@ -180,8 +264,9 @@ const DepartmentSelector = () => {
                 </span>
                 <div className="flex gap-2">
                   <button
-                    onClick={() => handleEditDepartment(department.id)}
-                    className="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
+                    onClick={() => handleEditDepartment(department._id)}
+                    disabled={isUpdating || isDeleting}
+                    className="text-blue-500 hover:text-blue-700 disabled:text-blue-300 px-2 py-1 rounded transition"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -199,8 +284,9 @@ const DepartmentSelector = () => {
                     </svg>
                   </button>
                   <button
-                    onClick={() => handleDeleteDepartment(department.id)}
-                    className="text-red-500 hover:text-red-700 px-2 py-1 rounded transition"
+                    onClick={() => handleDeleteDepartment(department._id)}
+                    disabled={isUpdating || isDeleting}
+                    className="text-red-500 hover:text-red-700 disabled:text-red-300 px-2 py-1 rounded transition"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

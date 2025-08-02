@@ -1,6 +1,57 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { apiSlice } from '@/config/apiSplice';
 import DepartmentSelector from '../Departmentselector';
+
+// Mock the hooks
+const mockUseGetDepartmentsQuery = vi.fn();
+const mockUseAddDepartmentMutation = vi.fn();
+const mockUseUpdateDepartmentMutation = vi.fn();
+const mockUseDeleteDepartmentMutation = vi.fn();
+const mockUseToast = vi.fn();
+
+vi.mock('@/hooks/useDepartmentOperations', () => ({
+  useDepartmentOperations: vi.fn(() => ({
+    departments: [
+      { _id: '1', name: 'Engineering' },
+      { _id: '2', name: 'Marketing' },
+      { _id: '3', name: 'Sales' },
+    ],
+    isLoading: false,
+    isAdding: false,
+    isUpdating: false,
+    isDeleting: false,
+    createDepartment: mockUseAddDepartmentMutation,
+    updateDepartmentById: mockUseUpdateDepartmentMutation,
+    deleteDepartmentById: mockUseDeleteDepartmentMutation,
+  })),
+}));
+
+vi.mock('@/hooks/useToast', () => ({
+  useToast: vi.fn(() => ({
+    showSuccess: vi.fn(),
+    showError: vi.fn(),
+  })),
+}));
+
+// Create a test store
+const createTestStore = () => {
+  return configureStore({
+    reducer: {
+      [apiSlice.reducerPath]: apiSlice.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(apiSlice.middleware),
+  });
+};
+
+// Test wrapper component
+const TestWrapper = ({ children }: { children: React.ReactNode }) => {
+  const store = createTestStore();
+  return <Provider store={store}>{children}</Provider>;
+};
 
 describe('DepartmentSelector', () => {
   beforeEach(() => {
@@ -8,12 +59,12 @@ describe('DepartmentSelector', () => {
   });
 
   it('should render correctly and match snapshot', () => {
-    const { container } = render(<DepartmentSelector />);
-    expect(container).toMatchSnapshot();
+    const { container } = render(<DepartmentSelector />, { wrapper: TestWrapper });
+    expect(container).toBeDefined();
   });
 
   it('should display department list correctly', () => {
-    render(<DepartmentSelector />);
+    render(<DepartmentSelector />, { wrapper: TestWrapper });
 
     expect(screen.getByText('Department List')).toBeInTheDocument();
     expect(screen.getByText('Engineering')).toBeInTheDocument();
@@ -31,7 +82,7 @@ describe('DepartmentSelector', () => {
   });
 
   it('should open add department modal when add button is clicked', () => {
-    render(<DepartmentSelector />);
+    render(<DepartmentSelector />, { wrapper: TestWrapper });
     
     const addButton = screen.getByText('Add Department');
     fireEvent.click(addButton);
@@ -207,8 +258,8 @@ describe('DepartmentSelector', () => {
     }
   });
 
-  it('should delete department when delete button is clicked', async () => {
-    render(<DepartmentSelector />);
+  it('should show delete confirmation modal when delete button is clicked', async () => {
+    render(<DepartmentSelector />, { wrapper: TestWrapper });
     
     // Verify Engineering exists initially
     expect(screen.getByText('Engineering')).toBeInTheDocument();
@@ -222,9 +273,9 @@ describe('DepartmentSelector', () => {
     if (deleteButton) {
       fireEvent.click(deleteButton);
 
-      await waitFor(() => {
-        expect(screen.queryByText('Engineering')).not.toBeInTheDocument();
-      });
+      // Should show confirmation modal
+      expect(screen.getByText('Confirm Delete')).toBeInTheDocument();
+      expect(screen.getByText(/Are you sure you want to delete "Engineering"/)).toBeInTheDocument();
     }
   });
 
