@@ -36,6 +36,46 @@ exports[`Dashboard > matches dashboard layout snapshot 1`] = `
               >
                 Sidebar Logout
               </button>
+              <button
+                data-testid="settings-bank-button"
+              >
+                Bank Settings
+              </button>
+              <button
+                data-testid="settings-city-button"
+              >
+                City Settings
+              </button>
+              <button
+                data-testid="settings-state-button"
+              >
+                State Settings
+              </button>
+              <button
+                data-testid="settings-company-button"
+              >
+                Company Settings
+              </button>
+              <button
+                data-testid="settings-skills-button"
+              >
+                Skills Settings
+              </button>
+              <button
+                data-testid="settings-shift-button"
+              >
+                Shift Settings
+              </button>
+              <button
+                data-testid="settings-department-button"
+              >
+                Department Settings
+              </button>
+              <button
+                data-testid="settings-invalid-button"
+              >
+                Invalid Settings
+              </button>
             </aside>
             <main
               class="flex-1 p-10 bg-slate-100"
@@ -90,6 +130,46 @@ exports[`Dashboard > renders dashboard content sections 1`] = `
               >
                 Sidebar Logout
               </button>
+              <button
+                data-testid="settings-bank-button"
+              >
+                Bank Settings
+              </button>
+              <button
+                data-testid="settings-city-button"
+              >
+                City Settings
+              </button>
+              <button
+                data-testid="settings-state-button"
+              >
+                State Settings
+              </button>
+              <button
+                data-testid="settings-company-button"
+              >
+                Company Settings
+              </button>
+              <button
+                data-testid="settings-skills-button"
+              >
+                Skills Settings
+              </button>
+              <button
+                data-testid="settings-shift-button"
+              >
+                Shift Settings
+              </button>
+              <button
+                data-testid="settings-department-button"
+              >
+                Department Settings
+              </button>
+              <button
+                data-testid="settings-invalid-button"
+              >
+                Invalid Settings
+              </button>
             </aside>
             <main
               class="flex-1 p-10 bg-slate-100"
@@ -143,6 +223,46 @@ exports[`Dashboard > renders dashboard header and sidebar 1`] = `
                 data-testid="sidebar-logout-button"
               >
                 Sidebar Logout
+              </button>
+              <button
+                data-testid="settings-bank-button"
+              >
+                Bank Settings
+              </button>
+              <button
+                data-testid="settings-city-button"
+              >
+                City Settings
+              </button>
+              <button
+                data-testid="settings-state-button"
+              >
+                State Settings
+              </button>
+              <button
+                data-testid="settings-company-button"
+              >
+                Company Settings
+              </button>
+              <button
+                data-testid="settings-skills-button"
+              >
+                Skills Settings
+              </button>
+              <button
+                data-testid="settings-shift-button"
+              >
+                Shift Settings
+              </button>
+              <button
+                data-testid="settings-department-button"
+              >
+                Department Settings
+              </button>
+              <button
+                data-testid="settings-invalid-button"
+              >
+                Invalid Settings
               </button>
             </aside>
             <main
