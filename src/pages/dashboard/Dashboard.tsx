@@ -1,10 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { setLogout } from "@/features/auth";
-import { useLogoutMutation } from "@/features/authSlice";
-import { purgePersistedState } from "@/utils/persistUtils";
-import type { AppDispatch } from "@/config/store";
+import { useAuth } from "@/hooks/useAuth";
+import { AuthMonitor } from "@/components/AuthMonitor";
 import {
   Header,
   DasboardSelector,
@@ -20,25 +16,13 @@ import {
 } from "./component";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-  const [logout] = useLogoutMutation();
+  const { logout } = useAuth();
   const [selectedSection, setSelectedSection] = useState<
     "dashboard" | "jobs" | "settings"
   >("dashboard");
 
   const handleLogout = async () => {
-    try {
-      // Call the logout API endpoint
-      await logout({}).unwrap();
-    } catch (error) {
-      console.error('Logout API call failed:', error);
-    } finally {
-      // Always clear local state and redirect, even if API call fails
-      dispatch(setLogout());
-      await purgePersistedState(); // Clear persisted state
-      navigate("/login");
-    }
+    await logout(true); // Show message for manual logout
   };
 
   const [selectedSettings, setSelectedSettings] = useState<
@@ -66,15 +50,16 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-100">
-      {/* Sidebar */}
+    <>
+      <AuthMonitor />
+      <div className="flex min-h-screen bg-slate-100">
+        {/* Sidebar */}
 
-      {/* Main Content */}
-   
+        {/* Main Content */}
         <div className="flex-1 flex flex-col min-h-screen">
           {/* Topbar */}
           <Header handleLogout={handleLogout} />
-             <div className="flex flex-row w-full">
+          <div className="flex flex-row w-full">
           <Sidebar
             selectedSection={selectedSection}
             setSelectedSection={setSelectedSection}
@@ -105,9 +90,10 @@ const Dashboard = () => {
             {selectedSection === "settings" &&
               selectedSettings === "department" && <DepartmentSelector />}
           </main>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
