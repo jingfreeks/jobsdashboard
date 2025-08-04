@@ -3,8 +3,11 @@
 exports[`CompanySelector > should render correctly and match snapshot 1`] = `
 <div>
   <div
-    class="max-w-2xl mx-auto"
+    class="max-w-4xl mx-auto"
   >
+    <div
+      class="fixed top-4 right-4 z-50 space-y-2"
+    />
     <div
       class="flex items-center justify-between mb-6"
     >
@@ -45,156 +48,316 @@ exports[`CompanySelector > should render correctly and match snapshot 1`] = `
       </button>
     </div>
     <div
+      class="bg-white rounded-xl shadow p-6 border border-slate-100 mb-6"
+    >
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-4"
+      >
+        <div
+          class="relative"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m21 21-4.34-4.34"
+            />
+            <circle
+              cx="11"
+              cy="11"
+              r="8"
+            />
+          </svg>
+          <input
+            class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Search companies, addresses, or cities..."
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="relative"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-funnel absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"
+            />
+          </svg>
+          <select
+            class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500 appearance-none bg-white"
+          >
+            <option
+              value=""
+            >
+              All Cities
+            </option>
+            <option
+              value="city1"
+            >
+              Anytown
+            </option>
+            <option
+              value="city2"
+            >
+              Somewhere
+            </option>
+            <option
+              value="city3"
+            >
+              Elsewhere
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        class="mt-4 text-sm text-slate-600"
+      >
+        Showing 
+        3
+         of 
+        3
+         companies
+      </div>
+    </div>
+    <div
       class="bg-white rounded-xl shadow p-6 border border-slate-100"
     >
+      <div
+        class="grid grid-cols-4 gap-4 pb-3 border-b border-slate-200 mb-4"
+      >
+        <div
+          class="font-semibold text-slate-800"
+        >
+          Company Name
+        </div>
+        <div
+          class="font-semibold text-slate-800"
+        >
+          Address
+        </div>
+        <div
+          class="font-semibold text-slate-800"
+        >
+          City
+        </div>
+        <div
+          class="font-semibold text-slate-800"
+        >
+          Actions
+        </div>
+      </div>
       <ul
         class="divide-y divide-slate-100"
       >
         <li
           class="flex items-center justify-between py-3"
         >
-          <span
-            class="flex-1 truncate text-slate-800 font-medium"
-          >
-            Acme Corp
-          </span>
           <div
-            class="flex gap-2"
+            class="flex-1 grid grid-cols-4 gap-4"
           >
-            <button
-              class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
+            <span
+              class="truncate text-slate-800 font-medium"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
-            <button
-              class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition"
+              Acme Corp
+            </span>
+            <span
+              class="truncate text-slate-600"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              123 Main St, Anytown, USA
+            </span>
+            <span
+              class="truncate text-slate-600"
+            >
+              No City
+            </span>
+            <div
+              class="flex gap-2 justify-end"
+            >
+              <button
+                class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
               >
-                <path
-                  d="M6 18L18 6M6 6l12 12"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+              <button
+                class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition disabled:opacity-50"
+              >
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </li>
         <li
           class="flex items-center justify-between py-3"
         >
-          <span
-            class="flex-1 truncate text-slate-800 font-medium"
-          >
-            Globex Inc
-          </span>
           <div
-            class="flex gap-2"
+            class="flex-1 grid grid-cols-4 gap-4"
           >
-            <button
-              class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
+            <span
+              class="truncate text-slate-800 font-medium"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
-            <button
-              class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition"
+              Globex Inc
+            </span>
+            <span
+              class="truncate text-slate-600"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              456 Oak Ave, Somewhere, USA
+            </span>
+            <span
+              class="truncate text-slate-600"
+            >
+              No City
+            </span>
+            <div
+              class="flex gap-2 justify-end"
+            >
+              <button
+                class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
               >
-                <path
-                  d="M6 18L18 6M6 6l12 12"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+              <button
+                class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition disabled:opacity-50"
+              >
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </li>
         <li
           class="flex items-center justify-between py-3"
         >
-          <span
-            class="flex-1 truncate text-slate-800 font-medium"
-          >
-            Initech
-          </span>
           <div
-            class="flex gap-2"
+            class="flex-1 grid grid-cols-4 gap-4"
           >
-            <button
-              class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
+            <span
+              class="truncate text-slate-800 font-medium"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
-            <button
-              class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition"
+              Initech
+            </span>
+            <span
+              class="truncate text-slate-600"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              789 Pine Rd, Elsewhere, USA
+            </span>
+            <span
+              class="truncate text-slate-600"
+            >
+              No City
+            </span>
+            <div
+              class="flex gap-2 justify-end"
+            >
+              <button
+                class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
               >
-                <path
-                  d="M6 18L18 6M6 6l12 12"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+              <button
+                class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition disabled:opacity-50"
+              >
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </li>
       </ul>
@@ -206,8 +369,11 @@ exports[`CompanySelector > should render correctly and match snapshot 1`] = `
 exports[`CompanySelector > should show error state and match snapshot 1`] = `
 <div>
   <div
-    class="max-w-2xl mx-auto"
+    class="max-w-4xl mx-auto"
   >
+    <div
+      class="fixed top-4 right-4 z-50 space-y-2"
+    />
     <div
       class="flex items-center justify-between mb-6"
     >
@@ -248,156 +414,316 @@ exports[`CompanySelector > should show error state and match snapshot 1`] = `
       </button>
     </div>
     <div
+      class="bg-white rounded-xl shadow p-6 border border-slate-100 mb-6"
+    >
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-4"
+      >
+        <div
+          class="relative"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m21 21-4.34-4.34"
+            />
+            <circle
+              cx="11"
+              cy="11"
+              r="8"
+            />
+          </svg>
+          <input
+            class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Search companies, addresses, or cities..."
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="relative"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-funnel absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"
+            />
+          </svg>
+          <select
+            class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500 appearance-none bg-white"
+          >
+            <option
+              value=""
+            >
+              All Cities
+            </option>
+            <option
+              value="city1"
+            >
+              Anytown
+            </option>
+            <option
+              value="city2"
+            >
+              Somewhere
+            </option>
+            <option
+              value="city3"
+            >
+              Elsewhere
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        class="mt-4 text-sm text-slate-600"
+      >
+        Showing 
+        3
+         of 
+        3
+         companies
+      </div>
+    </div>
+    <div
       class="bg-white rounded-xl shadow p-6 border border-slate-100"
     >
+      <div
+        class="grid grid-cols-4 gap-4 pb-3 border-b border-slate-200 mb-4"
+      >
+        <div
+          class="font-semibold text-slate-800"
+        >
+          Company Name
+        </div>
+        <div
+          class="font-semibold text-slate-800"
+        >
+          Address
+        </div>
+        <div
+          class="font-semibold text-slate-800"
+        >
+          City
+        </div>
+        <div
+          class="font-semibold text-slate-800"
+        >
+          Actions
+        </div>
+      </div>
       <ul
         class="divide-y divide-slate-100"
       >
         <li
           class="flex items-center justify-between py-3"
         >
-          <span
-            class="flex-1 truncate text-slate-800 font-medium"
-          >
-            Acme Corp
-          </span>
           <div
-            class="flex gap-2"
+            class="flex-1 grid grid-cols-4 gap-4"
           >
-            <button
-              class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
+            <span
+              class="truncate text-slate-800 font-medium"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
-            <button
-              class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition"
+              Acme Corp
+            </span>
+            <span
+              class="truncate text-slate-600"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              123 Main St, Anytown, USA
+            </span>
+            <span
+              class="truncate text-slate-600"
+            >
+              No City
+            </span>
+            <div
+              class="flex gap-2 justify-end"
+            >
+              <button
+                class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
               >
-                <path
-                  d="M6 18L18 6M6 6l12 12"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+              <button
+                class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition disabled:opacity-50"
+              >
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </li>
         <li
           class="flex items-center justify-between py-3"
         >
-          <span
-            class="flex-1 truncate text-slate-800 font-medium"
-          >
-            Globex Inc
-          </span>
           <div
-            class="flex gap-2"
+            class="flex-1 grid grid-cols-4 gap-4"
           >
-            <button
-              class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
+            <span
+              class="truncate text-slate-800 font-medium"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
-            <button
-              class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition"
+              Globex Inc
+            </span>
+            <span
+              class="truncate text-slate-600"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              456 Oak Ave, Somewhere, USA
+            </span>
+            <span
+              class="truncate text-slate-600"
+            >
+              No City
+            </span>
+            <div
+              class="flex gap-2 justify-end"
+            >
+              <button
+                class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
               >
-                <path
-                  d="M6 18L18 6M6 6l12 12"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+              <button
+                class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition disabled:opacity-50"
+              >
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </li>
         <li
           class="flex items-center justify-between py-3"
         >
-          <span
-            class="flex-1 truncate text-slate-800 font-medium"
-          >
-            Initech
-          </span>
           <div
-            class="flex gap-2"
+            class="flex-1 grid grid-cols-4 gap-4"
           >
-            <button
-              class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
+            <span
+              class="truncate text-slate-800 font-medium"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
-            <button
-              class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition"
+              Initech
+            </span>
+            <span
+              class="truncate text-slate-600"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              789 Pine Rd, Elsewhere, USA
+            </span>
+            <span
+              class="truncate text-slate-600"
+            >
+              No City
+            </span>
+            <div
+              class="flex gap-2 justify-end"
+            >
+              <button
+                class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
               >
-                <path
-                  d="M6 18L18 6M6 6l12 12"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+              <button
+                class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition disabled:opacity-50"
+              >
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </li>
       </ul>
@@ -409,8 +735,11 @@ exports[`CompanySelector > should show error state and match snapshot 1`] = `
 exports[`CompanySelector > should show loading state and match snapshot 1`] = `
 <div>
   <div
-    class="max-w-2xl mx-auto"
+    class="max-w-4xl mx-auto"
   >
+    <div
+      class="fixed top-4 right-4 z-50 space-y-2"
+    />
     <div
       class="flex items-center justify-between mb-6"
     >
@@ -451,156 +780,316 @@ exports[`CompanySelector > should show loading state and match snapshot 1`] = `
       </button>
     </div>
     <div
+      class="bg-white rounded-xl shadow p-6 border border-slate-100 mb-6"
+    >
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-4"
+      >
+        <div
+          class="relative"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m21 21-4.34-4.34"
+            />
+            <circle
+              cx="11"
+              cy="11"
+              r="8"
+            />
+          </svg>
+          <input
+            class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Search companies, addresses, or cities..."
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="relative"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-funnel absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"
+            />
+          </svg>
+          <select
+            class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500 appearance-none bg-white"
+          >
+            <option
+              value=""
+            >
+              All Cities
+            </option>
+            <option
+              value="city1"
+            >
+              Anytown
+            </option>
+            <option
+              value="city2"
+            >
+              Somewhere
+            </option>
+            <option
+              value="city3"
+            >
+              Elsewhere
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        class="mt-4 text-sm text-slate-600"
+      >
+        Showing 
+        3
+         of 
+        3
+         companies
+      </div>
+    </div>
+    <div
       class="bg-white rounded-xl shadow p-6 border border-slate-100"
     >
+      <div
+        class="grid grid-cols-4 gap-4 pb-3 border-b border-slate-200 mb-4"
+      >
+        <div
+          class="font-semibold text-slate-800"
+        >
+          Company Name
+        </div>
+        <div
+          class="font-semibold text-slate-800"
+        >
+          Address
+        </div>
+        <div
+          class="font-semibold text-slate-800"
+        >
+          City
+        </div>
+        <div
+          class="font-semibold text-slate-800"
+        >
+          Actions
+        </div>
+      </div>
       <ul
         class="divide-y divide-slate-100"
       >
         <li
           class="flex items-center justify-between py-3"
         >
-          <span
-            class="flex-1 truncate text-slate-800 font-medium"
-          >
-            Acme Corp
-          </span>
           <div
-            class="flex gap-2"
+            class="flex-1 grid grid-cols-4 gap-4"
           >
-            <button
-              class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
+            <span
+              class="truncate text-slate-800 font-medium"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
-            <button
-              class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition"
+              Acme Corp
+            </span>
+            <span
+              class="truncate text-slate-600"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              123 Main St, Anytown, USA
+            </span>
+            <span
+              class="truncate text-slate-600"
+            >
+              No City
+            </span>
+            <div
+              class="flex gap-2 justify-end"
+            >
+              <button
+                class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
               >
-                <path
-                  d="M6 18L18 6M6 6l12 12"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+              <button
+                class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition disabled:opacity-50"
+              >
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </li>
         <li
           class="flex items-center justify-between py-3"
         >
-          <span
-            class="flex-1 truncate text-slate-800 font-medium"
-          >
-            Globex Inc
-          </span>
           <div
-            class="flex gap-2"
+            class="flex-1 grid grid-cols-4 gap-4"
           >
-            <button
-              class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
+            <span
+              class="truncate text-slate-800 font-medium"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
-            <button
-              class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition"
+              Globex Inc
+            </span>
+            <span
+              class="truncate text-slate-600"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              456 Oak Ave, Somewhere, USA
+            </span>
+            <span
+              class="truncate text-slate-600"
+            >
+              No City
+            </span>
+            <div
+              class="flex gap-2 justify-end"
+            >
+              <button
+                class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
               >
-                <path
-                  d="M6 18L18 6M6 6l12 12"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+              <button
+                class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition disabled:opacity-50"
+              >
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </li>
         <li
           class="flex items-center justify-between py-3"
         >
-          <span
-            class="flex-1 truncate text-slate-800 font-medium"
-          >
-            Initech
-          </span>
           <div
-            class="flex gap-2"
+            class="flex-1 grid grid-cols-4 gap-4"
           >
-            <button
-              class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
+            <span
+              class="truncate text-slate-800 font-medium"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
-            <button
-              class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition"
+              Initech
+            </span>
+            <span
+              class="truncate text-slate-600"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              789 Pine Rd, Elsewhere, USA
+            </span>
+            <span
+              class="truncate text-slate-600"
+            >
+              No City
+            </span>
+            <div
+              class="flex gap-2 justify-end"
+            >
+              <button
+                class="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
               >
-                <path
-                  d="M6 18L18 6M6 6l12 12"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </button>
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+              <button
+                class="text-red-500 hover:text-red-700 px-2 py-1 rounded transition disabled:opacity-50"
+              >
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </li>
       </ul>
