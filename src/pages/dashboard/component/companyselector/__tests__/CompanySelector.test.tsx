@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@/testUtils';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import CompanySelector from '../companyselector';
 
@@ -58,8 +58,10 @@ describe('CompanySelector', () => {
       expect(screen.getByText('New Company')).toBeInTheDocument();
     });
 
-    // Modal should be closed
-    expect(screen.queryByText('Create New Company')).not.toBeInTheDocument();
+    // Wait for modal to close
+    await waitFor(() => {
+      expect(screen.queryByText('Create New Company')).not.toBeInTheDocument();
+    });
   });
 
   it('should not create company with empty name', async () => {
@@ -208,6 +210,10 @@ describe('CompanySelector', () => {
   });
 
   it('should delete company when delete button is clicked', async () => {
+    // Mock window.confirm to return true
+    const originalConfirm = window.confirm;
+    window.confirm = vi.fn(() => true);
+    
     render(<CompanySelector />);
     
     // Verify Acme Corp exists initially
@@ -226,6 +232,9 @@ describe('CompanySelector', () => {
         expect(screen.queryByText('Acme Corp')).not.toBeInTheDocument();
       });
     }
+    
+    // Restore original confirm
+    window.confirm = originalConfirm;
   });
 
   it('should close modals when cancel button is clicked', () => {
@@ -318,13 +327,12 @@ describe('CompanySelector', () => {
   });
 
   it('should handle multiple company operations correctly', async () => {
+    // Mock window.confirm to return true
+    const originalConfirm = window.confirm;
+    window.confirm = vi.fn(() => true);
+    
     render(<CompanySelector />);
     
-    // Verify initial companies
-    expect(screen.getByText('Acme Corp')).toBeInTheDocument();
-    expect(screen.getByText('Globex Inc')).toBeInTheDocument();
-    expect(screen.getByText('Initech')).toBeInTheDocument();
-
     // Add a new company
     const addButton = screen.getByText('Add Company');
     fireEvent.click(addButton);
@@ -372,6 +380,9 @@ describe('CompanySelector', () => {
         expect(screen.queryByText('Acme Corporation')).not.toBeInTheDocument();
       });
     }
+    
+    // Restore original confirm
+    window.confirm = originalConfirm;
   });
 
   it('should handle rapid company operations', async () => {

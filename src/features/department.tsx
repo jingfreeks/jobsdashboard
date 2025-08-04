@@ -36,10 +36,11 @@ export const departmentApiSlice = apiSlice.injectEndpoints({
       }),
       // Optimistic update for better UX
       async onQueryStarted(credentials, { dispatch, queryFulfilled }) {
+        if (!credentials || !credentials.name) return; // Guard against null/undefined credentials
         const tempId = `temp-${Date.now()}`;
         const optimisticDepartment: Department = {
           _id: tempId,
-          name: credentials.name || '',
+          name: credentials.name,
         };
 
         const patchResult = dispatch(
@@ -79,8 +80,9 @@ export const departmentApiSlice = apiSlice.injectEndpoints({
         body: credentials,
       }),
       // Optimistic update
-      async onQueryStarted({ _id, name }, { dispatch, queryFulfilled }) {
-        if (!_id || !name) return; // Guard against null/undefined values
+      async onQueryStarted(credentials, { dispatch, queryFulfilled }) {
+        if (!credentials || !credentials._id || !credentials.name) return; // Guard against null/undefined values
+        const { _id, name } = credentials;
         const patchResult = dispatch(
           departmentApiSlice.util.updateQueryData('getDepartments', undefined, (draft) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any

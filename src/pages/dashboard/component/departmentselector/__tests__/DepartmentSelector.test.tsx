@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@/testUtils';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
@@ -47,11 +47,7 @@ const createTestStore = () => {
   });
 };
 
-// Test wrapper component
-const TestWrapper = ({ children }: { children: React.ReactNode }) => {
-  const store = createTestStore();
-  return <Provider store={store}>{children}</Provider>;
-};
+
 
 describe('DepartmentSelector', () => {
   beforeEach(() => {
@@ -59,12 +55,12 @@ describe('DepartmentSelector', () => {
   });
 
   it('should render correctly and match snapshot', () => {
-    const { container } = render(<DepartmentSelector />, { wrapper: TestWrapper });
+    const { container } = render(<DepartmentSelector />);
     expect(container).toBeDefined();
   });
 
   it('should display department list correctly', () => {
-    render(<DepartmentSelector />, { wrapper: TestWrapper });
+    render(<DepartmentSelector />);
 
     expect(screen.getByText('Department List')).toBeInTheDocument();
     expect(screen.getByText('Engineering')).toBeInTheDocument();
@@ -82,7 +78,7 @@ describe('DepartmentSelector', () => {
   });
 
   it('should open add department modal when add button is clicked', () => {
-    render(<DepartmentSelector />, { wrapper: TestWrapper });
+    render(<DepartmentSelector />);
     
     const addButton = screen.getByText('Add Department');
     fireEvent.click(addButton);
@@ -259,7 +255,7 @@ describe('DepartmentSelector', () => {
   });
 
   it('should show delete confirmation modal when delete button is clicked', async () => {
-    render(<DepartmentSelector />, { wrapper: TestWrapper });
+    render(<DepartmentSelector />);
     
     // Verify Engineering exists initially
     expect(screen.getByText('Engineering')).toBeInTheDocument();
@@ -418,6 +414,14 @@ describe('DepartmentSelector', () => {
     
     if (deleteButton) {
       fireEvent.click(deleteButton);
+
+      // Wait for confirmation modal to appear and click Delete
+      await waitFor(() => {
+        expect(screen.getByText('Confirm Delete')).toBeInTheDocument();
+      });
+
+      const confirmDeleteButton = screen.getByText('Delete');
+      fireEvent.click(confirmDeleteButton);
 
       await waitFor(() => {
         expect(screen.queryByText('Software Engineering')).not.toBeInTheDocument();

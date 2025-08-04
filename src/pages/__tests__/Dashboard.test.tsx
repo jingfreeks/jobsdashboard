@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@/testUtils';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
 import Dashboard from '../dashboard/Dashboard';
 import { store } from '@/config/store';
 import * as authActions from '@/features/auth';
@@ -39,13 +40,51 @@ vi.mock('react-router-dom', () => ({
   useNavigate: () => mockNavigate,
 }));
 
-vi.mock('react-redux', () => ({
-  Provider: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  useDispatch: () => mockDispatch,
-}));
+vi.mock('react-redux', async (importOriginal) => {
+  const actual = await importOriginal() as any;
+  return {
+    ...actual,
+    useDispatch: () => mockDispatch,
+  };
+});
 
 vi.mock('@/features/authSlice', () => ({
   useLogoutMutation: () => [mockLogout],
+}));
+
+vi.mock('@/hooks/useAuth', () => ({
+  useAuth: () => ({
+    logout: async (showMessage = true) => {
+      try {
+        await mockLogout({}).unwrap();
+        if (showMessage) {
+          console.log('Successfully logged out from server');
+        }
+      } catch (error) {
+        console.error('Logout API call failed:', error);
+        if (showMessage) {
+          // Mock showError function
+        }
+      } finally {
+        mockDispatch(mockSetLogout());
+        await mockPurgePersistedState();
+        mockNavigate("/login");
+      }
+    },
+    forceLogout: async (reason = 'Session expired') => {
+      console.warn(`Force logout triggered: ${reason}`);
+      // Call logout without showing message
+      try {
+        await mockLogout({}).unwrap();
+      } catch (error) {
+        console.error('Logout API call failed:', error);
+      } finally {
+        mockDispatch(mockSetLogout());
+        await mockPurgePersistedState();
+        mockNavigate("/login");
+      }
+    },
+  }),
 }));
 
 vi.mock('@/utils/persistUtils', () => ({
