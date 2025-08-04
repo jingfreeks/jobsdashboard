@@ -1,0 +1,277 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Profile > Basic Rendering > matches profile component snapshot 1`] = `
+<div>
+  <div
+    class="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-lg shadow-lg z-20"
+  >
+    <div
+      class="p-4 border-b border-slate-100"
+    >
+      <span
+        class="block font-semibold text-slate-800"
+      >
+        Jane Doe
+      </span>
+      <span
+        class="block text-xs text-slate-500"
+      >
+        Admin
+      </span>
+    </div>
+    <ul>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700"
+        >
+          Profile
+        </button>
+      </li>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700"
+        >
+          Settings
+        </button>
+      </li>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600"
+        >
+          Logout
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Profile > Basic Rendering > matches profile component with custom logout handler snapshot 1`] = `
+<div>
+  <div
+    class="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-lg shadow-lg z-20"
+  >
+    <div
+      class="p-4 border-b border-slate-100"
+    >
+      <span
+        class="block font-semibold text-slate-800"
+      >
+        Jane Doe
+      </span>
+      <span
+        class="block text-xs text-slate-500"
+      >
+        Admin
+      </span>
+    </div>
+    <ul>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700"
+        >
+          Profile
+        </button>
+      </li>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700"
+        >
+          Settings
+        </button>
+      </li>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600"
+        >
+          Logout
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Profile > Visual Regression Testing > matches snapshot after logout button click 1`] = `
+<div>
+  <div
+    class="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-lg shadow-lg z-20"
+  >
+    <div
+      class="p-4 border-b border-slate-100"
+    >
+      <span
+        class="block font-semibold text-slate-800"
+      >
+        Jane Doe
+      </span>
+      <span
+        class="block text-xs text-slate-500"
+      >
+        Admin
+      </span>
+    </div>
+    <ul>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700"
+        >
+          Profile
+        </button>
+      </li>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700"
+        >
+          Settings
+        </button>
+      </li>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600"
+        >
+          Logout
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Profile > Visual Regression Testing > matches snapshot with async logout handler 1`] = `
+<div>
+  <div
+    class="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-lg shadow-lg z-20"
+  >
+    <div
+      class="p-4 border-b border-slate-100"
+    >
+      <span
+        class="block font-semibold text-slate-800"
+      >
+        Jane Doe
+      </span>
+      <span
+        class="block text-xs text-slate-500"
+      >
+        Admin
+      </span>
+    </div>
+    <ul>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700"
+        >
+          Profile
+        </button>
+      </li>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700"
+        >
+          Settings
+        </button>
+      </li>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600"
+        >
+          Logout
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Profile > Visual Regression Testing > matches snapshot with custom logout handler 1`] = `
+<div>
+  <div
+    class="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-lg shadow-lg z-20"
+  >
+    <div
+      class="p-4 border-b border-slate-100"
+    >
+      <span
+        class="block font-semibold text-slate-800"
+      >
+        Jane Doe
+      </span>
+      <span
+        class="block text-xs text-slate-500"
+      >
+        Admin
+      </span>
+    </div>
+    <ul>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700"
+        >
+          Profile
+        </button>
+      </li>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700"
+        >
+          Settings
+        </button>
+      </li>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600"
+        >
+          Logout
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Profile > Visual Regression Testing > matches snapshot with default props 1`] = `
+<div>
+  <div
+    class="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-lg shadow-lg z-20"
+  >
+    <div
+      class="p-4 border-b border-slate-100"
+    >
+      <span
+        class="block font-semibold text-slate-800"
+      >
+        Jane Doe
+      </span>
+      <span
+        class="block text-xs text-slate-500"
+      >
+        Admin
+      </span>
+    </div>
+    <ul>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700"
+        >
+          Profile
+        </button>
+      </li>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700"
+        >
+          Settings
+        </button>
+      </li>
+      <li>
+        <button
+          class="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600"
+        >
+          Logout
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

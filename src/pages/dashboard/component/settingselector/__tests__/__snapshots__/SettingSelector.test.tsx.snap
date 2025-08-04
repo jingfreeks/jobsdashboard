@@ -1,0 +1,95 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SettingsSelector > should render correctly and match snapshot 1`] = `
+<div>
+  <ul
+    class="ml-8 mt-1 flex flex-col gap-1 border-l border-blue-100 pl-4"
+    id="sidebar-settings-sublist"
+  >
+    <li>
+      <button
+        class="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
+      >
+        <div
+          data-testid="landmark-icon"
+        >
+          Landmark
+        </div>
+         Bank
+      </button>
+    </li>
+    <li>
+      <button
+        class="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
+      >
+        <div
+          data-testid="building2-icon"
+        >
+          Building2
+        </div>
+         City
+      </button>
+    </li>
+    <li>
+      <button
+        class="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
+      >
+        <div
+          data-testid="mappin-icon"
+        >
+          MapPin
+        </div>
+         State
+      </button>
+    </li>
+    <li>
+      <button
+        class="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
+      >
+        <div
+          data-testid="briefcase-icon"
+        >
+          Briefcase
+        </div>
+         Company
+      </button>
+    </li>
+    <li>
+      <button
+        class="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
+      >
+        <div
+          data-testid="barchart2-icon"
+        >
+          BarChart2
+        </div>
+         Skills
+      </button>
+    </li>
+    <li>
+      <button
+        class="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
+      >
+        <div
+          data-testid="calendarcheck2-icon"
+        >
+          CalendarCheck2
+        </div>
+         Shift
+      </button>
+    </li>
+    <li>
+      <button
+        class="flex items-center gap-2 px-2 py-1 text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded transition w-full text-sm"
+      >
+        <div
+          data-testid="building2-icon"
+        >
+          Building2
+        </div>
+         Department
+      </button>
+    </li>
+  </ul>
+</div>
+`;
