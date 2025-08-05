@@ -4,7 +4,7 @@ import { AuthMonitor } from "@/components/AuthMonitor";
 import {
   Header,
   DasboardSelector,
-  Jobselector,
+  JobSelector,
   Bankselector,
   CitySelector,
   StateSelector,
@@ -70,7 +70,7 @@ const Dashboard = () => {
 
           <main className="flex-1 p-10 bg-slate-100">
             {selectedSection === "dashboard" && <DasboardSelector />}
-            {selectedSection === "jobs" && <Jobselector />}
+            {selectedSection === "jobs" && <JobSelector />}
             {selectedSection === "settings" && selectedSettings === "bank" && (
               <Bankselector />
             )}

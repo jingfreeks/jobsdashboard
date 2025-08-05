@@ -1,15 +1,103 @@
 import React from 'react';
-import { render, RenderOptions } from '@testing-library/react';
+import { render, type RenderOptions } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '@/config/apiSplice';
-import { vi } from 'vitest';
+import { vi, beforeEach } from 'vitest';
+
+// Mock the useJobOperations hook with dynamic state
+vi.mock('@/hooks/useJobOperations', () => ({
+  useJobOperations: () => {
+    // Force re-render by using a counter that changes when jobs are updated
+    const [, forceUpdate] = React.useState(0);
+    
+    const createJob = vi.fn().mockImplementation(async (data: any) => {
+      const newJob = { 
+        _id: `new-${Date.now()}`, 
+        jobtitle: data.jobtitle,
+        companyId: data.companyId || '',
+        cityId: data.cityId || '',
+        departmentId: data.departmentId || '',
+        description: data.description || '',
+        requirements: data.requirements || '',
+        salary: data.salary || '',
+        type: data.type || '',
+        status: data.status || ''
+      };
+      testJobs.push(newJob);
+      jobUpdateTrigger++;
+      forceUpdate(jobUpdateTrigger);
+      return newJob;
+    });
+
+    const updateJobById = vi.fn().mockImplementation(async (data: any) => {
+      const index = testJobs.findIndex(j => j._id === data._id);
+      if (index !== -1) {
+        testJobs[index] = { 
+          ...testJobs[index], 
+          jobtitle: data.jobtitle,
+          companyId: data.companyId || testJobs[index].companyId,
+          cityId: data.cityId || testJobs[index].cityId,
+          departmentId: data.departmentId || testJobs[index].departmentId,
+          description: data.description || testJobs[index].description,
+          requirements: data.requirements || testJobs[index].requirements,
+          salary: data.salary || testJobs[index].salary,
+          type: data.type || testJobs[index].type,
+          status: data.status || testJobs[index].status
+        };
+        jobUpdateTrigger++;
+        forceUpdate(jobUpdateTrigger);
+        return testJobs[index];
+      }
+      return null;
+    });
+
+    const deleteJobById = vi.fn().mockImplementation(async (id: string) => {
+      const index = testJobs.findIndex(j => j._id === id);
+      if (index !== -1) {
+        testJobs.splice(index, 1);
+        jobUpdateTrigger++;
+        forceUpdate(jobUpdateTrigger);
+        return true;
+      }
+      return false;
+    });
+
+    // Create jobsWithDetails with related data
+    const jobsWithDetails = testJobs.map(job => ({
+      ...job,
+      companyname: job.companyId ? mockCompanies.find(company => company._id === job.companyId)?.name || 'No Company' : 'No Company',
+      cityname: job.cityId ? mockCities.find(city => city._id === job.cityId)?.name || 'No City' : 'No City',
+      departmentname: job.departmentId ? mockDepartments.find(department => department._id === job.departmentId)?.name || 'No Department' : 'No Department'
+    }));
+
+    return {
+      jobs: testJobs,
+      jobsWithDetails,
+      companies: mockCompanies,
+      cities: mockCities,
+      departments: mockDepartments,
+      companyMap: new Map(mockCompanies.map(company => [company._id, company])),
+      cityMap: new Map(mockCities.map(city => [city._id, city])),
+      departmentMap: new Map(mockDepartments.map(department => [department._id, department])),
+      isLoading: false,
+      isAdding: false,
+      isUpdating: false,
+      isDeleting: false,
+      error: null,
+      createJob,
+      updateJobById,
+      deleteJobById,
+      refetch: vi.fn(),
+    };
+  },
+}));
 
 // Mock data for companies
 export const mockCompanies = [
-  { _id: '1', name: 'Acme Corp', address: '123 Main St, Anytown, USA' },
-  { _id: '2', name: 'Globex Inc', address: '456 Oak Ave, Somewhere, USA' },
-  { _id: '3', name: 'Initech', address: '789 Pine Rd, Elsewhere, USA' },
+  { _id: '1', name: 'Acme Corp', address: '123 Main St, Anytown, USA', cityId: 'city1' },
+  { _id: '2', name: 'Globex Inc', address: '456 Oak Ave, Somewhere, USA', cityId: 'city2' },
+  { _id: '3', name: 'Initech', address: '789 Pine Rd, Elsewhere, USA', cityId: 'city3' },
 ];
 
 // Mock data for cities
@@ -17,6 +105,13 @@ export const mockCities = [
   { _id: 'city1', name: 'Anytown' },
   { _id: 'city2', name: 'Somewhere' },
   { _id: 'city3', name: 'Elsewhere' },
+];
+
+// Mock data for jobs
+export const mockJobs = [
+  { _id: '1', jobtitle: 'Frontend Developer', companyId: '1', cityId: 'city1', departmentId: '1' },
+  { _id: '2', jobtitle: 'Backend Engineer', companyId: '2', cityId: 'city2', departmentId: '2' },
+  { _id: '3', jobtitle: 'Product Manager', companyId: '3', cityId: 'city3', departmentId: '3' },
 ];
 
 // Mock data for departments
@@ -28,15 +123,23 @@ export const mockDepartments = [
 
 // Create a dynamic companies state for testing
 let testCompanies = [
-  { _id: '1', name: 'Acme Corp', address: '123 Main St, Anytown, USA' },
-  { _id: '2', name: 'Globex Inc', address: '456 Oak Ave, Somewhere, USA' },
-  { _id: '3', name: 'Initech', address: '789 Pine Rd, Elsewhere, USA' },
+  { _id: '1', name: 'Acme Corp', address: '123 Main St, Anytown, USA', cityId: 'city1' },
+  { _id: '2', name: 'Globex Inc', address: '456 Oak Ave, Somewhere, USA', cityId: 'city2' },
+  { _id: '3', name: 'Initech', address: '789 Pine Rd, Elsewhere, USA', cityId: 'city3' },
 ];
 let updateTrigger = 0;
 
 // Create a dynamic departments state for testing
 let testDepartments = [...mockDepartments];
 let departmentUpdateTrigger = 0;
+
+// Create a dynamic jobs state for testing
+let testJobs = [
+  { _id: '1', jobtitle: 'Frontend Developer', companyId: '1', cityId: 'city1', departmentId: '1', description: '', requirements: '', salary: '', type: '', status: '' },
+  { _id: '2', jobtitle: 'Backend Engineer', companyId: '2', cityId: 'city2', departmentId: '2', description: '', requirements: '', salary: '', type: '', status: '' },
+  { _id: '3', jobtitle: 'Product Manager', companyId: '3', cityId: 'city3', departmentId: '3', description: '', requirements: '', salary: '', type: '', status: '' },
+];
+let jobUpdateTrigger = 0;
 
 // Mock the useCompanyOperations hook with dynamic state
 vi.mock('@/hooks/useCompanyOperations', () => ({
@@ -179,6 +282,12 @@ beforeEach(() => {
   updateTrigger = 0;
   testDepartments = [...mockDepartments];
   departmentUpdateTrigger = 0;
+  testJobs = [
+    { _id: '1', jobtitle: 'Frontend Developer', companyId: '1', cityId: 'city1', departmentId: '1', description: '', requirements: '', salary: '', type: '', status: '' },
+    { _id: '2', jobtitle: 'Backend Engineer', companyId: '2', cityId: 'city2', departmentId: '2', description: '', requirements: '', salary: '', type: '', status: '' },
+    { _id: '3', jobtitle: 'Product Manager', companyId: '3', cityId: 'city3', departmentId: '3', description: '', requirements: '', salary: '', type: '', status: '' },
+  ];
+  jobUpdateTrigger = 0;
 });
 
 // Create a simple test store

@@ -190,7 +190,7 @@ exports[`CompanySelector > should render correctly and match snapshot 1`] = `
             <span
               class="truncate text-slate-600"
             >
-              No City
+              Anytown
             </span>
             <div
               class="flex gap-2 justify-end"
@@ -253,7 +253,7 @@ exports[`CompanySelector > should render correctly and match snapshot 1`] = `
             <span
               class="truncate text-slate-600"
             >
-              No City
+              Somewhere
             </span>
             <div
               class="flex gap-2 justify-end"
@@ -316,7 +316,7 @@ exports[`CompanySelector > should render correctly and match snapshot 1`] = `
             <span
               class="truncate text-slate-600"
             >
-              No City
+              Elsewhere
             </span>
             <div
               class="flex gap-2 justify-end"
@@ -556,7 +556,7 @@ exports[`CompanySelector > should show error state and match snapshot 1`] = `
             <span
               class="truncate text-slate-600"
             >
-              No City
+              Anytown
             </span>
             <div
               class="flex gap-2 justify-end"
@@ -619,7 +619,7 @@ exports[`CompanySelector > should show error state and match snapshot 1`] = `
             <span
               class="truncate text-slate-600"
             >
-              No City
+              Somewhere
             </span>
             <div
               class="flex gap-2 justify-end"
@@ -682,7 +682,7 @@ exports[`CompanySelector > should show error state and match snapshot 1`] = `
             <span
               class="truncate text-slate-600"
             >
-              No City
+              Elsewhere
             </span>
             <div
               class="flex gap-2 justify-end"
@@ -922,7 +922,7 @@ exports[`CompanySelector > should show loading state and match snapshot 1`] = `
             <span
               class="truncate text-slate-600"
             >
-              No City
+              Anytown
             </span>
             <div
               class="flex gap-2 justify-end"
@@ -985,7 +985,7 @@ exports[`CompanySelector > should show loading state and match snapshot 1`] = `
             <span
               class="truncate text-slate-600"
             >
-              No City
+              Somewhere
             </span>
             <div
               class="flex gap-2 justify-end"
@@ -1048,7 +1048,7 @@ exports[`CompanySelector > should show loading state and match snapshot 1`] = `
             <span
               class="truncate text-slate-600"
             >
-              No City
+              Elsewhere
             </span>
             <div
               class="flex gap-2 justify-end"

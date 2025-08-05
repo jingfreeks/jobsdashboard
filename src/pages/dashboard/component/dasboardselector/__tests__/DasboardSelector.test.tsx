@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
+import { render } from '@/testUtils';
 import DasboardSelector from '../dashboardselector';
 
 // Mock recharts ResponsiveContainer to avoid rendering issues in tests
@@ -71,6 +72,37 @@ describe('DasboardSelector', () => {
       // Buttons should remain clickable (no errors thrown)
       expect(addJobButton).toBeInTheDocument();
       expect(scheduleButton).toBeInTheDocument();
+    });
+
+    it('should open add job modal when Add Job button is clicked', () => {
+      render(<DasboardSelector />);
+      
+      const addJobButton = screen.getByRole('button', { name: /Add Job/i });
+      fireEvent.click(addJobButton);
+      
+      // Modal should appear
+      expect(screen.getByText('Create New Job')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('Job Title')).toBeInTheDocument();
+      expect(screen.getByText('Select Company')).toBeInTheDocument();
+      expect(screen.getByText('Select City')).toBeInTheDocument();
+      expect(screen.getByText('Select Department')).toBeInTheDocument();
+    });
+
+    it('should close add job modal when Cancel button is clicked', () => {
+      render(<DasboardSelector />);
+      
+      const addJobButton = screen.getByRole('button', { name: /Add Job/i });
+      fireEvent.click(addJobButton);
+      
+      // Modal should be open
+      expect(screen.getByText('Create New Job')).toBeInTheDocument();
+      
+      // Click cancel button
+      const cancelButton = screen.getByRole('button', { name: /Cancel/i });
+      fireEvent.click(cancelButton);
+      
+      // Modal should be closed
+      expect(screen.queryByText('Create New Job')).not.toBeInTheDocument();
     });
   });
 

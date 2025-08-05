@@ -1,2 +1,2 @@
-export {default as Jobselector} from './Jobselector';
+export {default as JobSelector} from './Jobselector';
 
