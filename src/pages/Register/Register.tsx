@@ -42,7 +42,16 @@ const Register = () => {
     try {
       const result = await signup({email: data.email, password: data.password, username: data.username}).unwrap();
       if (result && typeof result === 'object') {
-        dispatch(setCredentials({ ...(result as object), user: data.username }));
+        // Extract credentials from the API response
+        const resultObj = result as Record<string, unknown>;
+        const credentials = {
+          user: data.username,
+          accessToken: (resultObj.token as string) || (resultObj.accessToken as string) || '',
+          userId: (resultObj.userId as string) || (resultObj.id as string) || '',
+          roles: Array.isArray(resultObj.roles) ? resultObj.roles as string[] : 
+                 Array.isArray(resultObj.role) ? resultObj.role as string[] : [],
+        };
+        dispatch(setCredentials(credentials));
       }
       navigate('/dashboard');
     } catch {

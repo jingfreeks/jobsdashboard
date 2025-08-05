@@ -7,7 +7,7 @@ import { Eye, EyeOff } from "lucide-react";
 import {useDispatch} from 'react-redux';
 import { useLoginMutation } from "@/features/loginApiSlice";
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { setCredentials, selectIsAuthenticated } from "@/features/auth";
+import { setCredentials, selectIsAuthenticated, selectUserRoles } from "@/features/auth";
 import type { AppDispatch, RootState } from "@/config/store";
 
 type LoginFormData = {
@@ -19,6 +19,7 @@ const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state: RootState) => selectIsAuthenticated(state));
+  const userRoles = useSelector((state: RootState) => selectUserRoles(state));
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
   const [login, { isLoading, error }] = useLoginMutation();
@@ -26,21 +27,47 @@ const Login = () => {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/dashboard");
+      // Check if onboarding is complete
+      const onboardingComplete = localStorage.getItem('onboardingComplete') === 'true';
+      
+      if (!onboardingComplete) {
+        // Redirect to onboarding if not complete
+        navigate("/onboarding");
+      } else {
+        // Redirect based on user role (case-insensitive)
+        const hasAdminRole = userRoles.some(role => 
+          role.toLowerCase() === 'admin'
+        );
+        if (hasAdminRole) {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/job-applicant/dashboard");
+        }
+      }
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, userRoles, navigate]);
 
   const onSubmit = async (formData: LoginFormData) => {
     try {
       console.log(formData);
-     const result  =  await login({
+      const result = await login({
         username: formData.username,
         password: formData.password,
       }).unwrap();
+      
       if (result && typeof result === "object") {
-        dispatch(setCredentials({ ...(result as object), user: formData.username }));
+        // Extract credentials from the API response
+        const resultObj = result as Record<string, unknown>;
+        const credentials = {
+          user: formData.username,
+          accessToken: (resultObj.token as string) || (resultObj.accessToken as string) || '',
+          userId: (resultObj.userId as string) || (resultObj.id as string) || '',
+          roles: Array.isArray(resultObj.roles) ? resultObj.roles as string[] : 
+                 Array.isArray(resultObj.role) ? resultObj.role as string[] : [],
+        };
+        dispatch(setCredentials(credentials));
       }
-    navigate("/dashboard");
+      // Navigation will be handled by the useEffect above based on user role
     } catch {
       // Error is handled by RTK Query's error state
     }
