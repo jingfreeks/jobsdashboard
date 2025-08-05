@@ -26,8 +26,9 @@ vi.mock('@/features/loginApiSlice', () => ({
 }));
 
 // Mock setCredentials and selectIsAuthenticated to avoid Redux side effects
-const { mockSelectIsAuthenticated, mockSetCredentials, mockNavigate } = vi.hoisted(() => ({
+const { mockSelectIsAuthenticated, mockSelectUserRoles, mockSetCredentials, mockNavigate } = vi.hoisted(() => ({
   mockSelectIsAuthenticated: vi.fn(() => false),
+  mockSelectUserRoles: vi.fn(() => []),
   mockSetCredentials: vi.fn(),
   mockNavigate: vi.fn(),
 }));
@@ -37,6 +38,7 @@ vi.mock('@/features/auth', () => ({
   default: () => ({}), // mock reducer
   setCredentials: mockSetCredentials,
   selectIsAuthenticated: mockSelectIsAuthenticated,
+  selectUserRoles: mockSelectUserRoles,
 }));
 
 // Mock react-router-dom
@@ -493,9 +495,10 @@ describe('Login', () => {
     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
   });
 
-  it('should redirect to dashboard when isAuthenticated is true', () => {
+  it('should redirect to admin dashboard when isAuthenticated is true and user has admin role', () => {
     // Mock selectIsAuthenticated to return true
     mockSelectIsAuthenticated.mockReturnValue(true);
+    mockSelectUserRoles.mockReturnValue(['admin']);
     
     // Clear previous calls
     mockNavigate.mockClear();
@@ -503,8 +506,23 @@ describe('Login', () => {
     // Render the component with authenticated state
     renderLogin();
     
-    // Verify that navigate was called with "/dashboard"
-    expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+    // Verify that navigate was called with "/admin/dashboard"
+    expect(mockNavigate).toHaveBeenCalledWith('/admin/dashboard');
+  });
+
+  it('should redirect to job applicant dashboard when isAuthenticated is true and user has no admin role', () => {
+    // Mock selectIsAuthenticated to return true
+    mockSelectIsAuthenticated.mockReturnValue(true);
+    mockSelectUserRoles.mockReturnValue(['user']);
+    
+    // Clear previous calls
+    mockNavigate.mockClear();
+    
+    // Render the component with authenticated state
+    renderLogin();
+    
+    // Verify that navigate was called with "/job-applicant/dashboard"
+    expect(mockNavigate).toHaveBeenCalledWith('/job-applicant/dashboard');
   });
 
   it('should not redirect when isAuthenticated is false', () => {
@@ -538,8 +556,9 @@ describe('Login', () => {
     // Verify that navigate was NOT called initially
     expect(mockNavigate).not.toHaveBeenCalled();
     
-    // Change to authenticated state
+    // Change to authenticated state with no admin role
     mockSelectIsAuthenticated.mockReturnValue(true);
+    mockSelectUserRoles.mockReturnValue([]);
     
     // Re-render the component with authenticated state
     rerender(
@@ -550,8 +569,8 @@ describe('Login', () => {
       </Provider>
     );
     
-    // Verify that navigate was called with "/dashboard" after state change
-    expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+    // Verify that navigate was called with "/job-applicant/dashboard" after state change
+    expect(mockNavigate).toHaveBeenCalledWith('/job-applicant/dashboard');
   });
 
   it('should test useEffect dependencies are correct', () => {
@@ -571,6 +590,9 @@ describe('Login', () => {
       mockNavigate.mockClear();
       mockSetCredentials.mockClear();
       mockLogin.mockClear();
+      
+      // Set default user role to admin for these tests
+      mockSelectUserRoles.mockReturnValue(['admin']);
       
       // Reset the mock implementation
       mockLogin.mockImplementation(() => ({
@@ -613,7 +635,7 @@ describe('Login', () => {
       });
 
       // Verify navigation occurred
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/admin/dashboard');
     });
 
     it('should test onSubmit function with null result (no setCredentials)', async () => {
@@ -643,7 +665,7 @@ describe('Login', () => {
       });
 
       // Should still navigate to dashboard
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/admin/dashboard');
     });
 
     it('should test onSubmit function with string result (no setCredentials)', async () => {
@@ -673,7 +695,7 @@ describe('Login', () => {
       });
 
       // Should still navigate to dashboard
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/admin/dashboard');
     });
 
     it('should test onSubmit function with error (no setCredentials, but still navigation)', async () => {
@@ -862,6 +884,9 @@ describe('Login', () => {
       mockNavigate.mockClear();
       mockSetCredentials.mockClear();
       mockLogin.mockClear();
+      
+      // Set default user role to admin for these tests
+      mockSelectUserRoles.mockReturnValue(['admin']);
     });
 
     // Test the isFetchBaseQueryError function directly

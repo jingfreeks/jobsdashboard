@@ -15,7 +15,7 @@ import {
   Sidebar,
 } from "./component";
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   const { logout } = useAuth();
   const [selectedSection, setSelectedSection] = useState<
     "dashboard" | "jobs" | "settings"
@@ -53,8 +53,6 @@ const Dashboard = () => {
     <>
       <AuthMonitor />
       <div className="flex min-h-screen bg-slate-100">
-        {/* Sidebar */}
-
         {/* Main Content */}
         <div className="flex-1 flex flex-col min-h-screen">
           {/* Topbar */}
@@ -69,6 +67,10 @@ const Dashboard = () => {
           {/* Content */}
 
           <main className="flex-1 p-10 bg-slate-100">
+            <div className="mb-6">
+              <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
+              <p className="text-gray-600">Manage jobs, companies, and system settings</p>
+            </div>
             {selectedSection === "dashboard" && <DasboardSelector />}
             {selectedSection === "jobs" && <JobSelector />}
             {selectedSection === "settings" && selectedSettings === "bank" && (
@@ -97,4 +99,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDashboard; 
