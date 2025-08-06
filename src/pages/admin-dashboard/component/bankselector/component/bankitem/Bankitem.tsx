@@ -1,66 +1,59 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
+import { Edit, Trash2, Loader2 } from "lucide-react";
 import type { Bank } from "@/features/bank";
 
-const BankItem = ({ 
-  bank, 
-  onEdit, 
-  onDelete, 
-  isDeleting 
-}: { 
-  bank: Bank; 
-  onEdit: (bank: Bank) => void; 
-  onDelete: (id: string) => void; 
+interface BankItemProps {
+  bank: Bank;
+  onEdit: (bank: Bank) => void;
+  onDelete: (id: string) => void;
   isDeleting: boolean;
-}) => (
-  <li className="flex items-center justify-between py-3">
-    <span className="flex-1 truncate text-slate-800 font-medium">
-      {bank.name}
-    </span>
-    <div className="flex gap-2">
-      <button
-        onClick={() => onEdit(bank)}
-        className="text-blue-500 hover:text-blue-700 px-2 py-1 rounded transition"
-        disabled={isDeleting}
+}
+
+const BankItem = memo(({ bank, onEdit, onDelete, isDeleting }: BankItemProps) => {
+  const handleEdit = useCallback(() => {
+    onEdit(bank);
+  }, [onEdit, bank]);
+
+  const handleDelete = useCallback(() => {
+    onDelete(bank._id);
+  }, [onDelete, bank._id]);
+
+  return (
+    <li className="flex items-center justify-between py-3">
+      <span 
+        className="flex-1 truncate text-slate-800 font-medium"
+        title={bank.name}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+        {bank.name}
+      </span>
+      <div className="flex gap-2">
+        <button
+          onClick={handleEdit}
+          disabled={isDeleting}
+          className="text-blue-500 hover:text-blue-700 disabled:opacity-50 px-2 py-1 rounded transition"
+          aria-label={`Edit ${bank.name}`}
+          title={`Edit ${bank.name}`}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3z"
-          />
-        </svg>
-      </button>
-      <button
-        onClick={() => onDelete(bank._id)}
-        className="text-red-500 hover:text-red-700 px-2 py-1 rounded transition disabled:opacity-50"
-        disabled={isDeleting}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+          <Edit className="h-4 w-4" />
+        </button>
+        <button
+          onClick={handleDelete}
+          disabled={isDeleting}
+          className="text-red-500 hover:text-red-700 disabled:opacity-50 px-2 py-1 rounded transition"
+          aria-label={`Delete ${bank.name}`}
+          title={`Delete ${bank.name}`}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </button>
-    </div>
-  </li>
-);
+          {isDeleting ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Trash2 className="h-4 w-4" />
+          )}
+        </button>
+      </div>
+    </li>
+  );
+});
 
 BankItem.displayName = 'BankItem';
 
-export default memo(BankItem);
+export default BankItem;

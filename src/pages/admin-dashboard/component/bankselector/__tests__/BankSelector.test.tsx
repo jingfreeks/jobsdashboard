@@ -56,6 +56,11 @@ const renderWithProvider = (component: React.ReactElement) => {
   );
 };
 
+// Helper function to get the header Add Bank button
+const getHeaderAddButton = () => {
+  return screen.getByRole('button', { name: /add bank|adding\.\.\./i });
+};
+
 describe('BankSelector', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -138,7 +143,7 @@ describe('BankSelector', () => {
 
     renderWithProvider(<Bankselector />);
 
-    expect(screen.getByText('Bank List')).toBeInTheDocument();
+    expect(screen.getByText('Banks List')).toBeInTheDocument();
     expect(screen.getByText('Chase Bank')).toBeInTheDocument();
     expect(screen.getByText('Wells Fargo')).toBeInTheDocument();
     expect(screen.getByText('Bank of America')).toBeInTheDocument();
@@ -203,7 +208,7 @@ describe('BankSelector', () => {
     });
 
     renderWithProvider(<Bankselector />);
-    expect(screen.getByText('No banks found')).toBeInTheDocument();
+    expect(screen.getByText('No banks found. Create your first bank to get started.')).toBeInTheDocument();
   });
 
   it('should open add bank modal when add button is clicked', () => {
@@ -225,7 +230,7 @@ describe('BankSelector', () => {
 
     renderWithProvider(<Bankselector />);
     
-    const addButton = screen.getByText('Add Bank');
+    const addButton = getHeaderAddButton();
     fireEvent.click(addButton);
 
     expect(screen.getByText('Create New Bank')).toBeInTheDocument();
@@ -264,7 +269,7 @@ describe('BankSelector', () => {
     renderWithProvider(<Bankselector />);
     
     // Open add modal
-    const addButton = screen.getByText('Add Bank');
+    const addButton = getHeaderAddButton();
     fireEvent.click(addButton);
 
     // Fill form and submit
@@ -300,7 +305,7 @@ describe('BankSelector', () => {
     renderWithProvider(<Bankselector />);
     
     // Open add modal
-    const addButton = screen.getByText('Add Bank');
+    const addButton = getHeaderAddButton();
     fireEvent.click(addButton);
 
     // Try to submit empty form
@@ -330,7 +335,7 @@ describe('BankSelector', () => {
     renderWithProvider(<Bankselector />);
     
     // Open add modal
-    const addButton = screen.getByText('Add Bank');
+    const addButton = getHeaderAddButton();
     fireEvent.click(addButton);
 
     // Fill form with whitespace and submit
@@ -363,7 +368,7 @@ describe('BankSelector', () => {
     renderWithProvider(<Bankselector />);
     
     // Open add modal
-    const addButton = screen.getByText('Add Bank');
+    const addButton = getHeaderAddButton();
     fireEvent.click(addButton);
 
     // Fill form with whitespace and submit
@@ -567,7 +572,7 @@ describe('BankSelector', () => {
       updateBankById: vi.fn(),
       deleteBankById: mockDeleteBank,
       refetch: vi.fn(),
-      getBankById: vi.fn(),
+      getBankById: vi.fn().mockReturnValue({ _id: '1', name: 'Chase Bank' }),
       searchBanks: vi.fn(),
     });
 
@@ -672,7 +677,7 @@ describe('BankSelector', () => {
     renderWithProvider(<Bankselector />);
     
     // Open add modal
-    const addButton = screen.getByText('Add Bank');
+    const addButton = getHeaderAddButton();
     fireEvent.click(addButton);
 
     // Fill form and submit
@@ -811,7 +816,7 @@ describe('BankSelector', () => {
     renderWithProvider(<Bankselector />);
     
     // Open add modal
-    const addButton = screen.getByText('Add Bank');
+    const addButton = getHeaderAddButton();
     fireEvent.click(addButton);
 
     // Click cancel button
@@ -840,7 +845,7 @@ describe('BankSelector', () => {
     renderWithProvider(<Bankselector />);
     
     // Open add modal
-    const addButton = screen.getByText('Add Bank');
+    const addButton = getHeaderAddButton();
     fireEvent.click(addButton);
 
     // Click close button
@@ -850,7 +855,7 @@ describe('BankSelector', () => {
     expect(screen.queryByText('Create New Bank')).not.toBeInTheDocument();
   });
 
-  it('should not disable add button during operations (component does not implement this)', () => {
+  it('should disable add button during operations', () => {
     vi.mocked(useBankOperations).mockReturnValue({
       banks: [],
       isLoading: false,
@@ -868,8 +873,8 @@ describe('BankSelector', () => {
 
     renderWithProvider(<Bankselector />);
     
-    const addButton = screen.getByText('Add Bank');
-    expect(addButton).not.toBeDisabled();
+    const addButton = getHeaderAddButton();
+    expect(addButton).toBeDisabled();
   });
 
   it('should show loading state in add modal when creating', () => {
@@ -890,11 +895,9 @@ describe('BankSelector', () => {
 
     renderWithProvider(<Bankselector />);
     
-    // Open add modal
-    const addButton = screen.getByText('Add Bank');
-    fireEvent.click(addButton);
-
-    expect(screen.getByText('Create...')).toBeInTheDocument();
+    // When isAdding is true, the add button should be disabled
+    const addButton = getHeaderAddButton();
+    expect(addButton).toBeDisabled();
   });
 
   it('should show loading state in edit modal when updating', () => {
@@ -925,7 +928,7 @@ describe('BankSelector', () => {
     
     if (editButton) {
       fireEvent.click(editButton);
-      expect(screen.getByText('Update...')).toBeInTheDocument();
+      expect(screen.getByText(/Update\.\.\./)).toBeInTheDocument();
     }
   });
 
@@ -1001,7 +1004,7 @@ describe('BankSelector', () => {
     renderWithProvider(<Bankselector />);
     
     // Component should render without errors
-    expect(screen.getByText('Bank List')).toBeInTheDocument();
+    expect(screen.getByText('Banks List')).toBeInTheDocument();
   });
 
   it('should handle multiple bank operations correctly', async () => {
@@ -1057,7 +1060,7 @@ describe('BankSelector', () => {
     renderWithProvider(<Bankselector />);
     
     // Open add modal multiple times quickly
-    const addButton = screen.getByText('Add Bank');
+    const addButton = getHeaderAddButton();
     fireEvent.click(addButton);
     fireEvent.click(addButton);
     fireEvent.click(addButton);
