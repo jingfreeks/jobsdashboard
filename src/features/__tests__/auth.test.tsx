@@ -53,6 +53,7 @@ describe('Auth Feature', () => {
           token: null,
           userId: null,
           roles: [],
+          onboardingComplete: false,
         });
       });
 

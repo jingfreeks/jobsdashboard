@@ -56,7 +56,7 @@ describe('Header', () => {
   it('should render the notification bell with badge', () => {
     renderHeader();
     
-    const bellButton = screen.getByTestId('bell-icon').closest('button');
+    const bellButton = screen.getByTestId('notification-button');
     expect(bellButton).toBeInTheDocument();
     
     // Check for notification badge
@@ -66,14 +66,14 @@ describe('Header', () => {
   it('should render the user profile button', () => {
     renderHeader();
     
-    const profileButton = screen.getByTestId('user-icon').closest('button');
+    const profileButton = screen.getByTestId('profile-button');
     expect(profileButton).toBeInTheDocument();
   });
 
   it('should show notifications when bell is clicked', () => {
     renderHeader();
     
-    const bellButton = screen.getByTestId('bell-icon').closest('button');
+    const bellButton = screen.getByTestId('notification-button');
     fireEvent.click(bellButton!);
     
     expect(screen.getByTestId('notification-dropdown')).toBeInTheDocument();
@@ -85,7 +85,7 @@ describe('Header', () => {
   it('should hide notifications when bell is clicked again', () => {
     renderHeader();
     
-    const bellButton = screen.getByTestId('bell-icon').closest('button');
+    const bellButton = screen.getByTestId('notification-button');
     
     // First click to show
     fireEvent.click(bellButton!);
@@ -99,7 +99,7 @@ describe('Header', () => {
   it('should show profile dropdown when user button is clicked', () => {
     renderHeader();
     
-    const profileButton = screen.getByTestId('user-icon').closest('button');
+    const profileButton = screen.getByTestId('profile-button');
     fireEvent.click(profileButton!);
     
     expect(screen.getByTestId('profile-dropdown')).toBeInTheDocument();
@@ -109,7 +109,7 @@ describe('Header', () => {
   it('should hide profile dropdown when user button is clicked again', () => {
     renderHeader();
     
-    const profileButton = screen.getByTestId('user-icon').closest('button');
+    const profileButton = screen.getByTestId('profile-button');
     
     // First click to show
     fireEvent.click(profileButton!);
@@ -123,7 +123,7 @@ describe('Header', () => {
   it('should call handleLogout when logout button is clicked', () => {
     renderHeader();
     
-    const profileButton = screen.getByTestId('user-icon').closest('button');
+    const profileButton = screen.getByTestId('profile-button');
     fireEvent.click(profileButton!);
     
     const logoutButton = screen.getByTestId('logout-button');
@@ -135,7 +135,7 @@ describe('Header', () => {
   it('should display correct notification data', () => {
     renderHeader();
     
-    const bellButton = screen.getByTestId('bell-icon').closest('button');
+    const bellButton = screen.getByTestId('notification-button');
     fireEvent.click(bellButton!);
     
     expect(screen.getByText('New job application received - 2m ago')).toBeInTheDocument();
@@ -180,14 +180,14 @@ describe('Header', () => {
   it('should have correct CSS classes for right section', () => {
     renderHeader();
     
-    const rightSection = screen.getByTestId('bell-icon').closest('div')?.parentElement?.parentElement?.parentElement;
+    const rightSection = screen.getByTestId('notification-button').closest('div')?.parentElement;
     expect(rightSection).toHaveClass('flex', 'items-center', 'gap-4');
   });
 
   it('should have correct CSS classes for notification button', () => {
     renderHeader();
     
-    const notificationButton = screen.getByTestId('bell-icon').closest('button');
+    const notificationButton = screen.getByTestId('notification-button');
     expect(notificationButton).toHaveClass('relative', 'p-2', 'rounded-full', 'hover:bg-blue-50', 'transition');
   });
 
@@ -201,7 +201,7 @@ describe('Header', () => {
   it('should have correct CSS classes for profile button', () => {
     renderHeader();
     
-    const profileButton = screen.getByTestId('user-icon').closest('button');
+    const profileButton = screen.getByTestId('profile-button');
     expect(profileButton).toHaveClass(
       'inline-flex', 'items-center', 'justify-center', 'w-10', 'h-10',
       'rounded-full', 'bg-blue-100', 'text-blue-700', 'font-bold', 'text-lg', 'focus:outline-none'
@@ -211,14 +211,16 @@ describe('Header', () => {
   it('should have correct CSS classes for notification icon', () => {
     renderHeader();
     
-    const notificationIcon = screen.getByTestId('bell-icon');
+    const notificationButton = screen.getByTestId('notification-button');
+    const notificationIcon = notificationButton.querySelector('div');
     expect(notificationIcon).toHaveClass('w-6', 'h-6', 'text-blue-700');
   });
 
   it('should have correct CSS classes for user icon', () => {
     renderHeader();
     
-    const userIcon = screen.getByTestId('user-icon');
+    const profileButton = screen.getByTestId('profile-button');
+    const userIcon = profileButton.querySelector('div');
     expect(userIcon).toHaveClass('w-6', 'h-6');
   });
 
@@ -232,7 +234,7 @@ describe('Header', () => {
   it('should handle multiple notification clicks', () => {
     renderHeader();
     
-    const bellButton = screen.getByTestId('bell-icon').closest('button');
+    const bellButton = screen.getByTestId('notification-button');
     
     // Multiple clicks
     fireEvent.click(bellButton!);
@@ -246,7 +248,7 @@ describe('Header', () => {
   it('should handle multiple profile clicks', () => {
     renderHeader();
     
-    const profileButton = screen.getByTestId('user-icon').closest('button');
+    const profileButton = screen.getByTestId('profile-button');
     
     // Multiple clicks
     fireEvent.click(profileButton!);
@@ -280,7 +282,7 @@ describe('Header', () => {
   it('should handle rapid successive clicks on notification bell', () => {
     renderHeader();
     
-    const bellButton = screen.getByTestId('bell-icon').closest('button');
+    const bellButton = screen.getByTestId('notification-button');
     
     // Rapid successive clicks
     fireEvent.click(bellButton!);
@@ -296,7 +298,7 @@ describe('Header', () => {
   it('should handle rapid successive clicks on profile button', () => {
     renderHeader();
     
-    const profileButton = screen.getByTestId('user-icon').closest('button');
+    const profileButton = screen.getByTestId('profile-button');
     
     // Rapid successive clicks
     fireEvent.click(profileButton!);
@@ -312,7 +314,7 @@ describe('Header', () => {
   it('should handle logout function being called multiple times', () => {
     renderHeader();
     
-    const profileButton = screen.getByTestId('user-icon').closest('button');
+    const profileButton = screen.getByTestId('profile-button');
     fireEvent.click(profileButton!);
     
     const logoutButton = screen.getByTestId('logout-button');
@@ -339,8 +341,8 @@ describe('Header', () => {
   it('should have correct relative positioning for dropdowns', () => {
     renderHeader();
     
-    const notificationContainer = screen.getByTestId('bell-icon').closest('div')?.parentElement?.parentElement;
-    const profileContainer = screen.getByTestId('user-icon').closest('div')?.parentElement?.parentElement;
+    const notificationContainer = screen.getByTestId('notification-button').closest('div');
+    const profileContainer = screen.getByTestId('profile-button').closest('div');
     
     expect(notificationContainer).toHaveClass('relative');
     expect(profileContainer).toHaveClass('relative');
@@ -349,7 +351,7 @@ describe('Header', () => {
   it('should handle state changes correctly for notifications', () => {
     renderHeader();
     
-    const bellButton = screen.getByTestId('bell-icon').closest('button');
+    const bellButton = screen.getByTestId('notification-button');
     
     // Initial state - notifications hidden
     expect(screen.queryByTestId('notification-dropdown')).not.toBeInTheDocument();
@@ -366,7 +368,7 @@ describe('Header', () => {
   it('should handle state changes correctly for profile', () => {
     renderHeader();
     
-    const profileButton = screen.getByTestId('user-icon').closest('button');
+    const profileButton = screen.getByTestId('profile-button');
     
     // Initial state - profile hidden
     expect(screen.queryByTestId('profile-dropdown')).not.toBeInTheDocument();

@@ -34,7 +34,16 @@ const Register = () => {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/dashboard");
+      // Check if onboarding is complete
+      const onboardingComplete = localStorage.getItem('onboardingComplete') === 'true';
+      
+      if (!onboardingComplete) {
+        // Redirect to onboarding if not complete
+        navigate("/onboarding");
+      } else {
+        // Redirect to dashboard if onboarding is complete
+        navigate("/dashboard");
+      }
     }
   }, [isAuthenticated, navigate]);
 
@@ -53,7 +62,7 @@ const Register = () => {
         };
         dispatch(setCredentials(credentials));
       }
-      navigate('/dashboard');
+      // Navigation will be handled by the useEffect above based on onboarding status
     } catch {
       // Error is handled by RTK Query's error state
     }

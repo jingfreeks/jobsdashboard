@@ -64,7 +64,7 @@ describe('Register', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockSignup.mockImplementation(() => ({
-      unwrap: () => Promise.resolve({ token: 'test-token', user: 'testuser' })
+              unwrap: () => Promise.resolve({ accessToken: 'test-token', user: 'testuser', roles: [], userId: '' })
     }));
     mockSelectIsAuthenticated.mockReturnValue(false);
   });
@@ -276,12 +276,12 @@ describe('Register', () => {
   });
 
   describe('useEffect and Authentication', () => {
-    it('should redirect to dashboard when already authenticated', () => {
+    it('should redirect to onboarding when already authenticated', () => {
       mockSelectIsAuthenticated.mockReturnValue(true);
       
       renderRegister();
       
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should not redirect when not authenticated', () => {
@@ -289,7 +289,7 @@ describe('Register', () => {
       
       renderRegister();
       
-      expect(mockNavigate).not.toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).not.toHaveBeenCalledWith('/onboarding');
     });
 
     it('should handle authentication state changes', () => {
@@ -297,7 +297,7 @@ describe('Register', () => {
       
       const { rerender } = renderRegister();
       
-      expect(mockNavigate).not.toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).not.toHaveBeenCalledWith('/onboarding');
       
       // Change authentication state
       mockSelectIsAuthenticated.mockReturnValue(true);
@@ -309,7 +309,7 @@ describe('Register', () => {
         </Provider>
       );
       
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
   });
 
@@ -321,7 +321,7 @@ describe('Register', () => {
     });
 
     it('should test onSubmit function with successful registration', async () => {
-      const mockResult = { token: 'test-token', user: 'testuser' };
+      const mockResult = { accessToken: 'test-token', user: 'testuser', roles: [], userId: '' };
       mockSignup.mockImplementation(() => ({
         unwrap: () => Promise.resolve(mockResult)
       }));
@@ -342,10 +342,17 @@ describe('Register', () => {
       });
 
       await waitFor(() => {
-        expect(mockSetCredentials).toHaveBeenCalledWith({ ...mockResult, user: 'John Doe' });
+        expect(mockSetCredentials).toHaveBeenCalledWith({ 
+          accessToken: 'test-token',
+          roles: [],
+          user: 'John Doe',
+          userId: ''
+        });
       });
 
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      // Navigation happens in useEffect when isAuthenticated becomes true
+      // Since we're not setting isAuthenticated to true in this test, no navigation should occur
+      expect(mockNavigate).not.toHaveBeenCalled();
     });
 
     it('should test onSubmit function with null result (no setCredentials)', async () => {
@@ -365,7 +372,7 @@ describe('Register', () => {
       });
 
       expect(mockSetCredentials).not.toHaveBeenCalled();
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).not.toHaveBeenCalled();
     });
 
     it('should test onSubmit function with error (no setCredentials, but still navigation)', async () => {

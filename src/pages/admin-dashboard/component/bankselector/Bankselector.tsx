@@ -1,5 +1,5 @@
 import { PlusCircle, Loader2 } from "lucide-react";
-import { useCallback, memo, useMemo, Suspense } from "react";
+import { useCallback, memo, useMemo, Suspense, useState } from "react";
 import { useBankOperations } from "@/hooks/useBankOperations";
 import { useToast } from "@/hooks/useToast";
 import ToastContainer from "@/components/ToastContainer";
@@ -39,6 +39,10 @@ const Bankselector = () => {
   // Use toast for notifications
   const { toasts, removeToast, showSuccess, showError } = useToast();
 
+  // Delete confirmation modal state
+  const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
+  const [bankToDelete, setBankToDelete] = useState<string | null>(null);
+
   // Memoized callbacks for better performance
   const handleAddBank = useCallback(() => openAddModal(), [openAddModal]);
 
@@ -46,29 +50,32 @@ const Bankselector = () => {
     openEditModal(bank._id, bank.name);
   }, [openEditModal]);
 
-  const handleDeleteBank = useCallback(
-    async (bankId: string) => {
-      // Use optimized bank lookup
-      const bank = getBankById(bankId);
+  const handleDeleteBank = useCallback((bankId: string) => {
+    setBankToDelete(bankId);
+    setShowDeleteConfirmModal(true);
+  }, []);
+
+  const confirmDeleteBank = useCallback(async () => {
+    if (bankToDelete) {
+      const bank = getBankById(bankToDelete);
       const bankName = bank?.name || "this bank";
-
-      // Show confirmation dialog
-      const isConfirmed = window.confirm(
-        `Are you sure you want to delete "${bankName}"? This action cannot be undone.`
-      );
-
-      if (isConfirmed) {
-        const success = await deleteBankById(bankId);
-        if (!success) {
-          console.error("Failed to delete bank");
-          showError("Failed to delete bank. Please try again.");
-        } else {
-          showSuccess(`Bank "${bankName}" has been deleted successfully.`);
-        }
+      
+      const success = await deleteBankById(bankToDelete);
+      if (!success) {
+        console.error("Failed to delete bank");
+        showError("Failed to delete bank. Please try again.");
+      } else {
+        showSuccess(`Bank "${bankName}" has been deleted successfully.`);
       }
-    },
-    [deleteBankById, getBankById, showSuccess, showError]
-  );
+      setShowDeleteConfirmModal(false);
+      setBankToDelete(null);
+    }
+  }, [bankToDelete, deleteBankById, getBankById, showSuccess, showError]);
+
+  const cancelDeleteBank = useCallback(() => {
+    setShowDeleteConfirmModal(false);
+    setBankToDelete(null);
+  }, []);
 
   const handleCreateBank = useCallback(
     async (e: React.FormEvent) => {
@@ -172,6 +179,37 @@ const Bankselector = () => {
         isLoading={isUpdating}
         submitText="Update"
       />
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteConfirmModal && bankToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md relative">
+            <h3 className="text-xl font-bold mb-4 text-slate-800">
+              Confirm Delete
+            </h3>
+            <p className="text-slate-600 mb-6">
+              Are you sure you want to delete "{banks.find(b => b._id === bankToDelete)?.name}"? This action cannot be undone.
+            </p>
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={cancelDeleteBank}
+                disabled={isDeleting}
+                className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 disabled:bg-slate-50 text-slate-700 font-semibold"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDeleteBank}
+                disabled={isDeleting}
+                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-semibold flex items-center gap-2"
+              >
+                {isDeleting && <Loader2 className="w-4 h-4 animate-spin" />}
+                {isDeleting ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Bank List or Empty State */}
       <Suspense fallback={<LoadingSpinner />}>
