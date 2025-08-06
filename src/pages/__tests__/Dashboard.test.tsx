@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@/testUtils';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import Dashboard from '../dashboard/Dashboard';
+import { AdminDashboard as Dashboard } from '../admin-dashboard';
 import { store } from '@/config/store';
 import * as authActions from '@/features/auth';
 
@@ -41,7 +41,7 @@ vi.mock('react-router-dom', () => ({
 }));
 
 vi.mock('react-redux', async (importOriginal) => {
-  const actual = await importOriginal() as any;
+  const actual = await importOriginal() as typeof import('react-redux');
   return {
     ...actual,
     useDispatch: () => mockDispatch,
@@ -99,7 +99,7 @@ vi.mock('@/features/auth', () => ({
 }));
 
 // Mock all dashboard components
-vi.mock('../dashboard/component', () => ({
+vi.mock('../admin-dashboard/component', () => ({
   Header: ({ handleLogout }: { handleLogout: () => void }) => (
     <header data-testid="dashboard-header">
       <h1>Dashboard</h1>
@@ -109,7 +109,7 @@ vi.mock('../dashboard/component', () => ({
     </header>
   ),
   DasboardSelector: () => <div data-testid="dashboard-selector">Dashboard Selector</div>,
-  Jobselector: () => <div data-testid="job-selector">Job Selector</div>,
+  JobSelector: () => <div data-testid="job-selector">Job Selector</div>,
   Bankselector: () => <div data-testid="bank-selector">Bank Selector</div>,
   CitySelector: () => <div data-testid="city-selector">City Selector</div>,
   StateSelector: () => <div data-testid="state-selector">State Selector</div>,
@@ -171,7 +171,7 @@ describe('Dashboard', () => {
       </Provider>
     );
     // Use more specific selectors to avoid multiple matches
-    expect(screen.getByRole('heading', { name: /Dashboard/i })).toBeInTheDocument();
+    expect(screen.getByTestId('dashboard-header')).toBeInTheDocument();
     expect(screen.getByText(/Main/i)).toBeInTheDocument();
     
     // Snapshot test
@@ -188,7 +188,7 @@ describe('Dashboard', () => {
     );
     
     // Check for main dashboard elements using specific selectors
-    expect(screen.getByRole('heading', { name: /Dashboard/i })).toBeInTheDocument();
+    expect(screen.getByTestId('dashboard-header')).toBeInTheDocument();
     expect(screen.getByText(/Main/i)).toBeInTheDocument();
     
     // Verify the auth actions are properly mocked
@@ -463,6 +463,9 @@ describe('Dashboard', () => {
         // Navigation might not happen if purgePersistedState throws
         // This is expected behavior as the component handles the error gracefully
       });
+
+      // Suppress the expected error
+      await new Promise(resolve => setTimeout(resolve, 0));
     });
 
     it('should handle logout when navigate throws error', async () => {
@@ -492,6 +495,9 @@ describe('Dashboard', () => {
         // Navigation attempt is made but throws error
         expect(mockNavigate).toHaveBeenCalledWith('/login');
       });
+
+      // Suppress the expected error
+      await new Promise(resolve => setTimeout(resolve, 0));
     });
   });
 

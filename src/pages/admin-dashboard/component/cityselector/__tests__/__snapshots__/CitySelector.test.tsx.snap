@@ -17,7 +17,7 @@ exports[`CitySelector > should render correctly and match snapshot 1`] = `
         City List
       </h2>
       <button
-        class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition"
+        class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-2 rounded-lg font-semibold shadow transition"
       >
         <svg
           aria-hidden="true"
@@ -44,7 +44,7 @@ exports[`CitySelector > should render correctly and match snapshot 1`] = `
             d="M12 8v8"
           />
         </svg>
-         Add City
+        Add City
       </button>
     </div>
     <div

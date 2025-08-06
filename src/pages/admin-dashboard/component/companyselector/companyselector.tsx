@@ -1,4 +1,4 @@
-import { PlusCircle, Search, Filter } from "lucide-react";
+import { PlusCircle, Search, Filter, Loader2 } from "lucide-react";
 import { useState, useCallback, memo, useMemo } from "react";
 import { useCompanyOperations } from "@/hooks/useCompanyOperations";
 import { useToast } from "@/hooks/useToast";
@@ -259,6 +259,8 @@ const CompanySelector = () => {
   const [newCompanyCityId, setNewCompanyCityId] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCityFilter, setSelectedCityFilter] = useState("");
+  const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
+  const [companyToDelete, setCompanyToDelete] = useState<string | null>(null);
 
   // Use optimized company operations hook
   const {
@@ -291,24 +293,32 @@ const CompanySelector = () => {
   // Memoized callbacks for better performance
   const handleAddCompany = useCallback(() => setShowAddCompanyModal(true), []);
 
-  const handleDeleteCompany = useCallback(async (companyId: string) => {
-    // Find the company name for the confirmation message
-    const company = companiesWithCities.find(c => c._id === companyId);
-    const companyName = company?.name || 'this company';
-    
-    // Show confirmation dialog
-    const isConfirmed = window.confirm(`Are you sure you want to delete "${companyName}"? This action cannot be undone.`);
-    
-    if (isConfirmed) {
-      const success = await deleteCompanyById(companyId);
+  const handleDeleteCompany = useCallback((companyId: string) => {
+    setCompanyToDelete(companyId);
+    setShowDeleteConfirmModal(true);
+  }, []);
+
+  const confirmDeleteCompany = useCallback(async () => {
+    if (companyToDelete) {
+      const company = companiesWithCities.find(c => c._id === companyToDelete);
+      const companyName = company?.name || 'this company';
+      
+      const success = await deleteCompanyById(companyToDelete);
       if (!success) {
         console.error('Failed to delete company');
         showError('Failed to delete company. Please try again.');
       } else {
         showSuccess(`Company "${companyName}" has been deleted successfully.`);
       }
+      setShowDeleteConfirmModal(false);
+      setCompanyToDelete(null);
     }
-  }, [deleteCompanyById, companiesWithCities, showSuccess, showError]);
+  }, [companyToDelete, deleteCompanyById, companiesWithCities, showSuccess, showError]);
+
+  const cancelDeleteCompany = useCallback(() => {
+    setShowDeleteConfirmModal(false);
+    setCompanyToDelete(null);
+  }, []);
 
   const handleEditCompany = useCallback((company: Company) => {
     setEditCompanyId(company._id);
@@ -482,6 +492,37 @@ const CompanySelector = () => {
         onClose={handleCloseEditCompanyModal}
         isUpdating={isUpdating}
       />
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteConfirmModal && companyToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md relative">
+            <h3 className="text-xl font-bold mb-4 text-slate-800">
+              Confirm Delete
+            </h3>
+            <p className="text-slate-600 mb-6">
+              Are you sure you want to delete "{companiesWithCities.find(c => c._id === companyToDelete)?.name}"? This action cannot be undone.
+            </p>
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={cancelDeleteCompany}
+                disabled={isDeleting}
+                className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 disabled:bg-slate-50 text-slate-700 font-semibold"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDeleteCompany}
+                disabled={isDeleting}
+                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-semibold flex items-center gap-2"
+              >
+                {isDeleting && <Loader2 className="w-4 h-4 animate-spin" />}
+                {isDeleting ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="bg-white rounded-xl shadow p-6 border border-slate-100">
         {/* Table Header */}

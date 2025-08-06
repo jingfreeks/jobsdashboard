@@ -1,3 +1,3 @@
-export {default as CitySelector} from './Cityselector';
+export { default as CitySelector } from './Cityselector';
 
 

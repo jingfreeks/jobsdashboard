@@ -506,8 +506,8 @@ describe('Login', () => {
     // Render the component with authenticated state
     renderLogin();
     
-    // Verify that navigate was called with "/admin/dashboard"
-    expect(mockNavigate).toHaveBeenCalledWith('/admin/dashboard');
+    // Verify that navigate was called with "/onboarding" (default when onboarding not complete)
+    expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
   });
 
   it('should redirect to job applicant dashboard when isAuthenticated is true and user has no admin role', () => {
@@ -521,8 +521,8 @@ describe('Login', () => {
     // Render the component with authenticated state
     renderLogin();
     
-    // Verify that navigate was called with "/job-applicant/dashboard"
-    expect(mockNavigate).toHaveBeenCalledWith('/job-applicant/dashboard');
+    // Verify that navigate was called with "/onboarding" (default when onboarding not complete)
+    expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
   });
 
   it('should not redirect when isAuthenticated is false', () => {
@@ -569,8 +569,8 @@ describe('Login', () => {
       </Provider>
     );
     
-    // Verify that navigate was called with "/job-applicant/dashboard" after state change
-    expect(mockNavigate).toHaveBeenCalledWith('/job-applicant/dashboard');
+    // Verify that navigate was called with "/onboarding" after state change (default when onboarding not complete)
+    expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
   });
 
   it('should test useEffect dependencies are correct', () => {
@@ -602,7 +602,7 @@ describe('Login', () => {
 
     it('should test onSubmit function with successful login result', async () => {
       // Mock successful login response that triggers setCredentials
-      const mockResult = { token: 'test-token', user: 'testuser' };
+      const mockResult = { accessToken: 'test-token', user: 'testuser', roles: [], userId: '' };
       mockLogin.mockImplementation(() => ({
         unwrap: () => Promise.resolve(mockResult)
       }));
@@ -629,13 +629,15 @@ describe('Login', () => {
       // Wait for the unwrap to complete and setCredentials to be called
       await waitFor(() => {
         expect(mockSetCredentials).toHaveBeenCalledWith({
-          ...mockResult,
-          user: 'test@example.com'
+          accessToken: 'test-token',
+          roles: [],
+          user: 'test@example.com',
+          userId: ''
         });
       });
 
       // Verify navigation occurred
-      expect(mockNavigate).toHaveBeenCalledWith('/admin/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test onSubmit function with null result (no setCredentials)', async () => {
@@ -664,8 +666,8 @@ describe('Login', () => {
         expect(mockSetCredentials).not.toHaveBeenCalled();
       });
 
-      // Should still navigate to dashboard
-      expect(mockNavigate).toHaveBeenCalledWith('/admin/dashboard');
+      // Should navigate to onboarding by default
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test onSubmit function with string result (no setCredentials)', async () => {
@@ -694,8 +696,8 @@ describe('Login', () => {
         expect(mockSetCredentials).not.toHaveBeenCalled();
       });
 
-      // Should still navigate to dashboard
-      expect(mockNavigate).toHaveBeenCalledWith('/admin/dashboard');
+      // Should navigate to onboarding by default
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test onSubmit function with error (no setCredentials, but still navigation)', async () => {
@@ -724,13 +726,13 @@ describe('Login', () => {
         expect(mockSetCredentials).not.toHaveBeenCalled();
       });
 
-      // Should still navigate to dashboard even on error (due to code structure)
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      // Should navigate to onboarding by default even on error
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test onSubmit function with special characters and successful result', async () => {
       // Mock successful login response
-      const mockResult = { token: 'test-token', user: 'testuser' };
+      const mockResult = { accessToken: 'test-token', user: 'testuser', roles: [], userId: '' };
       mockLogin.mockImplementation(() => ({
         unwrap: () => Promise.resolve(mockResult)
       }));
@@ -756,18 +758,20 @@ describe('Login', () => {
       // Wait for the unwrap to complete and setCredentials to be called
       await waitFor(() => {
         expect(mockSetCredentials).toHaveBeenCalledWith({
-          ...mockResult,
-          user: 'test+user@example.com'
+          accessToken: 'test-token',
+          roles: [],
+          user: 'test+user@example.com',
+          userId: ''
         });
       });
 
       // Verify navigation occurred
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test onSubmit function with unicode characters and successful result', async () => {
       // Mock successful login response
-      const mockResult = { token: 'test-token', user: 'testuser' };
+      const mockResult = { accessToken: 'test-token', user: 'testuser', roles: [], userId: '' };
       mockLogin.mockImplementation(() => ({
         unwrap: () => Promise.resolve(mockResult)
       }));
@@ -793,18 +797,20 @@ describe('Login', () => {
       // Wait for the unwrap to complete and setCredentials to be called
       await waitFor(() => {
         expect(mockSetCredentials).toHaveBeenCalledWith({
-          ...mockResult,
-          user: 'tëst@exämple.com'
+          accessToken: 'test-token',
+          roles: [],
+          user: 'tëst@exämple.com',
+          userId: ''
         });
       });
 
       // Verify navigation occurred
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test onSubmit function with very long credentials and successful result', async () => {
       // Mock successful login response
-      const mockResult = { token: 'test-token', user: 'testuser' };
+      const mockResult = { accessToken: 'test-token', user: 'testuser', roles: [], userId: '' };
       mockLogin.mockImplementation(() => ({
         unwrap: () => Promise.resolve(mockResult)
       }));
@@ -833,18 +839,20 @@ describe('Login', () => {
       // Wait for the unwrap to complete and setCredentials to be called
       await waitFor(() => {
         expect(mockSetCredentials).toHaveBeenCalledWith({
-          ...mockResult,
-          user: longUsername
+          accessToken: 'test-token',
+          roles: [],
+          user: longUsername,
+          userId: ''
         });
       });
 
       // Verify navigation occurred
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test onSubmit function multiple submissions with successful results', async () => {
       // Mock successful login response
-      const mockResult = { token: 'test-token', user: 'testuser' };
+      const mockResult = { accessToken: 'test-token', user: 'testuser', roles: [], userId: '' };
       mockLogin.mockImplementation(() => ({
         unwrap: () => Promise.resolve(mockResult)
       }));
@@ -874,7 +882,7 @@ describe('Login', () => {
       });
 
       // Should navigate at least once (may be debounced for rapid submissions)
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
   });
 
@@ -984,8 +992,8 @@ describe('Login', () => {
       // Should NOT call setCredentials on error
       expect(mockSetCredentials).not.toHaveBeenCalled();
 
-      // Should still navigate to dashboard even on error
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      // Should still navigate to onboarding even on error
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test isFetchBaseQueryError with FetchBaseQueryError without message', async () => {
@@ -1018,7 +1026,7 @@ describe('Login', () => {
       expect(mockSetCredentials).not.toHaveBeenCalled();
 
       // Should still navigate to dashboard even on error
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test isFetchBaseQueryError with FetchBaseQueryError with nested error structure', async () => {
@@ -1055,7 +1063,7 @@ describe('Login', () => {
       expect(mockSetCredentials).not.toHaveBeenCalled();
 
       // Should still navigate to dashboard even on error
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test isFetchBaseQueryError with non-FetchBaseQueryError (string error)', async () => {
@@ -1085,7 +1093,7 @@ describe('Login', () => {
       expect(mockSetCredentials).not.toHaveBeenCalled();
 
       // Should still navigate to dashboard even on error
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test isFetchBaseQueryError with null error', async () => {
@@ -1115,7 +1123,7 @@ describe('Login', () => {
       expect(mockSetCredentials).not.toHaveBeenCalled();
 
       // Should still navigate to dashboard even on error
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test isFetchBaseQueryError with undefined error', async () => {
@@ -1145,7 +1153,7 @@ describe('Login', () => {
       expect(mockSetCredentials).not.toHaveBeenCalled();
 
       // Should still navigate to dashboard even on error
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test isFetchBaseQueryError with object without status property', async () => {
@@ -1178,7 +1186,7 @@ describe('Login', () => {
       expect(mockSetCredentials).not.toHaveBeenCalled();
 
       // Should still navigate to dashboard even on error
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test isFetchBaseQueryError with number error', async () => {
@@ -1208,7 +1216,7 @@ describe('Login', () => {
       expect(mockSetCredentials).not.toHaveBeenCalled();
 
       // Should still navigate to dashboard even on error
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test isFetchBaseQueryError with boolean error', async () => {
@@ -1238,7 +1246,7 @@ describe('Login', () => {
       expect(mockSetCredentials).not.toHaveBeenCalled();
 
       // Should still navigate to dashboard even on error
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     it('should test isFetchBaseQueryError with complex nested error structure', async () => {
@@ -1283,7 +1291,7 @@ describe('Login', () => {
       expect(mockSetCredentials).not.toHaveBeenCalled();
 
       // Should still navigate to dashboard even on error
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockNavigate).toHaveBeenCalledWith('/onboarding');
     });
 
     // Test error message logic directly

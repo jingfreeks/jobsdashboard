@@ -23,7 +23,8 @@ const SkillSelector = () => {
   const [editSkillId, setEditSkillId] = useState<string | null>(null);
   const [editSkillName, setEditSkillName] = useState("");
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
-  const [skillToDelete, setSkillToDelete] = useState<{ id: string; name: string } | null>(null);
+  const [skillToDelete, setSkillToDelete] = useState<string | null>(null);
+
 
   // Handlers for Skills
   const handleAddSkill = () => setShowAddSkillModal(true);
@@ -33,11 +34,11 @@ const SkillSelector = () => {
     if (newSkillName.trim()) {
       const result = await createSkill({ name: newSkillName.trim() });
       if (result) {
-        showSuccess("Skill created successfully");
+        showSuccess(`Skill "${newSkillName.trim()}" has been created successfully.`);
         setNewSkillName("");
         setShowAddSkillModal(false);
       } else {
-        showError("Failed to create skill");
+        showError("Failed to create skill. Please try again.");
       }
     }
   };
@@ -59,36 +60,36 @@ const SkillSelector = () => {
         name: editSkillName.trim(),
       });
       if (result) {
-        showSuccess("Skill updated successfully");
+        showSuccess(`Skill "${editSkillName.trim()}" has been updated successfully.`);
         setShowEditSkillModal(false);
         setEditSkillId(null);
         setEditSkillName("");
       } else {
-        showError("Failed to update skill");
+        showError("Failed to update skill. Please try again.");
       }
     }
   };
 
-  const handleDeleteSkill = async (id: string) => {
-    const skill = skills.find(s => s._id === id);
-    if (skill) {
-      setSkillToDelete({ id, name: skill.name });
-      setShowDeleteConfirmModal(true);
-    }
+  const handleDeleteSkill = (id: string) => {
+    setSkillToDelete(id);
+    setShowDeleteConfirmModal(true);
   };
 
   const confirmDeleteSkill = async () => {
-    if (!skillToDelete) return;
-    
-    const success = await deleteSkillById(skillToDelete.id);
-    if (success) {
-      showSuccess(`"${skillToDelete.name}" has been deleted successfully`);
-    } else {
-      showError(`Failed to delete "${skillToDelete.name}"`);
+    if (skillToDelete) {
+      const skill = skills.find(s => s._id === skillToDelete);
+      if (skill) {
+        const success = await deleteSkillById(skillToDelete);
+        if (!success) {
+          console.error("Failed to delete skill");
+          showError("Failed to delete skill. Please try again.");
+        } else {
+          showSuccess(`Skill "${skill.name}" has been deleted successfully.`);
+        }
+      }
+      setShowDeleteConfirmModal(false);
+      setSkillToDelete(null);
     }
-    
-    setShowDeleteConfirmModal(false);
-    setSkillToDelete(null);
   };
 
   const cancelDeleteSkill = () => {
@@ -236,34 +237,28 @@ const SkillSelector = () => {
       {showDeleteConfirmModal && skillToDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
           <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md relative">
-            <div className="text-center">
-              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
-                <Trash2 className="h-6 w-6 text-red-600" />
-              </div>
-              <h3 className="text-xl font-bold mb-2 text-slate-800">
-                Delete Skill
-              </h3>
-              <p className="text-slate-600 mb-6">
-                Are you sure you want to delete <span className="font-semibold">"{skillToDelete.name}"</span>? 
-                <br />
-                This action cannot be undone.
-              </p>
-              <div className="flex gap-3 justify-center">
-                <button
-                  onClick={cancelDeleteSkill}
-                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={confirmDeleteSkill}
-                  disabled={isDeleting}
-                  className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-semibold flex items-center gap-2"
-                >
-                  {isDeleting && <Loader2 className="w-4 h-4 animate-spin" />}
-                  {isDeleting ? "Deleting..." : "Delete"}
-                </button>
-              </div>
+            <h3 className="text-xl font-bold mb-4 text-slate-800">
+              Confirm Delete
+            </h3>
+            <p className="text-slate-600 mb-6">
+              Are you sure you want to delete "{skills.find(s => s._id === skillToDelete)?.name}"? This action cannot be undone.
+            </p>
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={cancelDeleteSkill}
+                disabled={isDeleting}
+                className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 disabled:bg-slate-50 text-slate-700 font-semibold"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDeleteSkill}
+                disabled={isDeleting}
+                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-semibold flex items-center gap-2"
+              >
+                {isDeleting && <Loader2 className="w-4 h-4 animate-spin" />}
+                {isDeleting ? 'Deleting...' : 'Delete'}
+              </button>
             </div>
           </div>
         </div>

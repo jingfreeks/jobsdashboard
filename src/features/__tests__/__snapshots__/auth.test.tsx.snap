@@ -77,6 +77,7 @@ exports[`Auth Feature > Auth API Slice > should match snapshot for auth API slic
 
 exports[`Auth Feature > Auth Slice > Initial State > should match snapshot for initial state 1`] = `
 {
+  "onboardingComplete": false,
   "roles": [],
   "token": null,
   "user": null,
@@ -86,6 +87,7 @@ exports[`Auth Feature > Auth Slice > Initial State > should match snapshot for i
 
 exports[`Auth Feature > Auth Slice > rehydrateAuth Action > should match snapshot after rehydration 1`] = `
 {
+  "onboardingComplete": false,
   "roles": [
     "user",
     "admin",
@@ -98,6 +100,7 @@ exports[`Auth Feature > Auth Slice > rehydrateAuth Action > should match snapsho
 
 exports[`Auth Feature > Auth Slice > setCredentials Action > should match snapshot after setting credentials 1`] = `
 {
+  "onboardingComplete": false,
   "roles": [
     "user",
     "admin",
@@ -110,6 +113,7 @@ exports[`Auth Feature > Auth Slice > setCredentials Action > should match snapsh
 
 exports[`Auth Feature > Auth Slice > setLogout Action > should match snapshot after logout 1`] = `
 {
+  "onboardingComplete": false,
   "roles": [],
   "token": null,
   "user": null,

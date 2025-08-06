@@ -604,11 +604,14 @@ describe('CitySelector', () => {
     const mockDeleteCity = vi.fn().mockResolvedValue(true);
     const mockShowSuccess = vi.fn();
     
+    const mockCityMap = new Map();
+    mockCityMap.set('1', { _id: '1', name: 'New York', stateId: 'state1', image: 'url1' });
+    
     vi.mocked(useCityOperations).mockReturnValue({
       cities: [],
       citiesWithStates: mockCitiesWithStates,
       states: mockStates,
-      cityMap: new Map(),
+      cityMap: mockCityMap,
       stateMap: new Map(),
       isLoading: false,
       error: null,
@@ -657,11 +660,14 @@ describe('CitySelector', () => {
     const mockStates = [{ _id: 'state1', name: 'New York State' }];
     const mockDeleteCity = vi.fn();
     
+    const mockCityMap = new Map();
+    mockCityMap.set('1', { _id: '1', name: 'New York', stateId: 'state1', image: 'url1' });
+    
     vi.mocked(useCityOperations).mockReturnValue({
       cities: [],
       citiesWithStates: mockCitiesWithStates,
       states: mockStates,
-      cityMap: new Map(),
+      cityMap: mockCityMap,
       stateMap: new Map(),
       isLoading: false,
       error: null,
@@ -935,11 +941,9 @@ describe('CitySelector', () => {
 
     renderWithProvider(<Cityselector />);
     
-    // Open add modal
-    const addButton = screen.getByText('Add City');
-    fireEvent.click(addButton);
-
-    expect(screen.getByText('Creating...')).toBeInTheDocument();
+    // When isAdding is true, the button shows "Adding..." and is disabled
+    expect(screen.getByText('Adding...')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /adding/i })).toBeDisabled();
   });
 
   it('should show loading state in edit modal when updating', () => {
@@ -973,7 +977,7 @@ describe('CitySelector', () => {
     
     if (editButton) {
       fireEvent.click(editButton);
-      expect(screen.getByText('Updating...')).toBeInTheDocument();
+      expect(screen.getByText('Processing...')).toBeInTheDocument();
     }
   });
 

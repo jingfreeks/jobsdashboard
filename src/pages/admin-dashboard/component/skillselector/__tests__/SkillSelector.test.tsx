@@ -333,10 +333,10 @@ describe('SkillSelector', () => {
     
     fireEvent.click(deleteButton);
     
-    // Check that confirmation modal is shown
-    expect(screen.getByText('Delete Skill')).toBeInTheDocument();
-    expect(screen.getByText(/Are you sure you want to delete/)).toBeInTheDocument();
-    expect(screen.getByText('JavaScript')).toBeInTheDocument();
+    // Check that window.confirm was called with the correct message
+    expect(window.confirm).toHaveBeenCalledWith(
+      'Are you sure you want to delete "JavaScript"? This action cannot be undone.'
+    );
     
     // Click the delete button in the modal
     const confirmDeleteButton = screen.getByText('Delete');
