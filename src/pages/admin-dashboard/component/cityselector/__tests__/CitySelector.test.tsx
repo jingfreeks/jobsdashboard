@@ -634,8 +634,6 @@ describe('CitySelector', () => {
       showInfo: vi.fn(),
     });
 
-    mockConfirm.mockReturnValue(true);
-
     renderWithProvider(<Cityselector />);
     
     // Find and click delete button
@@ -647,8 +645,14 @@ describe('CitySelector', () => {
     if (deleteButton) {
       fireEvent.click(deleteButton);
 
+      // Check that confirmation modal is shown
+      expect(screen.getByText('Confirm Delete')).toBeInTheDocument();
+      
+      // Click the delete button in the modal
+      const confirmDeleteButton = screen.getByText('Delete');
+      fireEvent.click(confirmDeleteButton);
+
       await waitFor(() => {
-        expect(mockConfirm).toHaveBeenCalledWith('Are you sure you want to delete "New York"? This action cannot be undone.');
         expect(mockDeleteCity).toHaveBeenCalledWith('1');
         expect(mockShowSuccess).toHaveBeenCalledWith('City "New York" has been deleted successfully.');
       });
@@ -680,8 +684,6 @@ describe('CitySelector', () => {
       refetch: vi.fn(),
     });
 
-    mockConfirm.mockReturnValue(false);
-
     renderWithProvider(<Cityselector />);
     
     // Find and click delete button
@@ -693,8 +695,18 @@ describe('CitySelector', () => {
     if (deleteButton) {
       fireEvent.click(deleteButton);
 
-      expect(mockConfirm).toHaveBeenCalled();
+      // Check that confirmation modal is shown
+      expect(screen.getByText('Confirm Delete')).toBeInTheDocument();
+      
+      // Click the cancel button in the modal
+      const cancelButton = screen.getByText('Cancel');
+      fireEvent.click(cancelButton);
+      
+      // Verify that delete function was NOT called
       expect(mockDeleteCity).not.toHaveBeenCalled();
+      
+      // Verify that modal is closed
+      expect(screen.queryByText('Confirm Delete')).not.toBeInTheDocument();
     }
   });
 
@@ -840,8 +852,6 @@ describe('CitySelector', () => {
       showInfo: vi.fn(),
     });
 
-    mockConfirm.mockReturnValue(true);
-
     renderWithProvider(<Cityselector />);
     
     // Find and click delete button
@@ -852,6 +862,13 @@ describe('CitySelector', () => {
     
     if (deleteButton) {
       fireEvent.click(deleteButton);
+
+      // Check that confirmation modal is shown
+      expect(screen.getByText('Confirm Delete')).toBeInTheDocument();
+      
+      // Click the delete button in the modal
+      const confirmDeleteButton = screen.getByText('Delete');
+      fireEvent.click(confirmDeleteButton);
 
       await waitFor(() => {
         expect(mockShowError).toHaveBeenCalledWith('Failed to delete city. Please try again.');

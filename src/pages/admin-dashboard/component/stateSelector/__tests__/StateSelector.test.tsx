@@ -188,9 +188,6 @@ describe('StateSelector', () => {
   it('should handle state deletion', async () => {
     mockUseStateOperations.deleteStateById.mockResolvedValue(true);
     
-    // Mock window.confirm
-    const mockConfirm = vi.spyOn(window, 'confirm').mockReturnValue(true);
-    
     renderStateSelector();
     
     // Find and click delete button for first state
@@ -202,14 +199,18 @@ describe('StateSelector', () => {
     if (deleteButton) {
       fireEvent.click(deleteButton);
       
+      // Check that confirmation modal is shown
+      expect(screen.getByText('Confirm Delete')).toBeInTheDocument();
+      
+      // Click the delete button in the modal
+      const confirmDeleteButton = screen.getByText('Delete');
+      fireEvent.click(confirmDeleteButton);
+      
       await waitFor(() => {
-        expect(mockConfirm).toHaveBeenCalledWith('Are you sure you want to delete "California"? This action cannot be undone.');
         expect(mockUseStateOperations.deleteStateById).toHaveBeenCalledWith('1');
         expect(mockUseToast.showSuccess).toHaveBeenCalledWith('State "California" has been deleted successfully.');
       });
     }
-    
-    mockConfirm.mockRestore();
   });
 
   it('should handle error during state creation', async () => {
@@ -265,9 +266,6 @@ describe('StateSelector', () => {
   it('should handle error during state deletion', async () => {
     mockUseStateOperations.deleteStateById.mockResolvedValue(false);
     
-    // Mock window.confirm
-    const mockConfirm = vi.spyOn(window, 'confirm').mockReturnValue(true);
-    
     renderStateSelector();
     
     // Find and click delete button for first state
@@ -279,12 +277,17 @@ describe('StateSelector', () => {
     if (deleteButton) {
       fireEvent.click(deleteButton);
       
+      // Check that confirmation modal is shown
+      expect(screen.getByText('Confirm Delete')).toBeInTheDocument();
+      
+      // Click the delete button in the modal
+      const confirmDeleteButton = screen.getByText('Delete');
+      fireEvent.click(confirmDeleteButton);
+      
       await waitFor(() => {
         expect(mockUseToast.showError).toHaveBeenCalledWith('Failed to delete state. Please try again.');
       });
     }
-    
-    mockConfirm.mockRestore();
   });
 
   // Additional test cases for better coverage
@@ -374,9 +377,6 @@ describe('StateSelector', () => {
   });
 
   it('should not delete state when user cancels confirmation', async () => {
-    // Mock window.confirm to return false
-    const mockConfirm = vi.spyOn(window, 'confirm').mockReturnValue(false);
-    
     renderStateSelector();
     
     // Find and click delete button for first state
@@ -388,13 +388,19 @@ describe('StateSelector', () => {
     if (deleteButton) {
       fireEvent.click(deleteButton);
       
-      await waitFor(() => {
-        expect(mockConfirm).toHaveBeenCalledWith('Are you sure you want to delete "California"? This action cannot be undone.');
-        expect(mockUseStateOperations.deleteStateById).not.toHaveBeenCalled();
-      });
+      // Check that confirmation modal is shown
+      expect(screen.getByText('Confirm Delete')).toBeInTheDocument();
+      
+      // Click the cancel button in the modal
+      const cancelButton = screen.getByText('Cancel');
+      fireEvent.click(cancelButton);
+      
+      // Verify that delete function was NOT called
+      expect(mockUseStateOperations.deleteStateById).not.toHaveBeenCalled();
+      
+      // Verify that modal is closed
+      expect(screen.queryByText('Confirm Delete')).not.toBeInTheDocument();
     }
-    
-    mockConfirm.mockRestore();
   });
 
   it('should disable add button when operations are in progress', () => {
@@ -448,9 +454,6 @@ describe('StateSelector', () => {
   it('should handle deletion of state with empty name gracefully', async () => {
     mockUseStateOperations.deleteStateById.mockResolvedValue(true);
     
-    // Mock window.confirm
-    const mockConfirm = vi.spyOn(window, 'confirm').mockReturnValue(true);
-    
     // Temporarily modify states to include one with empty name
     const originalStates = mockUseStateOperations.states;
     mockUseStateOperations.states = [
@@ -467,7 +470,6 @@ describe('StateSelector', () => {
     
     // Restore original states
     mockUseStateOperations.states = originalStates;
-    mockConfirm.mockRestore();
   });
 
   it('should handle edit state when state is not found', () => {

@@ -210,10 +210,6 @@ describe('CompanySelector', () => {
   });
 
   it('should delete company when delete button is clicked', async () => {
-    // Mock window.confirm to return true
-    const originalConfirm = window.confirm;
-    window.confirm = vi.fn(() => true);
-    
     render(<CompanySelector />);
     
     // Verify Acme Corp exists initially
@@ -228,13 +224,17 @@ describe('CompanySelector', () => {
     if (deleteButton) {
       fireEvent.click(deleteButton);
 
+      // Check that confirmation modal is shown
+      expect(screen.getByText('Confirm Delete')).toBeInTheDocument();
+      
+      // Click the delete button in the modal
+      const confirmDeleteButton = screen.getByText('Delete');
+      fireEvent.click(confirmDeleteButton);
+
       await waitFor(() => {
         expect(screen.queryByText('Acme Corp')).not.toBeInTheDocument();
       });
     }
-    
-    // Restore original confirm
-    window.confirm = originalConfirm;
   });
 
   it('should close modals when cancel button is clicked', () => {
@@ -327,10 +327,6 @@ describe('CompanySelector', () => {
   });
 
   it('should handle multiple company operations correctly', async () => {
-    // Mock window.confirm to return true
-    const originalConfirm = window.confirm;
-    window.confirm = vi.fn(() => true);
-    
     render(<CompanySelector />);
     
     // Add a new company
@@ -376,13 +372,17 @@ describe('CompanySelector', () => {
     if (deleteButton) {
       fireEvent.click(deleteButton);
 
+      // Check that confirmation modal is shown
+      expect(screen.getByText('Confirm Delete')).toBeInTheDocument();
+      
+      // Click the delete button in the modal
+      const confirmDeleteButton = screen.getByText('Delete');
+      fireEvent.click(confirmDeleteButton);
+
       await waitFor(() => {
         expect(screen.queryByText('Acme Corporation')).not.toBeInTheDocument();
       });
     }
-    
-    // Restore original confirm
-    window.confirm = originalConfirm;
   });
 
   it('should handle rapid company operations', async () => {
