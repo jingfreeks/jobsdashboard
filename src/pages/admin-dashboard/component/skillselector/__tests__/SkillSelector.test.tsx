@@ -333,10 +333,8 @@ describe('SkillSelector', () => {
     
     fireEvent.click(deleteButton);
     
-    // Check that window.confirm was called with the correct message
-    expect(window.confirm).toHaveBeenCalledWith(
-      'Are you sure you want to delete "JavaScript"? This action cannot be undone.'
-    );
+    // Check that confirmation modal is shown
+    expect(screen.getByText('Confirm Delete')).toBeInTheDocument();
     
     // Click the delete button in the modal
     const confirmDeleteButton = screen.getByText('Delete');
@@ -402,7 +400,7 @@ describe('SkillSelector', () => {
     fireEvent.click(deleteButton);
     
     // Check that confirmation modal is shown
-    expect(screen.getByText('Delete Skill')).toBeInTheDocument();
+    expect(screen.getByText('Confirm Delete')).toBeInTheDocument();
     
     // Click the cancel button in the modal
     const cancelButton = screen.getByText('Cancel');
@@ -412,6 +410,6 @@ describe('SkillSelector', () => {
     expect(mockDeleteSkill).not.toHaveBeenCalled();
     
     // Verify that modal is closed
-    expect(screen.queryByText('Delete Skill')).not.toBeInTheDocument();
+    expect(screen.queryByText('Confirm Delete')).not.toBeInTheDocument();
   });
 }); 
