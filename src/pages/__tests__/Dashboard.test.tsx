@@ -825,4 +825,4 @@ describe('Dashboard', () => {
       expect(screen.getByTestId('settings-bank-button')).toBeInTheDocument();
     });
   });
-}); 
+});

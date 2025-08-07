@@ -27,7 +27,7 @@ export const onboardingApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ['Onboarding'],
     }),
-    getOnboardingById: builder.query<OnboardingResponse, void,{id:string}>({
+    getOnboardingById: builder.query<OnboardingResponse,{id:string}, void>({
       query: ({id}) => ({
         url: `/onboarding/${id}`,
         method: 'GET',

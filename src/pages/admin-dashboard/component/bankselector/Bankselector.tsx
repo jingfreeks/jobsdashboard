@@ -1,10 +1,16 @@
-import { PlusCircle, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useCallback, memo, useMemo, Suspense, useState } from "react";
 import { useBankOperations } from "@/hooks/useBankOperations";
 import { useToast } from "@/hooks/useToast";
 import ToastContainer from "@/components/ToastContainer";
 import type { Bank } from "@/features/bank";
-import { BankList, BankModal, LoadingSpinner, EmptyState } from "./component";
+import {
+  BankList,
+  BankModal,
+  LoadingSpinner,
+  EmptyState,
+} from "./component";
+import { SettingsHeader } from "@/ui";
 import { Bankselectorhooks } from "./hooks";
 
 const Bankselector = () => {
@@ -46,9 +52,12 @@ const Bankselector = () => {
   // Memoized callbacks for better performance
   const handleAddBank = useCallback(() => openAddModal(), [openAddModal]);
 
-  const handleEditBank = useCallback((bank: Bank) => {
-    openEditModal(bank._id, bank.name);
-  }, [openEditModal]);
+  const handleEditBank = useCallback(
+    (bank: Bank) => {
+      openEditModal(bank._id, bank.name);
+    },
+    [openEditModal]
+  );
 
   const handleDeleteBank = useCallback((bankId: string) => {
     setBankToDelete(bankId);
@@ -59,7 +68,7 @@ const Bankselector = () => {
     if (bankToDelete) {
       const bank = getBankById(bankToDelete);
       const bankName = bank?.name || "this bank";
-      
+
       const success = await deleteBankById(bankToDelete);
       if (!success) {
         console.error("Failed to delete bank");
@@ -113,7 +122,14 @@ const Bankselector = () => {
         }
       }
     },
-    [editBankId, editBankName, updateBankById, closeEditModal, showSuccess, showError]
+    [
+      editBankId,
+      editBankName,
+      updateBankById,
+      closeEditModal,
+      showSuccess,
+      showError,
+    ]
   );
 
   // Memoized computed values
@@ -139,23 +155,12 @@ const Bankselector = () => {
     <div className="max-w-2xl mx-auto">
       {/* Toast Container */}
       <ToastContainer toasts={toasts} onRemoveToast={removeToast} />
-
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-slate-800">Banks List</h2>
-        <button
-          onClick={handleAddBank}
-          disabled={isAdding}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-2 rounded-lg font-semibold shadow transition"
-        >
-          {isAdding ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
-          ) : (
-            <PlusCircle className="w-5 h-5" />
-          )}
-          {isAdding ? "Adding..." : "Add Bank"}
-        </button>
-      </div>
-
+      <SettingsHeader
+        isAdding={isAdding}
+        handleAddAction={handleAddBank}
+        btnLabel="Add Bank"
+        title="Banks List"
+      />
       {/* Add Bank Modal */}
       <BankModal
         isOpen={showAddBankModal}
@@ -188,7 +193,9 @@ const Bankselector = () => {
               Confirm Delete
             </h3>
             <p className="text-slate-600 mb-6">
-              Are you sure you want to delete "{banks.find(b => b._id === bankToDelete)?.name}"? This action cannot be undone.
+              Are you sure you want to delete "
+              {banks.find((b) => b._id === bankToDelete)?.name}"? This action
+              cannot be undone.
             </p>
             <div className="flex gap-2 justify-end">
               <button
@@ -204,7 +211,7 @@ const Bankselector = () => {
                 className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-semibold flex items-center gap-2"
               >
                 {isDeleting && <Loader2 className="w-4 h-4 animate-spin" />}
-                {isDeleting ? 'Deleting...' : 'Delete'}
+                {isDeleting ? "Deleting..." : "Delete"}
               </button>
             </div>
           </div>
@@ -213,17 +220,16 @@ const Bankselector = () => {
 
       {/* Bank List or Empty State */}
       <Suspense fallback={<LoadingSpinner />}>
-       
-          {hasBanks ? (
-            <BankList
-              banks={banks}
-              onEdit={handleEditBank}
-              onDelete={handleDeleteBank}
-              isDeleting={isDeleting}
-            />
-          ) : (
-            <EmptyState />
-          )}
+        {hasBanks ? (
+          <BankList
+            banks={banks}
+            onEdit={handleEditBank}
+            onDelete={handleDeleteBank}
+            isDeleting={isDeleting}
+          />
+        ) : (
+          <EmptyState />
+        )}
       </Suspense>
     </div>
   );
