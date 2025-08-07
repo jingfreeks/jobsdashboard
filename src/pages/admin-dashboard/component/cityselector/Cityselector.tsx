@@ -1,10 +1,11 @@
-import { PlusCircle, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useCallback, memo, useMemo, Suspense, useState } from "react";
 import { useCityOperations } from "@/hooks/useCityOperations";
 import { useToast } from "@/hooks/useToast";
 import ToastContainer from "@/components/ToastContainer";
 import type { City } from "@/features/city";
 import { useUploadImageMutation } from "@/features/city";
+import { SettingsHeader } from "@/ui";
 import { CityList, CityModal, LoadingSpinner, EmptyState } from "./component";
 import { Cityselectorhooks } from "./hooks";
 
@@ -174,23 +175,12 @@ const Cityselector = () => {
     <div className="max-w-4xl mx-auto">
       {/* Toast Container */}
       <ToastContainer toasts={toasts} onRemoveToast={removeToast} />
-
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-slate-800">City List</h2>
-        <button
-          onClick={handleAddCity}
-          disabled={isAdding}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-2 rounded-lg font-semibold shadow transition"
-        >
-          {isAdding ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
-          ) : (
-            <PlusCircle className="w-5 h-5" />
-          )}
-          {isAdding ? "Adding..." : "Add City"}
-        </button>
-      </div>
-
+      <SettingsHeader
+        isAdding={isAdding}
+        handleAddAction={handleAddCity}
+        btnLabel="Add City"
+        title="Cities List"
+      />
       {/* Add City Modal */}
       <CityModal
         isOpen={showAddCityModal}

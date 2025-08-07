@@ -155,7 +155,7 @@ describe('CitySelector', () => {
 
     renderWithProvider(<Cityselector />);
 
-    expect(screen.getByText('City List')).toBeInTheDocument();
+    expect(screen.getByText('Cities List')).toBeInTheDocument();
     expect(screen.getByText('New York')).toBeInTheDocument();
     expect(screen.getByText('Los Angeles')).toBeInTheDocument();
     expect(screen.getAllByText('New York State')).toHaveLength(2); // One in dropdown, one in list
@@ -1076,7 +1076,7 @@ describe('CitySelector', () => {
     renderWithProvider(<Cityselector />);
     
     // Component should render without errors
-    expect(screen.getByText('City List')).toBeInTheDocument();
+    expect(screen.getByText('Cities List')).toBeInTheDocument();
   });
 
   it('should handle multiple city operations correctly', async () => {
