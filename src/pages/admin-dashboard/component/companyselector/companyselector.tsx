@@ -6,6 +6,8 @@ import {
   Header,
   ConfirmDelete,
   List,
+  Loaders,
+  ErrorMessage,
 } from "./component";
 import { useCompanySelectorHooks } from "./hooks";
 
@@ -13,25 +15,14 @@ const CompanySelector = () => {
   const hooks = useCompanySelectorHooks();
 
   if (hooks.isLoading) {
-    return (
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-          <span className="ml-2 text-slate-600">Loading companies...</span>
-        </div>
-      </div>
-    );
+    return <Loaders />;
   }
 
   if (hooks.error) {
     return (
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-red-800">
-            Failed to load companies. Please try again.
-          </p>
-        </div>
-      </div>
+      <ErrorMessage
+        message={"Failed to load companies. Please try again."}
+      />
     );
   }
 

@@ -5,3 +5,5 @@ export {SearchFilter} from "./searchfilter";
 export {Header} from "./header";
 export {ConfirmDelete} from "./confirmdelete";
 export {List} from "./list";
+export {Loaders} from "./loading";
+export {ErrorMessage} from "./error";
