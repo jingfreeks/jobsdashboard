@@ -1,6 +1,6 @@
 import { PlusCircle } from "lucide-react";
 import { memo } from "react";
-import {useStateSelectorHooks} from './hooks'
+import { useStateSelectorHooks } from "./hooks";
 import ToastContainer from "@/components/ToastContainer";
 import {
   StateItem,
@@ -11,8 +11,7 @@ import {
 } from "./component";
 
 const StateSelector = () => {
-
-  const hooks=useStateSelectorHooks()
+  const hooks = useStateSelectorHooks();
 
   if (hooks.isLoading) {
     return <Loaders title="Loading states..." />;
@@ -32,7 +31,12 @@ const StateSelector = () => {
           <PlusCircle className="w-5 h-5" /> Add State
         </button>
       </div>
-
+      {/* <SettingsHeader
+        isAdding={hooks.isAdding}
+        handleAddAction={hooks.handleAddState}
+        btnLabel="Add State"
+        title="State List"
+      /> */}
       <AddStateModal
         isOpen={hooks.showAddStateModal}
         onClose={hooks.handleCloseAddStateModal}

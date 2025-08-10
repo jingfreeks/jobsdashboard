@@ -46,7 +46,7 @@ export const jobsApiSlice = apiSlice.injectEndpoints({
     getJobById: builder.query<Job, string>({
       query: (id) => `/jobs/${id}`,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      providesTags: (result, error, id) => [{ type: 'Jobs', id }] as any,
+      providesTags: (_result, _error, id) => [{ type: 'Jobs', id }] as any,
     }),
 
     addJob: builder.mutation<Job, JobFormData>({
@@ -66,9 +66,10 @@ export const jobsApiSlice = apiSlice.injectEndpoints({
         body: { ...credentials },
       }),
        
-      invalidatesTags: (result, error, { _id }) => [
+      invalidatesTags: (_result, _error, { _id }) => [
         { type: 'Jobs', id: 'LIST' },
         { type: 'Jobs', id: _id },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ] as any,
     }),
 

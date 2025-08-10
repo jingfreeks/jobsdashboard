@@ -63,7 +63,7 @@ const baseQueryWithAuth = async (
 };
 
 export const apiSlice = createApi({
-  baseQuery: baseQueryWithAuth,
+  baseQuery: baseQueryWithAuth as any,
   reducerPath: 'api',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   endpoints: _ => ({}),

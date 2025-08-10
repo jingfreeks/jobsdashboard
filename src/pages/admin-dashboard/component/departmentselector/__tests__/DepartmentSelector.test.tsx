@@ -1,16 +1,11 @@
 import { render, screen, fireEvent, waitFor } from '@/testUtils';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import { apiSlice } from '@/config/apiSplice';
 import DepartmentSelector from '../Departmentselector';
 
 // Mock the hooks
-const mockUseGetDepartmentsQuery = vi.fn();
 const mockUseAddDepartmentMutation = vi.fn();
 const mockUseUpdateDepartmentMutation = vi.fn();
 const mockUseDeleteDepartmentMutation = vi.fn();
-const mockUseToast = vi.fn();
 
 vi.mock('@/hooks/useDepartmentOperations', () => ({
   useDepartmentOperations: vi.fn(() => ({
@@ -37,18 +32,6 @@ vi.mock('@/hooks/useToast', () => ({
 }));
 
 // Create a test store
-const createTestStore = () => {
-  return configureStore({
-    reducer: {
-      [apiSlice.reducerPath]: apiSlice.reducer,
-    },
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(apiSlice.middleware),
-  });
-};
-
-
-
 describe('DepartmentSelector', () => {
   beforeEach(() => {
     vi.clearAllMocks();

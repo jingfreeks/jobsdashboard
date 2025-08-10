@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
-import { useGetShiftsQuery, useCreateShiftMutation, useUpdateShiftByIdMutation, useUpdateShiftMutation, useDeleteShiftByIdMutation, useDeleteShiftMutation } from '@/features/shift';
+import { useGetShiftsQuery, useCreateShiftMutation, useUpdateShiftMutation, useDeleteShiftMutation } from '@/features/shift';
 import type { Shift, ShiftFormData, UpdateShiftData, DeleteShiftData } from '@/features/shift';
 
 export const useShiftOperations = () => {
   // RTK Query hooks
   const { data: shifts = [], isLoading, error } = useGetShiftsQuery();
   const [createShift, { isLoading: isAdding }] = useCreateShiftMutation();
-  const [updateShiftById, { isLoading: isUpdatingById }] = useUpdateShiftByIdMutation();
+  //const [updateShiftById, { isLoading: isUpdatingById }] = useUpdateShiftByIdMutation();
   const [updateShift, { isLoading: isUpdating }] = useUpdateShiftMutation();
-  const [deleteShiftById, { isLoading: isDeletingById }] = useDeleteShiftByIdMutation();
+  //const [deleteShiftById, { isLoading: isDeletingById }] = useDeleteShiftByIdMutation();
   const [deleteShift, { isLoading: isDeleting }] = useDeleteShiftMutation();
 
   // Memoized sorted shifts for better performance
@@ -38,15 +38,15 @@ export const useShiftOperations = () => {
   };
 
   // Update shift by ID wrapper
-  const updateShiftByIdOperation = async (shiftData: UpdateShiftData): Promise<boolean> => {
-    try {
-      await updateShiftById(shiftData).unwrap();
-      return true;
-    } catch (error) {
-      console.error('Error updating shift by ID:', error);
-      return false;
-    }
-  };
+  // const updateShiftByIdOperation = async (shiftData: UpdateShiftData): Promise<boolean> => {
+  //   try {
+  //     await updateShiftById(shiftData).unwrap();
+  //     return true;
+  //   } catch (error) {
+  //     console.error('Error updating shift by ID:', error);
+  //     return false;
+  //   }
+  // };
 
   // Update shift without ID wrapper
   const updateShiftOperation = async (shiftData: UpdateShiftData): Promise<boolean> => {
@@ -60,15 +60,15 @@ export const useShiftOperations = () => {
   };
 
   // Delete shift by ID wrapper
-  const deleteShiftByIdOperation = async (shiftData: DeleteShiftData): Promise<boolean> => {
-    try {
-      await deleteShiftById(shiftData).unwrap();
-      return true;
-    } catch (error) {
-      console.error('Error deleting shift by ID:', error);
-      return false;
-    }
-  };
+  // const deleteShiftByIdOperation = async (shiftData: DeleteShiftData): Promise<boolean> => {
+  //   try {
+  //     await deleteShiftById(shiftData).unwrap();
+  //     return true;
+  //   } catch (error) {
+  //     console.error('Error deleting shift by ID:', error);
+  //     return false;
+  //   }
+  // };
 
   // Delete shift without ID wrapper
   const deleteShiftOperation = async (shiftData: DeleteShiftData): Promise<boolean> => {
@@ -84,22 +84,22 @@ export const useShiftOperations = () => {
   return {
     // Data
     shifts: sortedShifts,
-    shiftMap,
+    //shiftMap,
     
     // Loading states
     isLoading,
     isAdding,
-    isUpdating: isUpdating || isUpdatingById, // Combined loading state for both update operations
-    isDeleting: isDeleting || isDeletingById, // Combined loading state for both delete operations
+    isUpdating: isUpdating,  // Combined loading state for both update operations
+    isDeleting: isDeleting, // Combined loading state for both delete operations
     
     // Error state
     error,
     
     // Operations
     createShift: createShiftOperation,
-    updateShiftById: updateShiftByIdOperation,
+    //updateShiftById: updateShiftByIdOperation,
     updateShift: updateShiftOperation,
-    deleteShiftById: deleteShiftByIdOperation,
+    //deleteShiftById: deleteShiftByIdOperation,
     deleteShift: deleteShiftOperation,
     
     // Helper functions

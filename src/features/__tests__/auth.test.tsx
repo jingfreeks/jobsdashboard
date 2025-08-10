@@ -12,7 +12,7 @@ import authReducer, {
   selectIsAuthenticated
 } from '../auth';
 import { authApiSlice } from '../authSlice';
-
+import type { RootState } from '@/config/store';
 // Mock console.warn to avoid noise in tests
 const mockConsoleWarn = vi.fn();
 
@@ -442,7 +442,7 @@ describe('Auth Feature', () => {
     };
 
     // Helper function to get state with proper typing
-    const getState = () => store.getState() as any;
+    //const getState = () => store.getState() as RootState;
 
     beforeEach(() => {
       store = createTestStore();
@@ -458,12 +458,12 @@ describe('Auth Feature', () => {
         };
         store.dispatch(setCredentials(credentials));
 
-        const state = store.getState() as any;
+        const state = store.getState() as RootState;
         expect(selectCurrentUser(state)).toBe('testuser@example.com');
       });
 
       it('should return null when no user', () => {
-        const state = store.getState();
+        const state = store.getState() as RootState;
         expect(selectCurrentUser(state)).toBe(null);
       });
     });
@@ -478,13 +478,13 @@ describe('Auth Feature', () => {
         };
         store.dispatch(setCredentials(credentials));
 
-        const state = store.getState();
+        const state = store.getState() as RootState;
         
         expect(selectCurrentUserId(state)).toBe('user123');
       });
 
       it('should return null when no user ID', () => {
-        const state = store.getState();
+        const state = store.getState() as RootState;
         expect(selectCurrentUserId(state)).toBe(null);
       });
     });
@@ -499,12 +499,12 @@ describe('Auth Feature', () => {
         };
         store.dispatch(setCredentials(credentials));
 
-        const state = store.getState();
+        const state = store.getState() as RootState;
         expect(selectCurrentToken(state)).toBe('valid-token-123');
       });
 
       it('should return null when no token', () => {
-        const state = store.getState();
+        const state = store.getState() as RootState;
         expect(selectCurrentToken(state)).toBe(null);
       });
     });
@@ -519,12 +519,12 @@ describe('Auth Feature', () => {
         };
         store.dispatch(setCredentials(credentials));
 
-        const state = store.getState();
+        const state = store.getState() as RootState;
         expect(selectUserRoles(state)).toEqual(['user', 'admin']);
       });
 
       it('should return empty array when no roles', () => {
-        const state = store.getState();
+        const state = store.getState() as RootState;
         expect(selectUserRoles(state)).toEqual([]);
       });
     });
@@ -539,12 +539,12 @@ describe('Auth Feature', () => {
         };
         store.dispatch(setCredentials(credentials));
 
-        const state = store.getState();
+        const state = store.getState() as RootState;
         expect(selectIsAuthenticated(state)).toBe(true);
       });
 
       it('should return false when no token', () => {
-        const state = store.getState();
+        const state = store.getState() as RootState;
         expect(selectIsAuthenticated(state)).toBe(false);
       });
 
@@ -557,7 +557,7 @@ describe('Auth Feature', () => {
         };
         store.dispatch(setCredentials(credentials));
 
-        const state = store.getState();
+        const state = store.getState() as RootState;
         expect(selectIsAuthenticated(state)).toBe(false);
       });
     });
@@ -572,7 +572,7 @@ describe('Auth Feature', () => {
         };
         store.dispatch(setCredentials(credentials));
 
-        const state = store.getState();
+        const state = store.getState() as RootState;
         const selectorResults = {
           currentUser: selectCurrentUser(state),
           currentUserId: selectCurrentUserId(state),
@@ -585,7 +585,7 @@ describe('Auth Feature', () => {
       });
 
       it('should match snapshot for all selectors when not authenticated', () => {
-        const state = store.getState();
+        const state = store.getState() as RootState;
         const selectorResults = {
           currentUser: selectCurrentUser(state),
           currentUserId: selectCurrentUserId(state),

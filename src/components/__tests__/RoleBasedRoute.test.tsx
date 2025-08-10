@@ -22,7 +22,7 @@ vi.mock('react-router-dom', async () => {
 const createTestStore = (userRoles: string[] = []) => {
   const store = configureStore({
     reducer: {
-      auth: (state = { user: null, token: null, userId: null, roles: userRoles }, action) => state,
+      auth: (state = { user: null, token: null, userId: null, roles: userRoles }) => state,
     },
   });
   return store;
@@ -270,7 +270,7 @@ describe('RoleBasedRoute Component', () => {
     it('handles Redux store without auth state gracefully', () => {
       const store = configureStore({
         reducer: {
-          auth: (state = {}, action) => state,
+          auth: (state = {},) => state,
         },
       });
       
@@ -293,7 +293,7 @@ describe('RoleBasedRoute Component', () => {
     it('handles missing children prop gracefully', () => {
       render(
         <TestWrapper userRoles={['admin']}>
-          <RoleBasedRoute allowedRoles={['admin']}>
+          <RoleBasedRoute allowedRoles={['admin']} children={undefined}>
             {/* No children */}
           </RoleBasedRoute>
         </TestWrapper>

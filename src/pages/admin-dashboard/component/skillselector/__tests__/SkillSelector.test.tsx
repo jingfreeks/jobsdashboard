@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '@/config/apiSplice';
-import SkillSelector from '../Skillselector';
+import {SkillSelector} from '../index';
 import type { Skill } from '@/features/skills';
 
 // Mock the skills API hooks

@@ -1,1 +1,1 @@
-export {default as SkillSelector} from './skillselector';
+export {default as SkillSelector} from './Skillselector';
