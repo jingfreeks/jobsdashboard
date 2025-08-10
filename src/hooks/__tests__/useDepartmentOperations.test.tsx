@@ -7,8 +7,8 @@ vi.mock('@/features/department', () => ({
   useAddDepartmentMutation: vi.fn(),
   useUpdateDepartmentMutation: vi.fn(),
   useDeleteDepartmentMutation: vi.fn(),
-  selectDepartmentsSorted: vi.fn((data) => data?.sort((a, b) => a.name.localeCompare(b.name)) || []),
-  selectDepartmentById: vi.fn((data, id) => data?.find((dept) => dept._id === id)),
+  selectDepartmentsSorted: vi.fn((data) => data?.sort((a:{name:string}, b:{name:string}) => a.name.localeCompare(b.name)) || []),
+  selectDepartmentById: vi.fn((data, id) => data?.find((dept:{_id:string}) => dept._id === id)),
 }));
 
 describe('useDepartmentOperations', () => {

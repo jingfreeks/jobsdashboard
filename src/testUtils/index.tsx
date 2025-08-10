@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, type RenderOptions } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '@/config/apiSplice';
@@ -295,7 +295,7 @@ const createTestStore = (preloadedState = {}) => {
   return configureStore({
     reducer: {
       [apiSlice.reducerPath]: apiSlice.reducer,
-      auth: (state = { token: 'mock-token', user: null, userId: null, roles: [] }, action) => state,
+      auth: (state = { token: 'mock-token', user: null, userId: null, roles: [] }) => state,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

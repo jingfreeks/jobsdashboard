@@ -28,7 +28,7 @@ vi.mock('@/features/loginApiSlice', () => ({
 // Mock setCredentials and selectIsAuthenticated to avoid Redux side effects
 const { mockSelectIsAuthenticated, mockSelectUserRoles, mockSetCredentials, mockNavigate } = vi.hoisted(() => ({
   mockSelectIsAuthenticated: vi.fn(() => false),
-  mockSelectUserRoles: vi.fn(() => []),
+  mockSelectUserRoles: vi.fn(() => []) as unknown as () => string[],
   mockSetCredentials: vi.fn(),
   mockNavigate: vi.fn(),
 }));
@@ -498,7 +498,7 @@ describe('Login', () => {
   it('should redirect to admin dashboard when isAuthenticated is true and user has admin role', () => {
     // Mock selectIsAuthenticated to return true
     mockSelectIsAuthenticated.mockReturnValue(true);
-    mockSelectUserRoles.mockReturnValue(['admin']);
+    vi.mocked(mockSelectUserRoles).mockReturnValue(['admin']);
     
     // Clear previous calls
     mockNavigate.mockClear();
@@ -513,7 +513,7 @@ describe('Login', () => {
   it('should redirect to job applicant dashboard when isAuthenticated is true and user has no admin role', () => {
     // Mock selectIsAuthenticated to return true
     mockSelectIsAuthenticated.mockReturnValue(true);
-    mockSelectUserRoles.mockReturnValue(['user']);
+    vi.mocked(mockSelectUserRoles).mockReturnValue(['user']);
     
     // Clear previous calls
     mockNavigate.mockClear();
@@ -558,7 +558,7 @@ describe('Login', () => {
     
     // Change to authenticated state with no admin role
     mockSelectIsAuthenticated.mockReturnValue(true);
-    mockSelectUserRoles.mockReturnValue([]);
+    vi.mocked(mockSelectUserRoles).mockReturnValue([]);
     
     // Re-render the component with authenticated state
     rerender(
@@ -592,7 +592,7 @@ describe('Login', () => {
       mockLogin.mockClear();
       
       // Set default user role to admin for these tests
-      mockSelectUserRoles.mockReturnValue(['admin']);
+      vi.mocked(mockSelectUserRoles).mockReturnValue(['admin']);
       
       // Reset the mock implementation
       mockLogin.mockImplementation(() => ({
@@ -894,7 +894,7 @@ describe('Login', () => {
       mockLogin.mockClear();
       
       // Set default user role to admin for these tests
-      mockSelectUserRoles.mockReturnValue(['admin']);
+      vi.mocked(mockSelectUserRoles).mockReturnValue(['admin']);
     });
 
     // Test the isFetchBaseQueryError function directly

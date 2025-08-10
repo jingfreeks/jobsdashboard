@@ -14,6 +14,7 @@ export interface UpdateStateData {
   name: string;
 }
 
+// Explicitly type the stateApiSlice to help TypeScript infer correct types
 export const stateApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getStates: builder.query<State[], void>({
@@ -46,8 +47,7 @@ export const stateApiSlice = apiSlice.injectEndpoints({
           const { data: newState } = await queryFulfilled;
           dispatch(
             stateApiSlice.util.updateQueryData('getStates', undefined, (draft) => {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              const states = draft as any;
+              const states = draft;
               const index = states.findIndex((state: State) => state._id === tempId);
               if (index !== -1) {
                 states[index] = newState;
@@ -85,8 +85,7 @@ export const stateApiSlice = apiSlice.injectEndpoints({
           const { data: updatedState } = await queryFulfilled;
           dispatch(
             stateApiSlice.util.updateQueryData('getStates', undefined, (draft) => {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              const states = draft as any;
+              const states = draft;
               const index = states.findIndex((s: State) => s._id === _id);
               if (index !== -1) {
                 states[index] = updatedState;

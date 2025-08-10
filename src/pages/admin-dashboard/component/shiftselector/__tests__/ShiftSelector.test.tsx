@@ -53,7 +53,7 @@ describe('ShiftSelector', () => {
     vi.clearAllMocks();
     
     // Setup default mocks
-    useShiftOperations.mockReturnValue({
+    vi.mocked(useShiftOperations).mockReturnValue({
       shifts: mockShifts,
       isLoading: false,
       error: null,
@@ -66,11 +66,14 @@ describe('ShiftSelector', () => {
       getShiftById: mockGetShiftById,
     });
 
-    useToast.mockReturnValue({
+    vi.mocked(useToast).mockReturnValue({
       toasts: [],
+      addToast: vi.fn(),
       removeToast: mockRemoveToast,
       showSuccess: mockShowSuccess,
       showError: mockShowError,
+      showWarning: vi.fn(),
+      showInfo: vi.fn(),
     });
 
     mockGetShiftById.mockImplementation((id) => 
@@ -106,7 +109,7 @@ describe('ShiftSelector', () => {
   });
 
   it('should show empty state when no shifts', () => {
-    useShiftOperations.mockReturnValue({
+    vi.mocked(useShiftOperations).mockReturnValue({
       shifts: [],
       isLoading: false,
       error: null,
@@ -498,7 +501,7 @@ describe('ShiftSelector', () => {
   });
 
   it('should handle loading states', () => {
-    useShiftOperations.mockReturnValue({
+    vi.mocked(useShiftOperations).mockReturnValue({
       shifts: mockShifts,
       isLoading: true,
       error: null,
@@ -521,7 +524,7 @@ describe('ShiftSelector', () => {
   });
 
   it('should handle error states', () => {
-    useShiftOperations.mockReturnValue({
+    vi.mocked(useShiftOperations).mockReturnValue({
       shifts: [],
       isLoading: false,
       error: 'Failed to load shifts',

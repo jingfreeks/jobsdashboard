@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '@/config/apiSplice';
-import { authReducer } from '@/features/auth';
+import  authReducer from '@/features/auth';
 import { useAuth } from '../useAuth';
 
 // Mock dependencies

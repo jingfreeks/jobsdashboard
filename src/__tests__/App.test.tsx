@@ -4,7 +4,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore } from 'redux-persist';
-import { PersistGate } from 'redux-persist/integration/react';
 import App from '../App';
 
 // Mock the page components
@@ -46,7 +45,7 @@ const createTestStore = (authenticated = false) => {
         userId: null,
         roles: [],
         onboardingComplete: false
-      }, action) => state,
+      }) => state,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
@@ -69,7 +68,7 @@ const TestWrapper = ({
   initialEntries?: string[];
   authenticated?: boolean;
 }) => {
-  const { store, persistor } = createTestStore(authenticated);
+  const { store } = createTestStore(authenticated);
   
   return (
     <Provider store={store}>
@@ -205,7 +204,7 @@ describe('App Component', () => {
   describe('Navigation and Routing', () => {
     it('handles multiple route changes correctly', () => {
       // Test login route
-      const { rerender } = render(
+      render(
         <TestWrapper initialEntries={['/login']}>
           <App />
         </TestWrapper>
