@@ -196,6 +196,7 @@ const JobSelector = () => {
               onChange={(e) => setSelectedCompanyFilter(e.target.value)}
             >
               <option value="">All Companies</option>
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               {(companies as any[])?.map((company: any) => (
                 <option key={company._id} value={company._id}>
                   {company.name}
@@ -211,6 +212,7 @@ const JobSelector = () => {
               onChange={(e) => setSelectedCityFilter(e.target.value)}
             >
               <option value="">All Cities</option>
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               {(cities as any[])?.map((city: any) => (
                 <option key={city._id} value={city._id}>
                   {city.name}
