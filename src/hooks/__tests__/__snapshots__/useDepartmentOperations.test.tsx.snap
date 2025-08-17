@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useDepartmentOperations (Vitest) > should return sorted departments and departmentMap 1`] = `
+{
+  "createDepartment": [Function],
+  "deleteDepartmentById": [Function],
+  "departmentMap": Map {
+    "1" => {
+      "_id": "1",
+      "name": "HR",
+    },
+    "2" => {
+      "_id": "2",
+      "name": "Engineering",
+    },
+  },
+  "departments": [
+    {
+      "_id": "1",
+      "name": "HR",
+    },
+    {
+      "_id": "2",
+      "name": "Engineering",
+    },
+  ],
+  "error": null,
+  "getDepartmentById": [Function],
+  "isAdding": false,
+  "isDeleting": false,
+  "isLoading": false,
+  "isUpdating": false,
+  "refetch": [MockFunction spy],
+  "searchDepartments": [Function],
+  "updateDepartmentById": [Function],
+}
+`;
