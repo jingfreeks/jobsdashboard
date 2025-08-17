@@ -328,6 +328,7 @@ const Onboarding = () => {
                 <input
                   type="date"
                   value={formData.dateOfBirth}
+                  data-testid="dob-input"
                   onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
                   className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                     errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'
