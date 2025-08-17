@@ -1,1 +1,0 @@
-export {default as SkillSelector} from './skillselector';

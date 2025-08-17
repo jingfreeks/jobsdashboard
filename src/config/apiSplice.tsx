@@ -62,10 +62,11 @@ const baseQueryWithAuth = async (
   return result;
 };
 
-export const apiSlice = createApi<any, any>({
-  baseQuery: baseQueryWithAuth,
+export const apiSlice = createApi({
+  baseQuery: baseQueryWithAuth as any,
   reducerPath: 'api',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   endpoints: _ => ({}),
-          tagTypes: ['City', 'Jobs', 'MyJobs', 'JobDetails', 'Profile', 'Bank', 'State'] as any,
+  tagTypes: ['City', 'Jobs', 'MyJobs', 'JobDetails', 'Profile', 'Bank', 'State', 'Shift', 'Onboarding'] as const,
+  keepUnusedDataFor: 60,
 });

@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`RoleBasedRoute Component > Component Structure and Rendering > matches component snapshot when user has required role 1`] = `
+<div
+  data-testid="protected-content"
+>
+  Admin Content
+</div>
+`;

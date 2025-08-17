@@ -4,14 +4,16 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore } from 'redux-persist';
-import { PersistGate } from 'redux-persist/integration/react';
 import App from '../App';
 
 // Mock the page components
 vi.mock('../pages', () => ({
   Login: vi.fn(() => <div data-testid="login-page">Login Page</div>),
   Register: vi.fn(() => <div data-testid="register-page">Register Page</div>),
+  Onboarding: vi.fn(() => <div data-testid="onboarding-page">Onboarding Page</div>),
   Dashboard: vi.fn(() => <div data-testid="dashboard-page">Dashboard Page</div>),
+  AdminDashboard: vi.fn(() => <div data-testid="admin-dashboard-page">Admin Dashboard Page</div>),
+  JobApplicantDashboard: vi.fn(() => <div data-testid="job-applicant-dashboard-page">Job Applicant Dashboard Page</div>),
 }));
 
 // Mock the ProtectedRoute component
@@ -19,14 +21,31 @@ vi.mock('../components/ProtectedRoute', () => ({
   default: vi.fn(({ children }) => <div data-testid="protected-route">{children}</div>),
 }));
 
+// Mock the RoleBasedRoute component
+vi.mock('../components/RoleBasedRoute', () => ({
+  default: vi.fn(({ children }) => <div data-testid="role-based-route">{children}</div>),
+}));
+
 // Mock CSS imports
 vi.mock('../App.css', () => ({}));
 
 // Create a test store
-const createTestStore = () => {
+const createTestStore = (authenticated = false) => {
   const store = configureStore({
     reducer: {
-      auth: (state = { user: null, token: null }, action) => state,
+      auth: (state = authenticated ? { 
+        user: 'testuser@example.com', 
+        token: 'test-token', 
+        userId: 'user123',
+        roles: ['user'],
+        onboardingComplete: true
+      } : { 
+        user: null, 
+        token: null, 
+        userId: null,
+        roles: [],
+        onboardingComplete: false
+      }) => state,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
@@ -40,8 +59,16 @@ const createTestStore = () => {
 };
 
 // Test wrapper component
-const TestWrapper = ({ children, initialEntries = ['/'] }: { children: React.ReactNode; initialEntries?: string[] }) => {
-  const { store, persistor } = createTestStore();
+const TestWrapper = ({ 
+  children, 
+  initialEntries = ['/'],
+  authenticated = false 
+}: { 
+  children: React.ReactNode; 
+  initialEntries?: string[];
+  authenticated?: boolean;
+}) => {
+  const { store } = createTestStore(authenticated);
   
   return (
     <Provider store={store}>
@@ -113,16 +140,42 @@ describe('App Component', () => {
       expect(screen.getByText('Register Page')).toBeInTheDocument();
     });
 
-    it('renders dashboard page at /dashboard route with protection', () => {
+    it('renders admin dashboard page at /admin/dashboard route with protection', () => {
       render(
-        <TestWrapper initialEntries={['/dashboard']}>
+        <TestWrapper initialEntries={['/admin/dashboard']} authenticated={true}>
           <App />
         </TestWrapper>
       );
       
       expect(screen.getByTestId('protected-route')).toBeInTheDocument();
-      expect(screen.getByTestId('dashboard-page')).toBeInTheDocument();
-      expect(screen.getByText('Dashboard Page')).toBeInTheDocument();
+      expect(screen.getByTestId('admin-dashboard-page')).toBeInTheDocument();
+      expect(screen.getByText('Admin Dashboard Page')).toBeInTheDocument();
+    });
+
+    it('renders admin dashboard page at /admin/dashboard route with protection and role check', () => {
+      render(
+        <TestWrapper initialEntries={['/admin/dashboard']} authenticated={true}>
+          <App />
+        </TestWrapper>
+      );
+      
+      expect(screen.getByTestId('protected-route')).toBeInTheDocument();
+      expect(screen.getByTestId('role-based-route')).toBeInTheDocument();
+      expect(screen.getByTestId('admin-dashboard-page')).toBeInTheDocument();
+      expect(screen.getByText('Admin Dashboard Page')).toBeInTheDocument();
+    });
+
+    it('renders job applicant dashboard page at /job-applicant/dashboard route with protection and role check', () => {
+      render(
+        <TestWrapper initialEntries={['/job-applicant/dashboard']} authenticated={true}>
+          <App />
+        </TestWrapper>
+      );
+      
+      expect(screen.getByTestId('protected-route')).toBeInTheDocument();
+      expect(screen.getByTestId('role-based-route')).toBeInTheDocument();
+      expect(screen.getByTestId('job-applicant-dashboard-page')).toBeInTheDocument();
+      expect(screen.getByText('Job Applicant Dashboard Page')).toBeInTheDocument();
     });
 
     it('redirects unknown routes to login page', () => {
@@ -151,7 +204,7 @@ describe('App Component', () => {
   describe('Navigation and Routing', () => {
     it('handles multiple route changes correctly', () => {
       // Test login route
-      const { rerender } = render(
+      render(
         <TestWrapper initialEntries={['/login']}>
           <App />
         </TestWrapper>
@@ -168,14 +221,14 @@ describe('App Component', () => {
       
       expect(getByTestId2('register-page')).toBeInTheDocument();
       
-      // Test dashboard route - create new render instead of rerender
+      // Test admin dashboard route - create new render instead of rerender
       const { getByTestId: getByTestId3 } = render(
-        <TestWrapper initialEntries={['/dashboard']}>
+        <TestWrapper initialEntries={['/admin/dashboard']} authenticated={true}>
           <App />
         </TestWrapper>
       );
       
-      expect(getByTestId3('dashboard-page')).toBeInTheDocument();
+      expect(getByTestId3('admin-dashboard-page')).toBeInTheDocument();
       expect(getByTestId3('protected-route')).toBeInTheDocument();
     });
 
@@ -212,15 +265,15 @@ describe('App Component', () => {
   });
 
   describe('Protected Route Integration', () => {
-    it('wraps dashboard route with ProtectedRoute component', () => {
+    it('wraps admin dashboard route with ProtectedRoute component', () => {
       render(
-        <TestWrapper initialEntries={['/dashboard']}>
+        <TestWrapper initialEntries={['/admin/dashboard']} authenticated={true}>
           <App />
         </TestWrapper>
       );
       
       expect(screen.getByTestId('protected-route')).toBeInTheDocument();
-      expect(screen.getByTestId('dashboard-page')).toBeInTheDocument();
+      expect(screen.getByTestId('admin-dashboard-page')).toBeInTheDocument();
     });
 
     it('does not wrap login route with ProtectedRoute', () => {
@@ -271,21 +324,45 @@ describe('App Component', () => {
       expect(registerPage).toHaveTextContent('Register Page');
     });
 
-    it('integrates with Dashboard component correctly', () => {
+    it('integrates with AdminDashboard component correctly', () => {
       render(
-        <TestWrapper initialEntries={['/dashboard']}>
+        <TestWrapper initialEntries={['/admin/dashboard']} authenticated={true}>
           <App />
         </TestWrapper>
       );
       
-      const dashboardPage = screen.getByTestId('dashboard-page');
-      expect(dashboardPage).toBeInTheDocument();
-      expect(dashboardPage).toHaveTextContent('Dashboard Page');
+      const adminDashboardPage = screen.getByTestId('admin-dashboard-page');
+      expect(adminDashboardPage).toBeInTheDocument();
+      expect(adminDashboardPage).toHaveTextContent('Admin Dashboard Page');
+    });
+
+    it('integrates with AdminDashboard component correctly', () => {
+      render(
+        <TestWrapper initialEntries={['/admin/dashboard']} authenticated={true}>
+          <App />
+        </TestWrapper>
+      );
+      
+      const adminDashboardPage = screen.getByTestId('admin-dashboard-page');
+      expect(adminDashboardPage).toBeInTheDocument();
+      expect(adminDashboardPage).toHaveTextContent('Admin Dashboard Page');
+    });
+
+    it('integrates with JobApplicantDashboard component correctly', () => {
+      render(
+        <TestWrapper initialEntries={['/job-applicant/dashboard']} authenticated={true}>
+          <App />
+        </TestWrapper>
+      );
+      
+      const jobApplicantDashboardPage = screen.getByTestId('job-applicant-dashboard-page');
+      expect(jobApplicantDashboardPage).toBeInTheDocument();
+      expect(jobApplicantDashboardPage).toHaveTextContent('Job Applicant Dashboard Page');
     });
 
     it('integrates with ProtectedRoute component correctly', () => {
       render(
-        <TestWrapper initialEntries={['/dashboard']}>
+        <TestWrapper initialEntries={['/admin/dashboard']} authenticated={true}>
           <App />
         </TestWrapper>
       );
@@ -293,8 +370,40 @@ describe('App Component', () => {
       const protectedRoute = screen.getByTestId('protected-route');
       expect(protectedRoute).toBeInTheDocument();
       
-      // ProtectedRoute should contain the Dashboard component
-      expect(protectedRoute).toContainElement(screen.getByTestId('dashboard-page'));
+      // ProtectedRoute should contain the AdminDashboard component
+      expect(protectedRoute).toContainElement(screen.getByTestId('admin-dashboard-page'));
+    });
+
+    it('integrates with RoleBasedRoute component correctly for admin dashboard', () => {
+      render(
+        <TestWrapper initialEntries={['/admin/dashboard']} authenticated={true}>
+          <App />
+        </TestWrapper>
+      );
+      
+      const protectedRoute = screen.getByTestId('protected-route');
+      const roleBasedRoute = screen.getByTestId('role-based-route');
+      expect(protectedRoute).toBeInTheDocument();
+      expect(roleBasedRoute).toBeInTheDocument();
+      
+      // RoleBasedRoute should contain the AdminDashboard component
+      expect(roleBasedRoute).toContainElement(screen.getByTestId('admin-dashboard-page'));
+    });
+
+    it('integrates with RoleBasedRoute component correctly for job applicant dashboard', () => {
+      render(
+        <TestWrapper initialEntries={['/job-applicant/dashboard']} authenticated={true}>
+          <App />
+        </TestWrapper>
+      );
+      
+      const protectedRoute = screen.getByTestId('protected-route');
+      const roleBasedRoute = screen.getByTestId('role-based-route');
+      expect(protectedRoute).toBeInTheDocument();
+      expect(roleBasedRoute).toBeInTheDocument();
+      
+      // RoleBasedRoute should contain the JobApplicantDashboard component
+      expect(roleBasedRoute).toContainElement(screen.getByTestId('job-applicant-dashboard-page'));
     });
   });
 

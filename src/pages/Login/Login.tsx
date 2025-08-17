@@ -4,10 +4,15 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import logo from "@/assets/react.svg";
 import { Eye, EyeOff } from "lucide-react";
-import {useDispatch} from 'react-redux';
+import { useDispatch } from "react-redux";
 import { useLoginMutation } from "@/features/loginApiSlice";
-import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { setCredentials, selectIsAuthenticated } from "@/features/auth";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { FormContainer, InputContainer } from "@/ui";
+import {
+  setCredentials,
+  selectIsAuthenticated,
+  selectUserRoles,
+} from "@/features/auth";
 import type { AppDispatch, RootState } from "@/config/store";
 
 type LoginFormData = {
@@ -18,45 +23,85 @@ type LoginFormData = {
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const isAuthenticated = useSelector((state: RootState) => selectIsAuthenticated(state));
+  const isAuthenticated = useSelector((state: RootState) =>
+    selectIsAuthenticated(state)
+  );
+  const userRoles = useSelector((state: RootState) => selectUserRoles(state));
   const [showPassword, setShowPassword] = useState(false);
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>();
   const [login, { isLoading, error }] = useLoginMutation();
 
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/dashboard");
+      // Check if onboarding is complete
+      const onboardingComplete =
+        localStorage.getItem("onboardingComplete") === "true";
+
+      if (!onboardingComplete) {
+        // Redirect to onboarding if not complete
+        navigate("/onboarding");
+      } else {
+        // Redirect based on user role (case-insensitive)
+        const hasAdminRole = userRoles.some(
+          (role) => role.toLowerCase() === "admin"
+        );
+        if (hasAdminRole) {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/job-applicant/dashboard");
+        }
+      }
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, userRoles, navigate]);
 
   const onSubmit = async (formData: LoginFormData) => {
     try {
       console.log(formData);
-     const result  =  await login({
+      const result = await login({
         username: formData.username,
         password: formData.password,
       }).unwrap();
+
       if (result && typeof result === "object") {
-        dispatch(setCredentials({ ...(result as object), user: formData.username }));
+        // Extract credentials from the API response
+        const resultObj = result as Record<string, unknown>;
+        const credentials = {
+          user: formData.username,
+          accessToken:
+            (resultObj.token as string) ||
+            (resultObj.accessToken as string) ||
+            "",
+          userId:
+            (resultObj.userId as string) || (resultObj.id as string) || "",
+          roles: Array.isArray(resultObj.roles)
+            ? (resultObj.roles as string[])
+            : Array.isArray(resultObj.role)
+            ? (resultObj.role as string[])
+            : [],
+        };
+        dispatch(setCredentials(credentials));
       }
-    navigate("/dashboard");
+      // Navigation will be handled by the useEffect above based on user role
     } catch {
       // Error is handled by RTK Query's error state
     }
   };
 
   // Helper type guard
-  function isFetchBaseQueryError(
-    error: unknown
-  ): error is FetchBaseQueryError {
-    return typeof error === 'object' && error != null && 'status' in error;
+  function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryError {
+    return typeof error === "object" && error != null && "status" in error;
   }
 
   let loginErrorMessage: string | null = null;
   if (error) {
     if (isFetchBaseQueryError(error)) {
-      const msg = (error.data as { error?: { message?: string } })?.error?.message;
+      const msg = (error.data as { error?: { message?: string } })?.error
+        ?.message;
       loginErrorMessage = msg ? String(msg) : "Invalid credentials";
     } else {
       loginErrorMessage = "Invalid credentials";
@@ -67,20 +112,33 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center ">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl px-8 py-10 flex flex-col items-center">
         <img src={logo} alt="Logo" className="w-20 h-20 mb-6" />
-        <h1 className="text-2xl font-bold mb-6 text-center">Log in to Your Account</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-4">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
+        <h1 className="text-2xl font-bold mb-6 text-center">
+          Log in to Your Account
+        </h1>
+        <FormContainer
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full flex flex-col gap-4"
+        >
+          <InputContainer label="Email" htmlFor="email">
             <input
               id="email"
               type="text"
               {...register("username", { required: "Username is required" })}
               className="w-full px-4 py-3 border border-gray-200 rounded-lg text-base bg-gray-50 focus:outline-none focus:border-blue-600"
             />
-            {errors.username && <span className="text-red-500 text-xs">{errors.username.message as string}</span>}
-          </div>
+            {errors.username && (
+              <span className="text-red-500 text-xs">
+                {errors.username.message as string}
+              </span>
+            )}
+          </InputContainer>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium mb-1">Password</label>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium mb-1"
+            >
+              Password
+            </label>
             <div className="relative">
               <input
                 id="password"
@@ -101,20 +159,38 @@ const Login = () => {
                 )}
               </button>
             </div>
-            {errors.password && <span className="text-red-500 text-xs">{errors.password.message as string}</span>}
+            {errors.password && (
+              <span className="text-red-500 text-xs">
+                {errors.password.message as string}
+              </span>
+            )}
           </div>
           {loginErrorMessage && (
             <div className="text-red-500 text-sm mb-2 text-center">
               {loginErrorMessage}
             </div>
           )}
-          <button type="submit" className="w-full py-3 bg-[#0856d1] text-white rounded-lg font-semibold hover:bg-blue-700 transition" disabled={isLoading}>
+          <button
+            type="submit"
+            className="w-full py-3 bg-[#0856d1] text-white rounded-lg font-semibold hover:bg-blue-700 transition"
+            disabled={isLoading}
+          >
             {isLoading ? "Logging in..." : "Log in"}
           </button>
-        </form>
+        </FormContainer>
         <div className="w-full flex flex-col items-center mt-4 gap-1">
-          <a href="#" className="text-xs text-gray-500 hover:underline">Forgot password?</a>
-          <span className="text-sm text-gray-700">Don't have an account? <Link to="/register" className="text-[#0856d1] hover:underline font-medium">Sign up</Link></span>
+          <a href="#" className="text-xs text-gray-500 hover:underline">
+            Forgot password?
+          </a>
+          <span className="text-sm text-gray-700">
+            Don't have an account?{" "}
+            <Link
+              to="/register"
+              className="text-[#0856d1] hover:underline font-medium"
+            >
+              Sign up
+            </Link>
+          </span>
         </div>
       </div>
     </div>

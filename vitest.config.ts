@@ -8,6 +8,7 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./src/setupTests.ts'],
+    exclude: ['e2e/**/*', '**/*.e2e.*', '**/*.spec.e2e.*', 'node_modules/**/*'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
@@ -31,6 +32,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      crypto: "crypto-browserify",
     },
   },
 })
