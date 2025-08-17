@@ -24,6 +24,7 @@
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.11",
     "class-variance-authority": "^0.7.1",
+    "crypto-browserify": "^3.12.1",
     "lucide-react": "^0.525.0",
     "msw": "^2.10.5",
     "react": "^19.1.0",
