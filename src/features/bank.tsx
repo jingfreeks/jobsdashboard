@@ -14,6 +14,10 @@ export interface UpdateBankData extends BankFormData {
   _id: string;
 }
 
+//  Export transform function for testing
+export const transformBanksResponse = (response: Bank[]): Bank[] => {
+  return response.sort((a, b) => a.name.localeCompare(b.name));
+};
 // API slice with performance optimizations and optimistic updates
 export const bankApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -24,9 +28,7 @@ export const bankApiSlice = apiSlice.injectEndpoints({
       // Cache for 5 minutes
       keepUnusedDataFor: 300,
       // Transform and sort data for better performance
-      transformResponse: (response: Bank[]) => {
-        return response.sort((a, b) => a.name.localeCompare(b.name));
-      },
+      transformResponse:transformBanksResponse
     }),
     addBank: builder.mutation<Bank, BankFormData>({
       query: (credentials) => ({
