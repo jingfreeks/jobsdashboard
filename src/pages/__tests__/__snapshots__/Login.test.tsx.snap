@@ -84,7 +84,8 @@ exports[`Login > matches login form snapshot 1`] = `
         <span
           class="text-sm text-gray-700"
         >
-          Don't have an account? 
+          Don't have an account?
+           
           <a
             class="text-[#0856d1] hover:underline font-medium"
             data-discover="true"
@@ -183,7 +184,8 @@ exports[`Login > renders login form fields and button 1`] = `
         <span
           class="text-sm text-gray-700"
         >
-          Don't have an account? 
+          Don't have an account?
+           
           <a
             class="text-[#0856d1] hover:underline font-medium"
             data-discover="true"
@@ -292,7 +294,8 @@ exports[`Login > shows validation error if fields are empty 1`] = `
         <span
           class="text-sm text-gray-700"
         >
-          Don't have an account? 
+          Don't have an account?
+           
           <a
             class="text-[#0856d1] hover:underline font-medium"
             data-discover="true"
