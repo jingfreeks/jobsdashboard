@@ -338,6 +338,7 @@ describe('Auth Feature', () => {
 
       it('should handle non-array roles in rehydration', () => {
         const rehydrateData = {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           roles: 'invalid-roles' as any,
         };
 

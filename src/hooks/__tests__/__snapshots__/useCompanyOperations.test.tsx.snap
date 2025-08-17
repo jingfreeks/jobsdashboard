@@ -1,0 +1,65 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useCompanyOperations > returns correct snapshot 1`] = `
+{
+  "cities": [
+    {
+      "_id": "101",
+      "name": "Metro City",
+    },
+  ],
+  "cityMap": Map {
+    "101" => {
+      "_id": "101",
+      "name": "Metro City",
+    },
+  },
+  "companies": [
+    {
+      "_id": "2",
+      "cityId": null,
+      "name": "Alpha Inc",
+    },
+    {
+      "_id": "1",
+      "cityId": "101",
+      "name": "Beta Corp",
+    },
+  ],
+  "companiesWithCities": [
+    {
+      "_id": "1",
+      "cityId": "101",
+      "cityname": "Metro City",
+      "name": "Beta Corp",
+    },
+    {
+      "_id": "2",
+      "cityId": null,
+      "cityname": "No City",
+      "name": "Alpha Inc",
+    },
+  ],
+  "companyMap": Map {
+    "1" => {
+      "_id": "1",
+      "cityId": "101",
+      "name": "Beta Corp",
+    },
+    "2" => {
+      "_id": "2",
+      "cityId": null,
+      "name": "Alpha Inc",
+    },
+  },
+  "createCompany": [Function],
+  "deleteCompanyById": [Function],
+  "error": null,
+  "isAdding": false,
+  "isDeleting": false,
+  "isLoading": false,
+  "isUpdating": false,
+  "refetch": [MockFunction spy],
+  "updateCompanyById": [Function],
+}
+`;
