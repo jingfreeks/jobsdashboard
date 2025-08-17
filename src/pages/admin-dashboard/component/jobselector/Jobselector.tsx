@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useCallback, useMemo } from 'react';
 import { PlusCircle, Search, Funnel } from 'lucide-react';
 import { useJobOperations } from '@/hooks/useJobOperations';

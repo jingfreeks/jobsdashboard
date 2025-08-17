@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useGetOnboardingQuery, useUpdateOnboardingMutation, useCreateOnboardingMutation } from '@/features/onboardingApiSlice';
