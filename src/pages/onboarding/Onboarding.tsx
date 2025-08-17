@@ -406,6 +406,7 @@ const Onboarding = () => {
                 <input
                   type="file"
                   accept="image/*"
+                  data-testid="profile-picture-input-testId"
                   onChange={handleProfilePictureChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
@@ -414,6 +415,7 @@ const Onboarding = () => {
                     src={formData.profilePicture} 
                     alt="Profile" 
                     className="w-20 h-20 rounded-full object-cover mt-2"
+                    data-testid="profile-picture-preview"
                   />
                 )}
               </div>
@@ -432,6 +434,7 @@ const Onboarding = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">Education Level</label>
                       <select
                         value={newEducation.level}
+                        data-testid="education-level-select-testId"
                         onChange={(e) => setNewEducation(prev => ({ ...prev, level: e.target.value }))}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       >
@@ -448,6 +451,7 @@ const Onboarding = () => {
                       <input
                         type="text"
                         value={newEducation.schoolName}
+                        data-testid="school-name-input-testId"
                         onChange={(e) => setNewEducation(prev => ({ ...prev, schoolName: e.target.value }))}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter school name"
@@ -459,6 +463,7 @@ const Onboarding = () => {
                       <input
                         type="number"
                         value={newEducation.graduationYear}
+                        data-testid="graduation-year-input-testId"
                         onChange={(e) => setNewEducation(prev => ({ ...prev, graduationYear: e.target.value }))}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter graduation year"
@@ -495,7 +500,7 @@ const Onboarding = () => {
                     <h4 className="font-medium text-gray-800 mb-3">Your Education</h4>
                     <div className="space-y-3">
                       {formData.education.map((edu) => (
-                        <div key={edu.id} className="bg-white border border-gray-200 rounded-lg p-4">
+                        <div data-testid="education-list" key={edu.id} className="bg-white border border-gray-200 rounded-lg p-4">
                           <div className="flex justify-between items-start">
                             <div className="flex-1">
                               <h5 className="font-semibold text-gray-800">{edu.level}</h5>
