@@ -206,6 +206,7 @@ const Bankselector = () => {
                 Cancel
               </button>
               <button
+                data-testid="confirm-delete-bank-testId"
                 onClick={confirmDeleteBank}
                 disabled={isDeleting}
                 className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-semibold flex items-center gap-2"

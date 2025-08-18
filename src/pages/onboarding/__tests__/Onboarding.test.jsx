@@ -264,5 +264,37 @@ describe("Onboarding Component", () => {
     console.log(educationList);
     // check if the education is removed from the list
     expect(screen.queryByText("Test School")).not.toBeInTheDocument();
+
+    // Add Work Experience
+    fireEvent.change(screen.getByPlaceholderText(/Experience/i), {
+      target: { value: "Programmer" },
+    });
+
+    //add skills
+    const input = screen.getByPlaceholderText("Add a skill");
+    fireEvent.change(input, { target: { value: "React" } });
+    fireEvent.keyPress(input, { key: "Enter", code: "Enter", charCode: 13 });
+
+    expect((input).value).toBe("");
+
+    fireEvent.click(screen.getByTestId("add-skill-button-testId"));
+
+     fireEvent.click(screen.getByTestId("skills-list-testId"));
+    //add Bio
+    const bioInput = screen.getByTestId("bio-input-testId");
+    fireEvent.change(bioInput, { target: { value: "I am a programmer" } });
+    expect(bioInput.value).toBe("I am a programmer");
+
+    //click on Preview button
+    const previewButton = screen.getByRole("button", { name: /Previous/i });
+    fireEvent.click(previewButton);
+
+    //handle next button
+    const nextButton = screen.getByRole("button", { name: /Next/i });
+    fireEvent.click(nextButton);
+
+    //handle Complete button
+    const completeButton = screen.getByRole("button", { name: /Complete/i });
+    fireEvent.click(completeButton);
   });
 });
