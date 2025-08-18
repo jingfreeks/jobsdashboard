@@ -6,6 +6,7 @@ export interface Job {
   jobtitle: string;
   companyId?: string;
   companyname?: string;
+  compname?:string;
   cityId?: string;
   cityname?: string;
   departmentId?: string;

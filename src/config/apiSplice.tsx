@@ -23,7 +23,6 @@ const baseQueryWithAuth = async (
   extraOptions: string,
 ) => {
   let result: any = await baseQuery(args, api, extraOptions);
-  console.log(result);
   
   // Handle token expiration (401 Unauthorized) or forbidden (403)
   if (result?.error?.originalStatus === 401 || result?.error?.originalStatus === 403) {
