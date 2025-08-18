@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../config/store';
 
 interface OnboardingData {
-  id?: string;
+  id?: string|number;
   userId?: string;
   step?: number;
   isComplete?: boolean;

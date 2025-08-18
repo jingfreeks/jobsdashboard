@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useJobOperations (Vitest) > maps jobs with related company/city/department names 1`] = `
+[
+  {
+    "_id": "1",
+    "cityId": "ct1",
+    "cityname": "San Francisco",
+    "companyId": "c1",
+    "companyname": "OpenAI",
+    "departmentId": "d1",
+    "departmentname": "Engineering",
+  },
+]
+`;
