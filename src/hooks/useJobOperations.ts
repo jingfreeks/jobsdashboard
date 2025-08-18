@@ -44,6 +44,7 @@ export const useJobOperations = () => {
     return new Map(departments.map(department => [department._id, department]));
   }, [departments]);
 
+  console.log('Company Map:', jobs[0]);
   // Enhanced jobs with related data
   const jobsWithDetails = useMemo(() => {
     return jobs.map(job => ({
