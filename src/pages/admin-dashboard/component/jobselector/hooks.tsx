@@ -121,6 +121,7 @@ export const useJobSelectorHooks = () => {
         const result = await createJob(jobData);
         if (result) {
           setShowAddJobModal(false);
+          setIsModalOpen(false)
           showSuccess(
             `Job "${jobData.jobtitle.trim()}" has been created successfully.`
           );
@@ -159,6 +160,7 @@ export const useJobSelectorHooks = () => {
           const result = await updateJobById(jobData);
           if (result) {
             setShowEditJobModal(false);
+            setIsModalOpen(false)
             setEditJob(null);
             showSuccess(
               `Job "${jobData.jobtitle.trim()}" has been updated successfully.`

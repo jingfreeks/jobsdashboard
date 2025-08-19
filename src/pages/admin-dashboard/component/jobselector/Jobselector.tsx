@@ -54,11 +54,13 @@ const JobSelector = () => {
       />
 
       {/* Add and Edit Job Modal */}
-      
+
       {hooks.isModalOpen && (
         <Modals
           handleCloseModal={hooks.handleCloseAddJobModal}
-          handleActions={hooks.editJob? hooks.handleUpdateJob:hooks.handleCreateJob}
+          handleActions={
+            hooks.editJob ? hooks.handleUpdateJob : hooks.handleCreateJob
+          }
           loaders={hooks.isAdding || hooks.isUpdating}
           companies={hooks.companies}
           shifts={hooks.shifts}
@@ -66,7 +68,10 @@ const JobSelector = () => {
           departments={hooks.departments}
           title={hooks.editJob ? "Edit Job" : "Create New Job"}
           editJob={hooks.editJob}
-          submitLabel={{ loading: "Creating...", label: "Create" }}
+          submitLabel={{
+            loading: hooks.editJob ? "Updating" : "Creating...",
+            label: hooks.editJob ? "Update" : "Create",
+          }}
         />
       )}
     </div>
