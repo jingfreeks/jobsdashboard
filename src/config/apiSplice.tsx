@@ -23,15 +23,11 @@ const baseQueryWithAuth = async (
   extraOptions: string,
 ) => {
   let result: any = await baseQuery(args, api, extraOptions);
-  
-  console.log('Base query result:', result);
   // Handle token expiration (401 Unauthorized) or forbidden (403)
-  if (result?.error?.originalStatus === 401 || result?.error?.originalStatus === 403) {
+  if (result?.error?.status === 401 || result?.error?.status === 403) {
     console.warn('Token expired or invalid, attempting refresh...');
-    
     // Try to refresh the token
     const refreshResult = await baseQuery('/refresh', api, extraOptions);
-
     if (refreshResult?.data) {
       const currentAuth = api.getState().auth;
       // Store the new token
