@@ -24,6 +24,7 @@ const baseQueryWithAuth = async (
 ) => {
   let result: any = await baseQuery(args, api, extraOptions);
   
+  console.log('Base query result:', result);
   // Handle token expiration (401 Unauthorized) or forbidden (403)
   if (result?.error?.originalStatus === 401 || result?.error?.originalStatus === 403) {
     console.warn('Token expired or invalid, attempting refresh...');

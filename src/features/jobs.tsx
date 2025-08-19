@@ -11,10 +11,14 @@ export interface Job {
   cityname?: string;
   departmentId?: string;
   departmentname?: string;
+  shiftId?: string;
+  shiftname?: string;
   description?: string;
+  jobDescription?:string;
+  jobRequirements?: string;
   requirements?: string;
   salary?: string;
-  type?: string; // full-time, part-time, contract, etc.
+  jobType?: string; // full-time, part-time, contract, etc.
   status?: string; // active, inactive, draft, etc.
 }
 
@@ -74,10 +78,11 @@ export const jobsApiSlice = apiSlice.injectEndpoints({
       ] as any,
     }),
 
-    deleteJob: builder.mutation<{ success: boolean }, string>({
-      query: (id) => ({
-        url: `/jobs/${id}`,
+    deleteJob: builder.mutation<{ success: boolean }, { _id: string }>({
+      query: (credentials) => ({
+        url: `/jobs`,
         method: 'DELETE',
+        body: {...credentials },
       }),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       invalidatesTags: ['Jobs'] as any,

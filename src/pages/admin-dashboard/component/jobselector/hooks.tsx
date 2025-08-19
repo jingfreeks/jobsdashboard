@@ -1,11 +1,13 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { useJobOperations } from "@/hooks/useJobOperations";
+import {useShiftOperations} from "@/hooks/useShiftOperations";
 import { useToast } from "@/hooks/useToast";
 import { type Job } from "@/features/jobs";
 
 export const useJobSelectorHooks = () => {
   const [showAddJobModal, setShowAddJobModal] = useState(false);
   const [showEditJobModal, setShowEditJobModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [editJob, setEditJob] = useState<Job | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCompanyFilter, setSelectedCompanyFilter] = useState("");
@@ -27,12 +29,12 @@ export const useJobSelectorHooks = () => {
     updateJobById,
     deleteJobById,
   } = useJobOperations();
-
+  const {shifts} = useShiftOperations();
   // Use toast for notifications
   const { showSuccess, showError } = useToast();
 
   const filteredJobs = useMemo(() => {
-    return (jobsWithDetails || []).filter((job: any) => {
+    return (jobsWithDetails || []).filter((job: Job) => {
       const matchesSearch =
         job.jobtitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (job.companyname &&
@@ -64,12 +66,12 @@ export const useJobSelectorHooks = () => {
   ]);
 
   // Memoized callbacks for better performance
-  const handleAddJob = useCallback(() => setShowAddJobModal(true), []);
+  const handleAddJob = useCallback(() => setIsModalOpen(true), []);
 
   const handleDeleteJob = useCallback(
     async (jobId: string) => {
       // Find the job title for the confirmation message
-      const job = jobsWithDetails.find((j: any) => j._id === jobId);
+      const job = jobsWithDetails.find((j: Job) => j._id === jobId);
       const jobTitle = job?.jobtitle || "this job";
 
       // Show confirmation dialog
@@ -91,11 +93,12 @@ export const useJobSelectorHooks = () => {
 
   const handleEditJob = useCallback((job: Job) => {
     setEditJob(job);
-    setShowEditJobModal(true);
+    setIsModalOpen(true);
   }, []);
 
   const handleCloseAddJobModal = useCallback(() => {
-    setShowAddJobModal(false);
+    setIsModalOpen(false);
+    setEditJob(null);
   }, []);
 
   const handleCreateJob = useCallback(
@@ -104,16 +107,16 @@ export const useJobSelectorHooks = () => {
       const formData = new FormData(e.target as HTMLFormElement);
       const jobData = {
         jobtitle: formData.get("jobtitle") as string,
-        companyId: (formData.get("companyId") as string) || undefined,
+        compId: (formData.get("companyId") as string) || undefined,
         cityId: (formData.get("cityId") as string) || undefined,
-        departmentId: (formData.get("departmentId") as string) || undefined,
-        description: (formData.get("description") as string) || undefined,
-        requirements: (formData.get("requirements") as string) || undefined,
-        salary: (formData.get("salary") as string) || undefined,
-        type: (formData.get("type") as string) || undefined,
+        deptId: (formData.get("departmentId") as string) || undefined,
+        description: (formData.get("jobDescription") as string) || undefined,
+        requirements: (formData.get("jobRequirements") as string) || undefined,
+        salaryrange: (formData.get("salary") as string) || undefined,
+        jobType: (formData.get("type") as string) || undefined,
         status: (formData.get("status") as string) || undefined,
+        shiftId: (formData.get("shiftId") as string) || undefined,
       };
-
       if (jobData.jobtitle.trim()) {
         const result = await createJob(jobData);
         if (result) {
@@ -205,5 +208,7 @@ export const useJobSelectorHooks = () => {
     handleCreateJob,
     handleCloseEditJobModal,
     handleUpdateJob,
+    isModalOpen, setIsModalOpen,
+    shifts
   };
 };

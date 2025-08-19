@@ -11,7 +11,6 @@ import {
 import { useGetCompaniesQuery } from '@/features/company';
 import { useGetCitiesQuery } from '@/features/city';
 import { useGetDepartmentsQuery } from '@/features/department';
-
 export const useJobOperations = () => {
   // Fetch jobs data
   const { 
@@ -44,7 +43,7 @@ export const useJobOperations = () => {
     return new Map(departments.map(department => [department._id, department]));
   }, [departments]);
 
-  console.log('Company Map:', jobs[0]);
+  console.log('Company Map:', jobs);
   // Enhanced jobs with related data
   const jobsWithDetails = useMemo(() => {
     return jobs.map(job => ({
@@ -58,6 +57,7 @@ export const useJobOperations = () => {
   // Job operations
   const createJob = async (jobData: JobFormData): Promise<Job | null> => {
     try {
+      console.log('Creating job with data:', jobData);
       const result = await addJob(jobData).unwrap();
       return result;
     } catch (error) {
@@ -78,7 +78,7 @@ export const useJobOperations = () => {
 
   const deleteJobById = async (jobId: string): Promise<boolean> => {
     try {
-      const result = await deleteJob(jobId).unwrap();
+      const result = await deleteJob({_id:jobId}).unwrap();
       return result.success;
     } catch (error) {
       console.error('Failed to delete job:', error);
