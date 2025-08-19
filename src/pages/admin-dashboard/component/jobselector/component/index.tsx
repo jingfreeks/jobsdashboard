@@ -5,3 +5,4 @@ export { AddModal } from "./addmodal";
 export { EditModal } from "./editmodal";
 export { Loading } from "./loading";
 export { Error } from "./error";
+export { Modals } from "./modal";

@@ -5,3 +5,4 @@ export { SettingsLoader } from "./settingsloader";
 export { SettingsError } from "./settingserror";
 export { FormContainer } from "./formcontainer";
 export { InputContainer } from "./inputcontainer";
+export {OptionList} from "./optionlist";

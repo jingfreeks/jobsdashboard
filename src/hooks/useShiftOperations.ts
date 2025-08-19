@@ -16,6 +16,13 @@ export const useShiftOperations = () => {
     return [...shifts].sort((a, b) => a.title.localeCompare(b.title));
   }, [shifts]);
 
+  const arrangeSortedShifts = useMemo(() => {
+    return sortedShifts.map(shift => ({
+      _id: shift._id,
+      title: shift.title,
+      name: shift.title,
+    }));
+  }, [sortedShifts]);
   // Memoized shift map for quick lookups
   const shiftMap = useMemo(() => {
     return new Map(shifts.map(shift => [shift._id, shift]));
@@ -83,7 +90,7 @@ export const useShiftOperations = () => {
 
   return {
     // Data
-    shifts: sortedShifts,
+    shifts: arrangeSortedShifts,
     //shiftMap,
     
     // Loading states

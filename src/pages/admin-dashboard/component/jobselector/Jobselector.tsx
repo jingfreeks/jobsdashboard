@@ -1,28 +1,22 @@
- 
 import {
   Headers,
   SearchFilter,
   JobsList,
-  AddModal,
-  EditModal,
+  Modals,
   Loading,
-  Error
+  Error,
 } from "./component";
-import {useJobSelectorHooks} from "./hooks";
+import { useJobSelectorHooks } from "./hooks";
 const JobSelector = () => {
   const hooks = useJobSelectorHooks();
   // Loading state
   if (hooks.isLoading) {
-    return (
-      <Loading />
-    );
+    return <Loading />;
   }
 
   // Error state
   if (hooks.error) {
-    return (
-      <Error />
-    );
+    return <Error />;
   }
 
   return (
@@ -48,7 +42,9 @@ const JobSelector = () => {
         setSearchTerm={hooks.setSearchTerm}
         filteredJobs={hooks.filteredJobs}
       />
+
       {/* Jobs List */}
+
       <JobsList
         filteredJobs={hooks.filteredJobs}
         handleEditJob={hooks.handleEditJob}
@@ -56,28 +52,21 @@ const JobSelector = () => {
         isDeleting={hooks.isDeleting}
         jobsWithDetails={hooks.jobsWithDetails}
       />
-      {/* Add Job Modal */}
-      {hooks.showAddJobModal && (
-        <AddModal
-          isAdding={hooks.isAdding}
-          handleCloseAddJobModal={hooks.handleCloseAddJobModal}
-          handleCreateJob={hooks.handleCreateJob}
-          companies={hooks.companies}
-          cities={hooks.cities}
-          departments={hooks.departments}
-        />
-      )}
 
-      {/* Edit Job Modal */}
-      {hooks.showEditJobModal && hooks.editJob && (
-        <EditModal
-          handleCloseEditJobModal={hooks.handleCloseEditJobModal}
-          handleUpdateJob={hooks.handleUpdateJob}
-          isUpdating={hooks.isUpdating}
-          editJob={hooks.editJob}
+      {/* Add and Edit Job Modal */}
+      
+      {hooks.isModalOpen && (
+        <Modals
+          handleCloseModal={hooks.handleCloseAddJobModal}
+          handleActions={hooks.editJob? hooks.handleUpdateJob:hooks.handleCreateJob}
+          loaders={hooks.isAdding || hooks.isUpdating}
           companies={hooks.companies}
+          shifts={hooks.shifts}
           cities={hooks.cities}
           departments={hooks.departments}
+          title={hooks.editJob ? "Edit Job" : "Create New Job"}
+          editJob={hooks.editJob}
+          submitLabel={{ loading: "Creating...", label: "Create" }}
         />
       )}
     </div>
